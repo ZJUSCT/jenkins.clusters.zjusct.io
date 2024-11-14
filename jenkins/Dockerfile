@@ -14,7 +14,7 @@ Components: main contrib non-free non-free-firmware
 EOF
 
 RUN apt-get update \
-     && apt-get install -y --no-install-recommends \
+     && apt-get install -y \
         mmdebstrap \
         ubuntu-keyring
 RUN apt-get clean
