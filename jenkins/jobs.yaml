@@ -22,7 +22,8 @@
           branches:
             - origin/main
     triggers:
-      - timed: "H(0-29) 4 * * 6"
+      #- timed: "H(0-29) 4 * * 6"
+      - timed: "H H/2 * * *"
     builders:
       - shell: "debian/{method}-installation.sh {distro} {release}"
 
