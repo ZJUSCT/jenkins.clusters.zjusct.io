@@ -4,9 +4,9 @@
 # Copyright 2012-2024 Holger Levsen <holger@layer-acht.org>
 #           2018-2023 Mattia Rizzolo <mattia@debian.org>
 #           2024-2025 Baolin Zhu <zhubaolin228@gmail.com> and ZJUSCT
-# 
-# The following code is a derivative work of the code from the jenkins.debian.net, 
-# which is licensed GPLv2. This code therefore is also licensed under the terms 
+#
+# The following code is a derivative work of the code from the jenkins.debian.net,
+# which is licensed GPLv2. This code therefore is also licensed under the terms
 # of the GNU Public License, verison 2.
 
 # https://stackoverflow.com/questions/29926773/run-shell-command-in-jenkins-as-root-user
@@ -26,7 +26,7 @@ done
 
 MIRROR=https://mirrors.zju.edu.cn/
 PROXY=http://bridge.internal.zjusct.io:7890
-CHROOT_BASE=/rootfs/
+CHROOT_BASE=/pxe/rootfs/
 TIMESTAMP=$(date +%Y%m%dT%H%M%S%Z)
 
 #

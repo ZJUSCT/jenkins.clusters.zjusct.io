@@ -7,6 +7,6 @@ services:
       - JENKINS_PASSWORD=${JENKINS_PASSWORD}
     volumes:
       - ./jenkins.yaml:/var/jenkins_casc.yml
-      - /pxe/rootfs:/rootfs
+      - /pxe/rootfs:/pxe/rootfs
     ports:
       - "8080:8080"
