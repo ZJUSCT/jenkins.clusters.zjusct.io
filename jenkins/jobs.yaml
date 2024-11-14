@@ -1,6 +1,5 @@
 - job:
     name: "chroot-debian-sid"
-    concurrent: true
     scm:
       - git:
           url: "https://git.zju.edu.cn/zjusct/ops/jenkins.clusters.zjusct.io.git"
@@ -15,7 +14,6 @@
 - job-template:
     name: "{method}-{distro}-{release}"
     id: "template-debian-{method}-{distro}-{release}"
-    concurrent: true
     scm:
       - git:
           url: "https://git.zju.edu.cn/zjusct/ops/jenkins.clusters.zjusct.io.git"
