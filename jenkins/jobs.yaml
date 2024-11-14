@@ -1,0 +1,53 @@
+- job:
+    name: "chroot-debian-sid"
+    concurrent: true
+    scm:
+      - git:
+          url: "https://git.zju.edu.cn/zjusct/ops/jenkins.clusters.zjusct.io.git"
+          branches:
+            - origin/main
+    triggers:
+      - github
+      - gitlab
+    builders:
+      - shell: "debian/chroot-installation.sh debian sid"
+
+- job-template:
+    name: "{method}-{distro}-{release}"
+    id: "template-debian-{method}-{distro}-{release}"
+    concurrent: true
+    scm:
+      - git:
+          url: "https://git.zju.edu.cn/zjusct/ops/jenkins.clusters.zjusct.io.git"
+          branches:
+            - origin/main
+    triggers:
+      - timed: "H(0-29) 4 * * 6"
+    builders:
+      - shell: "debian/{method}-installation.sh {distro} {release}"
+
+- project:
+    name: "debian"
+    method:
+      - chroot
+    #  - image
+    distro:
+      - debian
+    release:
+      - testing
+      - stable
+    jobs:
+      - template-debian-{method}-{distro}-{release}
+
+- project:
+    name: "ubuntu"
+    method:
+      - chroot
+    #  - image
+    distro:
+      - ubuntu
+    release:
+      - oracular
+      - noble
+    jobs:
+      - template-debian-{method}-{distro}-{release}

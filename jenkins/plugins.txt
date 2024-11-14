@@ -1,0 +1,7 @@
+configuration-as-code
+dark-theme
+git
+github
+gitlab-plugin
+matrix-auth
+theme-manager

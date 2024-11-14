@@ -1,0 +1,12 @@
+services:
+  jenkins:
+    build: .
+    privileged: true # chroot and systemd-nspawn need privileged
+    environment:
+      - CASC_JENKINS_CONFIG=/var/jenkins_casc.yml
+      - JENKINS_PASSWORD=${JENKINS_PASSWORD}
+    volumes:
+      - ./jenkins.yaml:/var/jenkins_casc.yml
+      - /pxe/rootfs:/rootfs
+    ports:
+      - "8080:8080"

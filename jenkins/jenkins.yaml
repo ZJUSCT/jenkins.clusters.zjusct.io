@@ -1,0 +1,160 @@
+jenkins:
+  authorizationStrategy:
+    globalMatrix:
+      entries:
+      - group:
+          name: "authenticated"
+          permissions:
+          - "Agent/Build"
+          - "Agent/Configure"
+          - "Agent/Connect"
+          - "Agent/Create"
+          - "Agent/Delete"
+          - "Agent/Disconnect"
+          - "Agent/Provision"
+          - "Credentials/Create"
+          - "Credentials/Delete"
+          - "Credentials/ManageDomains"
+          - "Credentials/Update"
+          - "Credentials/View"
+          - "Job/Build"
+          - "Job/Cancel"
+          - "Job/Configure"
+          - "Job/Create"
+          - "Job/Delete"
+          - "Job/Discover"
+          - "Job/Read"
+          - "Job/Workspace"
+          - "Overall/Administer"
+          - "Overall/Read"
+          - "Run/Delete"
+          - "Run/Update"
+          - "View/Configure"
+          - "View/Create"
+          - "View/Delete"
+          - "View/Read"
+          - "SCM/Tag"
+      - user:
+          name: "anonymous"
+          permissions:
+          - "Job/Read"
+          - "Overall/Read"
+          - "View/Read"
+      - user:
+          name: "zjusct"
+          permissions:
+          - "Overall/Administer"
+  crumbIssuer:
+    standard:
+      excludeClientIPFromCrumb: false
+  disableRememberMe: false
+  disabledAdministrativeMonitors:
+  - "jenkins.diagnostics.ControllerExecutorsNoAgents"
+  labelAtoms:
+  - name: "built-in"
+  markupFormatter: "plainText"
+  mode: NORMAL
+  myViewsTabBar: "standard"
+  nodeMonitors:
+  - "architecture"
+  - "clock"
+  - diskSpace:
+      freeSpaceThreshold: "1GiB"
+      freeSpaceWarningThreshold: "2GiB"
+  - "swapSpace"
+  - tmpSpace:
+      freeSpaceThreshold: "1GiB"
+      freeSpaceWarningThreshold: "2GiB"
+  - "responseTime"
+  numExecutors: 6
+  primaryView:
+    all:
+      description: "文档见 ZJUSCT OpenDocs/运维/系统运维/无盘系统\r\nhttps://zjusct.pages.zjusct.io/opendocs/operation/system/diskless/auto/"
+      name: "all"
+  projectNamingStrategy: "standard"
+  quietPeriod: 5
+  scmCheckoutRetryCount: 0
+  securityRealm:
+    local:
+      allowsSignup: false
+      enableCaptcha: false
+      users:
+      - id: "zjusct"
+        name: "zjusct"
+        password: "${JENKINS_PASSWORD}"
+        properties:
+        - preferredProvider:
+            providerId: "default"
+        - "consoleUrlProvider"
+        - "myView"
+        - "timezone"
+        - "experimentalFlags"
+        - theme:
+            theme: "darkSystem"
+        - "apiToken"
+        - mailer:
+            emailAddress: "mail@zjusct.io"
+  slaveAgentPort: -1
+  updateCenter:
+    sites:
+    - id: "default"
+      url: "https://updates.jenkins.io/update-center.json"
+  views:
+  - all:
+      description: "文档见 ZJUSCT OpenDocs/运维/系统运维/无盘系统\r\nhttps://zjusct.pages.zjusct.io/opendocs/operation/system/diskless/auto/"
+      name: "all"
+  viewsTabBar: "standard"
+globalCredentialsConfiguration:
+  configuration:
+    providerFilter: "none"
+    typeFilter: "none"
+appearance:
+  prism:
+    theme: PRISM
+  themeManager:
+    disableUserThemes: true
+    theme: "darkSystem"
+security:
+  apiToken:
+    creationOfLegacyTokenEnabled: false
+    tokenGenerationOnCreationEnabled: false
+    usageStatisticsEnabled: true
+  gitHooks:
+    allowedOnAgents: false
+    allowedOnController: false
+  gitHostKeyVerificationConfiguration:
+    sshHostKeyVerificationStrategy: "knownHostsFileVerificationStrategy"
+  scriptApproval:
+    forceSandbox: false
+unclassified:
+  buildDiscarders:
+    configuredBuildDiscarders:
+    - "jobBuildDiscarder"
+  fingerprints:
+    fingerprintCleanupDisabled: false
+    storage: "file"
+  location:
+    adminAddress: "mail@zjusct.io"
+    url: "https://jenkins.clusters.zjusct.io/"
+  mailer:
+    charset: "UTF-8"
+    useSsl: false
+    useTls: false
+  pollSCM:
+    pollingThreadCount: 10
+  scmGit:
+    addGitTagAction: false
+    allowSecondFetch: false
+    createAccountBasedOnEmail: false
+    disableGitToolChooser: false
+    hideCredentials: false
+    showEntireCommitSummaryInChanges: false
+    useExistingAccountWithSameEmail: false
+tool:
+  git:
+    installations:
+    - home: "git"
+      name: "Default"
+  mavenGlobalConfig:
+    globalSettingsProvider: "standard"
+    settingsProvider: "standard"
