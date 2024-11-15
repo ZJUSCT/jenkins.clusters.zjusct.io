@@ -1,4 +1,5 @@
 #!/bin/bash
+# https://developer.nvidia.com/doca-downloads
 case $ID in
 debian)
 	export DOCA_URL="https://linux.mellanox.com/public/repo/doca/2.9.0/debian12.5/x86_64/"

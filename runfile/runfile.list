@@ -1,0 +1,8 @@
+# https://www.intel.com/content/www/us/en/docs/oneapi/installation-guide-linux/
+https://registrationcenter-download.intel.com/akdlm/IRC_NAS/96aa5993-5b22-4a9b-91ab-da679f422594/intel-oneapi-base-toolkit-2025.0.0.885_offline.sh 
+  out=intel-oneapi-base-toolkit.sh
+https://registrationcenter-download.intel.com/akdlm/IRC_NAS/f07e32fa-b505-4b90-8a79-e328ce9ad9d6/intel-oneapi-hpc-toolkit-2025.0.0.825_offline.sh
+  out=intel-oneapi-hpc-toolkit.sh
+# https://developer.nvidia.com/cuda-downloads
+https://developer.download.nvidia.com/compute/cuda/12.6.2/local_installers/cuda_12.6.2_560.35.03_linux.run
+  out=cuda.run
