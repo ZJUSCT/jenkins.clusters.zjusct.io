@@ -130,16 +130,19 @@ trap cleanup_all INT TERM EXIT
 echo "Bootstraping $DISTRO $RELEASE into $CHROOT_TARGET now."
 set -x
 BASIC_PKGS="ca-certificates,curl,wget,jq,dracut"
+COMPONENTS=main
 case $DISTRO in
 debian)
 	BASIC_PKGS+=",linux-image-amd64,linux-headers-amd64"
+	COMPONENTS+="contrib,non-free,non-free-firmware"
 	;;
 ubuntu)
 	BASIC_PKGS+=",linux-image-generic,linux-headers-generic"
+	COMPONENTS+=",restricted,universe,multiverse"
 	;;
 esac
 mmdebstrap "$RELEASE" "$CHROOT_TARGET" "$MIRROR"/"$DISTRO" \
-	--include=$BASIC_PKGS
+	--include=$BASIC_PKGS --components=$COMPONENTS
 set +x
 
 prepare_module() {
