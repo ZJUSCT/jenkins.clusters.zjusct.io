@@ -16,7 +16,8 @@ EOF
 RUN apt-get update \
      && apt-get install -y \
         mmdebstrap \
-        ubuntu-keyring
+        ubuntu-keyring \
+        rsync
 RUN apt-get clean
 
 # skip the setup wizard
