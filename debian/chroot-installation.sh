@@ -82,6 +82,12 @@ cleanup_all() {
 	if mountpoint -q "$CHROOT_TARGET/proc"; then
 		umount -l "$CHROOT_TARGET/proc"
 	fi
+	if mountpoint -q "$CHROOT_TARGET/run"; then
+		umount -l "$CHROOT_TARGET/run"
+	fi
+	if mountpoint -q "$CHROOT_TARGET/tmp"; then
+		umount -l "$CHROOT_TARGET/tmp"
+	fi
 	echo "\$1 = $1"
 	rm -f "$TMPLOG"
 	if [ "$1" != "fine" ]; then
@@ -143,6 +149,9 @@ ubuntu)
 esac
 mmdebstrap "$RELEASE" "$CHROOT_TARGET" "$MIRROR"/"$DISTRO" \
 	--include=$BASIC_PKGS --components=$COMPONENTS
+# try fix DNS problem in Ubuntu
+mount -o bind /run "$CHROOT_TARGET/run"
+mount -t tmpfs tmpfs "$CHROOT_TARGET/tmp"
 set +x
 
 prepare_module() {
