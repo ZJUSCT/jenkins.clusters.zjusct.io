@@ -134,7 +134,7 @@ COMPONENTS=main
 case $DISTRO in
 debian)
 	BASIC_PKGS+=",linux-image-amd64,linux-headers-amd64"
-	COMPONENTS+="contrib,non-free,non-free-firmware"
+	COMPONENTS+=",contrib,non-free,non-free-firmware"
 	;;
 ubuntu)
 	BASIC_PKGS+=",linux-image-generic,linux-headers-generic"
