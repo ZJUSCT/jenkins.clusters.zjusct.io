@@ -8,7 +8,7 @@ rm -f /var/lib/dpkg/info/otelcol-contrib.postinst
 dpkg --configure -a >/dev/null
 apt-get --fix-broken --fix-missing install
 
-curl https://raw.githubusercontent.com/ZJUSCT/obs/refs/heads/main/config/otelcol/agent.yaml -o /etc/otelcol-contrib/config.yaml
+curl https://ghp.ci/https://raw.githubusercontent.com/ZJUSCT/clusters.zju.edu.cn/refs/heads/main/config/otelcol/agent.yaml -o /etc/otelcol-contrib/config.yaml
 mkdir -p /etc/systemd/system/otelcol-contrib.service.d
 cat >/etc/systemd/system/otelcol-contrib.service.d/override.conf <<EOF
 [Service]
