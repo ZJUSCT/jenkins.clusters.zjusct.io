@@ -1,7 +1,7 @@
 #!/bin/bash
 CONDA_MIRROR="https://mirrors.zju.edu.cn/anaconda/"
 CONDA_SH="miniconda/Miniconda3-latest-Linux-x86_64.sh"
-CONDA_PATH="/opt/miniconda"
+CONDA_PATH="/opt/conda"
 
 # The conda installation file must end with .sh, otherwise an error will occur, see the source code
 tmpfile=$(mktemp).sh
@@ -13,7 +13,10 @@ fi
 bash "$tmpfile" -b -p "$CONDA_PATH"
 rm "$tmpfile"
 
-cat >>$CONDA_PATH/.condarc <<EOF
+# execute conda init --system
+$CONDA_PATH/bin/conda init --system
+
+cat >$CONDA_PATH/.condarc <<EOF
 channels:
   - defaults
 show_channel_urls: true
