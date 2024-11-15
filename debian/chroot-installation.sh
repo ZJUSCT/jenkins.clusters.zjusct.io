@@ -79,15 +79,11 @@ cleanup_all() {
 	echo "Debug: Removing trap."
 	trap - INT TERM EXIT
 	set -x
-	if mountpoint -q "$CHROOT_TARGET/proc"; then
-		umount -l "$CHROOT_TARGET/proc"
-	fi
-	if mountpoint -q "$CHROOT_TARGET/run"; then
-		umount -l "$CHROOT_TARGET/run"
-	fi
-	if mountpoint -q "$CHROOT_TARGET/tmp"; then
-		umount -l "$CHROOT_TARGET/tmp"
-	fi
+	for mount in proc run tmp sys; do
+		if mountpoint -q "$CHROOT_TARGET/$mount"; then
+			umount -l "$CHROOT_TARGET/$mount"
+		fi
+	done
 	echo "\$1 = $1"
 	rm -f "$TMPLOG"
 	if [ "$1" != "fine" ]; then
@@ -151,6 +147,7 @@ mmdebstrap "$RELEASE" "$CHROOT_TARGET" "$MIRROR"/"$DISTRO" \
 	--include=$BASIC_PKGS --components=$COMPONENTS
 # try fix DNS problem in Ubuntu
 mount -o bind /run "$CHROOT_TARGET/run"
+mount -o bind /sys "$CHROOT_TARGET/sys"
 mount -t tmpfs tmpfs "$CHROOT_TARGET/tmp"
 set +x
 
