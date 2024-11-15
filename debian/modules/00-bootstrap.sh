@@ -15,7 +15,11 @@ mount -t tmpfs tmpfs /tmp
 # https://askubuntu.com/questions/469209/how-to-resolve-hostnames-in-chroot
 if [ "$ID" = "ubuntu" ]; then
 	rm -f /etc/resolv.conf
-	echo 'nameserver 127.0.0.53' | tee -a /etc/resolv.conf
+	cat >/etc/resolv.conf <<EOF
+nameserver 127.0.0.1
+nameserver 172.25.2.253
+nameserver 10.10.0.21
+EOF
 fi
 # default console password, will be superseeded when SSSD is setup
 echo "root:root" | chpasswd
