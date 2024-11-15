@@ -43,7 +43,7 @@ install_deb_from_url() {
 install_deb_from_github() {
 	repo=$1
 	match=$2
-	url=$(curl "https://api.github.com/repos/$repo/releases/latest" | jq -r ".assets[] | select(.name|$match) | .browser_download_url")
+	url=$(curl -x "$PROXY" "https://api.github.com/repos/$repo/releases/latest" | jq -r ".assets[] | select(.name|$match) | .browser_download_url")
 	# https://ghp.ci/
 	install_deb_from_url https://ghp.ci/"$url"
 }
@@ -52,14 +52,14 @@ get_asset_from_github() {
 	repo=$1
 	match=$2
 	output=$3
-	url=$(curl "https://api.github.com/repos/$repo/releases/latest" | jq -r ".assets[] | select(.name|$match) | .browser_download_url")
+	url=$(curl -x "$PROXY" "https://api.github.com/repos/$repo/releases/latest" | jq -r ".assets[] | select(.name|$match) | .browser_download_url")
 	wget -O "$output" https://ghp.ci/"$url"
 }
 
 get_tarball_from_github() {
 	repo=$1
 	output=$2
-	url=$(curl "https://api.github.com/repos/$repo/releases/latest" | jq -r ".tarball_url")
+	url=$(curl -x "$PROXY" "https://api.github.com/repos/$repo/releases/latest" | jq -r ".tarball_url")
 	wget -O "$output" https://ghp.ci/"$url"
 }
 
