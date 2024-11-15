@@ -9,7 +9,14 @@
 # of the GNU Public License, verison 2.
 
 set -x
-mount /proc -t proc /proc
+mount -t proc /proc /proc
+mount -t tmpfs tmpfs /tmp
+# fix dns problem for ubuntu
+# https://askubuntu.com/questions/469209/how-to-resolve-hostnames-in-chroot
+if [ "$ID" = "ubuntu" ]; then
+	rm -f /etc/resolv.conf
+	echo 'nameserver 127.0.0.53' | tee -a /etc/resolv.conf
+fi
 # default console password, will be superseeded when SSSD is setup
 echo "root:root" | chpasswd
 echo -e '#!/bin/sh\nexit 101' >/usr/sbin/policy-rc.d
