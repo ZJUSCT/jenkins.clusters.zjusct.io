@@ -166,5 +166,8 @@ for script in modules/*; do
 	execute_ctmpfile
 done
 
+# private files
+rsync -a "$PRIVATE_BASE"/ "$CHROOT_TARGET"/
+
 echo "Debug: Cleanup fine"
 cleanup_all fine

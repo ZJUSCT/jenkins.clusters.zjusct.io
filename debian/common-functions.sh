@@ -27,6 +27,7 @@ done
 MIRROR=https://mirrors.zju.edu.cn/
 PROXY=http://bridge.internal.zjusct.io:7890
 CHROOT_BASE=/pxe/rootfs/
+PRIVATE_BASE=/pxe/private/
 TIMESTAMP=$(date +%Y%m%dT%H%M%S%Z)
 
 #

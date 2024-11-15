@@ -8,5 +8,6 @@ services:
     volumes:
       - ./jenkins.yaml:/var/jenkins_casc.yml
       - /pxe/rootfs:/pxe/rootfs
+      - /pxe/private:/pxe/private:ro
     ports:
       - "8080:8080"
