@@ -14,7 +14,10 @@ bash "$tmpfile" -b -p "$CONDA_PATH"
 rm "$tmpfile"
 
 # execute conda init --system
-$CONDA_PATH/bin/conda init --system
+$CONDA_PATH/bin/conda init --system --all
+# special handler for fish, zsh
+ln -s $CONDA_PATH/etc/fish/conf.d/conda.fish /etc/fish/conf.d/z00_conda.fish
+cat $CONDA_PATH/etc/profile.d/conda.sh >> /etc/zprofile
 
 cat >$CONDA_PATH/.condarc <<EOF
 channels:
