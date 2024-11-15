@@ -83,4 +83,11 @@ EOF
 [Service]
 Environment=DEBUG_LOGGER=--logger=journald
 EOF
+
+	mkdir -p /etc/systemd/system/docker.socket.d
+	cat >>/etc/systemd/system/docker.socket.d/override.conf <<EOF
+[Unit]
+After=sssd-nss.service
+Requires=sssd-nss.service
+EOF
 fi
