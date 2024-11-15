@@ -60,7 +60,7 @@ fi
 DISTRO="$1"
 RELEASE="$2"
 
-DEBUG=false
+DEBUG=true
 . common-functions.sh
 common_init "$@"
 set -e
