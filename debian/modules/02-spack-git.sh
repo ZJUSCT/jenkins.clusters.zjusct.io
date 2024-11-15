@@ -8,9 +8,15 @@ tar -C /opt -xzf "$tmpfile"
 rm -f "$tmpfile"
 mv /opt/spack* /opt/spack
 
-ln -s /opt/spack/share/spack/setup-env.sh   /etc/profile.d/z00_spack.sh
-ln -s /opt/spack/share/spack/setup-env.csh  /etc/profile.d/z00_spack.csh
-ln -s /opt/spack/share/spack/setup-env.fish /etc/fish/conf.d/z00_spack.fish
+cat >/etc/profile.d/z00_spack.sh <<'EOF'
+. /opt/spack/share/spack/setup-env.sh
+EOF
+cat >/etc/profile.d/z00_spack.csh <<'EOF'
+source /opt/spack/share/spack/setup-env.csh
+EOF
+cat >/etc/profile.d/z00_spack.fish <<'EOF'
+. /opt/spack/share/spack/setup-env.fish
+EOF
 
 export PATH=/opt/spack/bin:$PATH
 
