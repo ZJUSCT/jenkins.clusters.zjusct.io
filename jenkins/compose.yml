@@ -7,7 +7,16 @@ services:
       - JENKINS_PASSWORD=${JENKINS_PASSWORD}
     volumes:
       - ./jenkins.yaml:/var/jenkins_casc.yml
+      - jenkins_home:/var/jenkins_home
       - /pxe/rootfs:/pxe/rootfs
       - /pxe/private:/pxe/private:ro
     ports:
       - "8080:8080"
+
+volumes:
+  jenkins_home:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./jenkins_home
+      o: bind
