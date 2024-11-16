@@ -79,11 +79,17 @@ cleanup_all() {
 	echo "Debug: Removing trap."
 	trap - INT TERM EXIT
 	set -x
-	for mount in proc tmp sys; do
-		if mountpoint -q "$CHROOT_TARGET/$mount"; then
-			umount -l "$CHROOT_TARGET/$mount"
-		fi
-	done
+	case $INIT in
+	systemd) # systemd-nspawn handles all mounts
+		;;
+	*)
+		for mount in proc tmp sys; do
+			if mountpoint -q "$CHROOT_TARGET/$mount"; then
+				umount -l "$CHROOT_TARGET/$mount"
+			fi
+		done
+		;;
+	esac
 	echo "\$1 = $1"
 	rm -f "$TMPLOG"
 	if [ "$1" != "fine" ]; then
@@ -113,10 +119,14 @@ execute_ctmpfile() {
 	set -x
 	chmod +x "$CTMPFILE"
 	set -o pipefail # see eg http://petereisentraut.blogspot.com/2010/11/pipefail.html
-	# use this is you run on a physical machine with systemd
-	# (systemd-nspawn --resolv-conf=replace-stub --hostname="$DISTRO"-"$RELEASE" -D "$CHROOT_TARGET" "$TMPFILE" 2>&1 | tee "$TMPLOG") || true
-	# but now we are running in a container, so systemd-nspawn can't be used
-	(chroot "$CHROOT_TARGET" "$TMPFILE" 2>&1 | tee "$TMPLOG") || true
+	case $INIT in
+	systemd) # use this is you run on a physical machine with systemd
+		(systemd-nspawn --resolv-conf=replace-stub --hostname="$DISTRO"-"$RELEASE" -D "$CHROOT_TARGET" "$TMPFILE" 2>&1 | tee "$TMPLOG") || true
+		;;
+	*) # but now we are running in a container, so systemd-nspawn can't be used
+		(chroot "$CHROOT_TARGET" "$TMPFILE" 2>&1 | tee "$TMPLOG") || true
+		;;
+	esac
 	RESULT=$(grep "xxxxxSUCCESSxxxxx" "$TMPLOG" || true)
 	if [ -z "$RESULT" ]; then
 		echo "Failed to run $TMPFILE in $CHROOT_TARGET."
@@ -145,7 +155,14 @@ ubuntu)
 esac
 mmdebstrap "$RELEASE" "$CHROOT_TARGET" "$MIRROR"/"$DISTRO" \
 	--include=$BASIC_PKGS --components=$COMPONENTS
-mount -o bind /sys "$CHROOT_TARGET/sys"
+case $INIT in
+systemd) # systemd-nspawn handles all mounts
+	;;
+*)
+	# some packages (like intel oneapi) need /sys to build
+	mount -o bind /sys "$CHROOT_TARGET/sys"
+	;;
+esac
 set +x
 
 prepare_module() {

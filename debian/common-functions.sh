@@ -15,8 +15,14 @@ if [ "$EUID" -ne 0 ]; then
 	exit 1
 fi
 
-# not used: systemd-container systemd-resolved 
+INIT=$(ps --no-headers -o comm 1)
+
 PREREQUISITES=(mmdebstrap ubuntu-keyring rsync)
+case "$INIT" in
+systemd)
+	PREREQUISITES+=(systemd-container systemd-resolved)
+	;;
+esac
 for pkg in "${PREREQUISITES[@]}"; do
 	if ! dpkg -l "$pkg" &>/dev/null; then
 		apt-get -qq update
