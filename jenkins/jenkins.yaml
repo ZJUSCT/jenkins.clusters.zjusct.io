@@ -7,6 +7,11 @@ credentials:
           description: "zjugit"
           id: "zjugit"
           scope: GLOBAL
+      - string:
+          description: "github"
+          id: "github"
+          scope: GLOBAL
+          secret: "${GITHUB_ACCESS_TOKEN}"
 jenkins:
   authorizationStrategy:
     globalMatrix:
@@ -142,6 +147,11 @@ unclassified:
   fingerprints:
     fingerprintCleanupDisabled: false
     storage: "file"
+  gitHubPluginConfig:
+    configs:
+    - credentialsId: "github"
+      manageHooks: false
+      name: "github"
   gitLabConnectionConfig:
     connections:
     - apiTokenId: "zjugit"

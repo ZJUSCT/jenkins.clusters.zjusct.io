@@ -1,3 +1,4 @@
+# https://jenkins-job-builder.readthedocs.io/en/latest/index.html#contents
 - job-template:
     name: "{method}-{distro}-{release}"
     id: "template-debian-{method}-{distro}-{release}"
@@ -15,6 +16,7 @@
       - gitlab-notifier:
           name: "template-debian-{method}-{distro}-{release}"
           mark-unstable-as-success: true
+      - github-notifier
     builders:
       - shell: "debian/{method}-installation.sh {distro} {release}"
 

@@ -5,6 +5,8 @@ services:
     environment:
       - CASC_JENKINS_CONFIG=/var/jenkins_casc.yml
       - JENKINS_PASSWORD=${JENKINS_PASSWORD}
+      - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
+      - GITHUB_ACCESS_TOKEN=${GITHUB_ACCESS_TOKEN}
     volumes:
       - ./jenkins.yaml:/var/jenkins_casc.yml
       - jenkins_home:/var/jenkins_home
