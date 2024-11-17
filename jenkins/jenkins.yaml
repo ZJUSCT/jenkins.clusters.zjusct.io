@@ -1,3 +1,12 @@
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - gitLabApiTokenImpl:
+          apiToken: "${GITLAB_ACCESS_TOKEN}"
+          description: "zjugit"
+          id: "zjugit"
+          scope: GLOBAL
 jenkins:
   authorizationStrategy:
     globalMatrix:
@@ -29,11 +38,11 @@ jenkins:
           - "Overall/Read"
           - "Run/Delete"
           - "Run/Update"
+          - "SCM/Tag"
           - "View/Configure"
           - "View/Create"
           - "View/Delete"
           - "View/Read"
-          - "SCM/Tag"
       - user:
           name: "anonymous"
           permissions:
@@ -133,6 +142,16 @@ unclassified:
   fingerprints:
     fingerprintCleanupDisabled: false
     storage: "file"
+  gitLabConnectionConfig:
+    connections:
+    - apiTokenId: "zjugit"
+      clientBuilderId: "autodetect"
+      connectionTimeout: 10
+      ignoreCertificateErrors: false
+      name: "zjugit"
+      readTimeout: 10
+      url: "https://git.zju.edu.cn"
+    useAuthenticatedEndpoint: true
   location:
     adminAddress: "mail@zjusct.io"
     url: "https://jenkins.clusters.zjusct.io/"

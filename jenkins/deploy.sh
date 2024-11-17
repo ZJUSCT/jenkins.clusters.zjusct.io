@@ -26,6 +26,7 @@ fi
 
 credential_names=(
 	"JENKINS_PASSWORD"
+	"GITLAB_ACCESS_TOKEN"
 )
 
 if [ ! -f .env ]; then
