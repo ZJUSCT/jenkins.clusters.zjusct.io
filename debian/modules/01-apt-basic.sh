@@ -12,6 +12,7 @@ PACKAGES_COMMON=(
 	mmdebstrap neofetch network-manager ninja-build numactl nvtop pkg-config 
 	proxychains4 rpm2cpio screenfetch snmp sudo systemd-container tcpdump tldr 
 	traceroute tree tshark unrar valgrind vim wget wireshark zip
+	squashfs-tools 7zip
 	# kvm # https://developer.android.com/studio/run/emulator-acceleration?utm_source=android-studio&hl=zh-cn#vm-linux
 	qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
 	# zfs # https://wiki.debian.org/ZFS
