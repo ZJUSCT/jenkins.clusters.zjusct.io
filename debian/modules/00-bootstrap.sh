@@ -10,7 +10,7 @@
 
 set -x
 case $INIT in
-00-bootstrap.sh) # systemd-nspawn handles mounts
+systemd) # systemd-nspawn handles mounts
 	;;
 *) # if in chroot, you need to mount /proc first, so INIT is empty in bootstrap
 	mount -t proc /proc /proc
