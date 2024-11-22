@@ -1,5 +1,33 @@
 # https://jenkins-job-builder.readthedocs.io/en/latest/index.html#contents
 - job-template:
+    name: "openEuler-{release}"
+    id: "template-openEuler-{release}"
+    scm:
+      - git:
+          url: "https://git.zju.edu.cn/zjusct/ops/jenkins.clusters.zjusct.io.git"
+          branches:
+            - origin/main
+    triggers:
+      - gitlab
+      - timed: "H(0-29) 4 * * 6"
+      - pollscm:
+          cron: "H H/2 * * *"
+    publishers:
+      - gitlab-notifier:
+          name: "openEuler-{release}"
+          mark-unstable-as-success: true
+      - github-notifier
+    builders:
+      - shell: "openeuler/chroot-installation.sh {release}"
+
+- project:
+    name: "openEuler"
+    release:
+      - 24.09
+    jobs:
+      - template-openEuler-{release}
+
+- job-template:
     name: "{method}-{distro}-{release}"
     id: "template-debian-{method}-{distro}-{release}"
     scm:
@@ -14,7 +42,7 @@
           cron: "H H/2 * * *"
     publishers:
       - gitlab-notifier:
-          name: "template-debian-{method}-{distro}-{release}"
+          name: "debian-{method}-{distro}-{release}"
           mark-unstable-as-success: true
       - github-notifier
     builders:
