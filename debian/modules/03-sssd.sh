@@ -19,8 +19,6 @@ domains = LDAP
 config_file_version = 2
 
 [nss]
-filter_groups = root
-filter_users = root
 
 [pam]
 

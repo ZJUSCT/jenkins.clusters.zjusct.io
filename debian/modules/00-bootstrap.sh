@@ -28,7 +28,7 @@ EOF
 	;;
 esac
 # default console password, will be superseeded when SSSD is setup
-echo "root:root" | chpasswd
+# echo "root:root" | chpasswd
 echo -e '#!/bin/sh\nexit 101' >/usr/sbin/policy-rc.d
 chmod +x /usr/sbin/policy-rc.d
 # configure dpkg to use unsafe io for faster installs
