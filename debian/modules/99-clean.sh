@@ -1,6 +1,6 @@
 #!/bin/bash
 
-apt-get autoremove
+apt-get autopurge
 apt-get clean
 rm -f /etc/apt/apt.conf.d/80proxy
 rm -f /etc/apt/apt.conf.d/80debug
