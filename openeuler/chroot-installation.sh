@@ -88,7 +88,7 @@ done
 wget --tries=5 --quiet -O "$IMGFILE" "$IMAGEURL"
 # 7z can also extract squashfs filesystem, but it's very very slow now...
 # 7z x "$IMGFILE" -o"$TMPDIR" $ROOTIMGPATH
-unsquashfs -dq "$TMPDIR" "$IMGFILE" $ROOTIMGPATH
+unsquashfs -q -d "$TMPDIR" "$IMGFILE" $ROOTIMGPATH
 7z x -snld "$TMPDIR/$ROOTIMGPATH" -o"$CHROOT_TARGET"
 rm -rf "$TMPDIR"
 
