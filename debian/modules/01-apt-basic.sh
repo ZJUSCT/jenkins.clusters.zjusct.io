@@ -3,14 +3,53 @@
 # https://tracker.debian.org/
 # https://packages.ubuntu.com/
 
+# special package information:
+# - exa is replaced by eza, the former is available in Debian 12, the latter is available in Ubuntu 24
+# - linux-tools is available on Ubuntu, but deprecated on Debian, split into tools like linux-perf
+# - golang in stable is very old
+
+install_special_pkgs() {
+	case $ID in
+	debian)
+		apt-get install linux-cpupower linux-perf
+		case $VERSION_CODENAME in
+		bookworm) # stable
+			apt-get install exa golang/stable-backports
+			;;
+		trixie|sid) # testing, unstable
+			apt-get install eza gping golang
+			;;
+		esac
+		;;
+	ubuntu)
+		apt-get install linux-tools-common
+		apt-get install eza gping golang
+		case $VERSION_CODENAME in
+		noble) # 24.04 LTS
+			;;
+		oracular) # 24.10
+			;;
+		esac
+	esac
+
+	# bat
+	if [ ! -e /usr/bin/bat ]; then
+		ln -s /usr/bin/batcat /usr/bin/bat
+	fi
+	# fd-find
+	if [ ! -e /usr/bin/fd ]; then
+		ln -s /usr/bin/fdfind /usr/bin/fd
+	fi
+}
+
 PACKAGES_COMMON=(
-	aptitude build-essential cargo clang clang-format clang-tidy cmake 
-	cpu-checker htop iperf3 golang net-tools linux-cpupower
-	cpufetch curl devscripts doxygen exfatprogs fish fonts-firacode gcc-doc 
-	gfortran git-extras git-lfs glibc-doc hwinfo hwloc ipmitool iptraf-ng jq 
-	libgmp-dev libgtk-3-dev libpcap-dev linux-source lldb lldpd locate mc meson 
-	mmdebstrap neofetch network-manager ninja-build numactl nvtop pkg-config 
-	proxychains4 rpm2cpio screenfetch snmp sudo systemd-container tcpdump tldr 
+	aptitude build-essential cargo clang clang-format clang-tidy cmake
+	cpu-checker htop iperf3 net-tools 
+	cpufetch curl devscripts doxygen exfatprogs fish fonts-firacode gcc-doc
+	gfortran git-extras git-lfs glibc-doc hwinfo hwloc ipmitool iptraf-ng jq
+	libgmp-dev libgtk-3-dev libpcap-dev linux-source lldb lldpd locate mc meson
+	mmdebstrap neofetch network-manager ninja-build numactl nvtop pkg-config
+	proxychains4 rpm2cpio screenfetch snmp sudo systemd-container tcpdump tldr
 	traceroute tree tshark unrar valgrind vim wget wireshark zip
 	squashfs-tools 7zip hugo
 	# kvm # https://developer.android.com/studio/run/emulator-acceleration?utm_source=android-studio&hl=zh-cn#vm-linux
@@ -26,7 +65,7 @@ PACKAGES_COMMON=(
 	zlib1g-dev libexpat-dev git
 	qemu-system-misc gdb-multiarch opensbi u-boot-qemu
 	# 课程：计算机网络
-	git cmake gdb build-essential clang clang-tidy clang-format gcc-doc 
+	git cmake gdb build-essential clang clang-tidy clang-format gcc-doc
 	pkg-config glibc-doc tcpdump tshark libpcap-dev
 )
 
@@ -37,68 +76,39 @@ PACKAGES_PURGE=(
 	# nvidia-installer-cleanup
 )
 
-rm -f /etc/apt/sources.list
-cat >/etc/apt/sources.list.d/"$ID".sources <<EOF
+set_sources_list() {
+	rm -f /etc/apt/sources.list
+	cat >/etc/apt/sources.list.d/"$ID".sources <<EOF
 Types: deb
 URIs: https://mirrors.zju.edu.cn/$ID/
 EOF
-case $ID in
-debian)
-	if [ "$VERSION_CODENAME" != "sid" ]; then
-		cat >>/etc/apt/sources.list.d/"$ID".sources <<EOF
+	case $ID in
+	debian)
+		if [ "$VERSION_CODENAME" != "sid" ]; then
+			cat >>/etc/apt/sources.list.d/"$ID".sources <<EOF
 Suites: ${VERSION_CODENAME} ${VERSION_CODENAME}-updates ${VERSION_CODENAME}-backports
 EOF
-	else # sid
-		cat >>/etc/apt/sources.list.d/"$ID".sources <<EOF
+		else # sid
+			cat >>/etc/apt/sources.list.d/"$ID".sources <<EOF
 Suites: ${VERSION_CODENAME} 
 EOF
-	fi
-	cat >>/etc/apt/sources.list.d/"$ID".sources <<EOF
+		fi
+		cat >>/etc/apt/sources.list.d/"$ID".sources <<EOF
 Components: main contrib non-free non-free-firmware
 Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 EOF
-	;;
-ubuntu)
-	cat >>/etc/apt/sources.list.d/"$ID".sources <<EOF
+		;;
+	ubuntu)
+		cat >>/etc/apt/sources.list.d/"$ID".sources <<EOF
 Suites: ${VERSION_CODENAME} ${VERSION_CODENAME}-updates ${VERSION_CODENAME}-backports
 Components: main restricted universe multiverse
 Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 EOF
-	;;
-esac
-apt-get update
-
-apt-get install "${PACKAGES_COMMON[@]}"
-
-# Some package information:
-# - exa is replaced by eza, the former is available in Debian 12, the latter is available in Ubuntu 24
-# - linux-tools is available on Ubuntu, but deprecated on Debian, split into tools like linux-perf
-case $ID in
-debian)
-	case $VERSION_CODENAME in
-	bookworm) # stable
-		apt-get install exa
-		;;
-	trixie) # testing
-		apt-get install eza gping
-		;;
-	sid) # unstable
-		apt-get install eza gping
 		;;
 	esac
-	apt-get install linux-perf
-	;;
-ubuntu)
-	apt-get install linux-tools-common gping eza
-	;;
-esac
-apt-get purge "${PACKAGES_PURGE[@]}"
+	apt-get update
+}
 
-# bat
-if [ ! -e /usr/bin/bat ]; then
-	ln -s /usr/bin/batcat /usr/bin/bat
-fi
-# fd-find
-if [ ! -e /usr/bin/fd ]; then
-	ln -s /usr/bin/fdfind /usr/bin/fd
-fi
+apt-get install "${PACKAGES_COMMON[@]}"
+install_special_pkgs
+apt-get purge "${PACKAGES_PURGE[@]}"
