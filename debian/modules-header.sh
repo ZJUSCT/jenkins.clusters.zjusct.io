@@ -44,7 +44,9 @@ install_deb_from_url() {
 get_github_url() {
 	repo=$1
 	match=$2
+	set -o pipefail
 	curl -x "$PROXY" "http://api.github.com/repos/$repo/releases" | jq -r ".[].assets[] | select(.name|$match) | .browser_download_url" | head -n 1
+	set +o pipefail
 }
 
 # https://ghp.ci/
@@ -66,7 +68,9 @@ get_asset_from_github() {
 get_tarball_from_github() {
 	repo=$1
 	output=$2
+	set -o pipefail
 	url=$(curl -x "$PROXY" "https://api.github.com/repos/$repo/releases/latest" | jq -r ".tarball_url")
+	set +o pipefail
 	wget -O "$output" https://ghp.ci/"$url"
 }
 
