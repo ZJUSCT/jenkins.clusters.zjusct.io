@@ -36,3 +36,6 @@ cat >/etc/docker/daemon.json <<EOF
         }
 }
 EOF
+
+# align with LDAP
+sed -i '/^docker:/s/:[0-9]*:/:700:/' /etc/group

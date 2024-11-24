@@ -76,6 +76,4 @@ EOF
 Environment=DEBUG_LOGGER=--logger=journald
 EOF
 
-	# align important ID with LDAP
-	sed -i '/^docker:/s/:[0-9]*:/:700:/' /etc/group
 fi
