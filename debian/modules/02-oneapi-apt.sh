@@ -10,6 +10,9 @@ apt-get update
 
 apt-get install intel-oneapi-hpc-toolkit intel-oneapi-base-toolkit
 
+/opt/intel/oneapi/modulefiles-setup.sh --output-dir=/opt/intel/oneapi/modulefiles
+echo "/opt/intel/oneapi/modulefiles" > /etc/lmod/.modulespath
+
 # deprecated, see https://git.zju.edu.cn/zjusct/ops/conf-diskless/-/issues/1
 # INSTALL_DIR=/opt/intel
 # cd "${INSTALL_DIR}//oneapi/vtune/latest/sepdk/src" || exit
