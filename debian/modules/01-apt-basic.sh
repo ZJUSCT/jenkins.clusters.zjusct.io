@@ -109,6 +109,7 @@ EOF
 	apt-get update
 }
 
+set_sources_list
 apt-get install "${PACKAGES_COMMON[@]}"
 install_special_pkgs
 apt-get purge "${PACKAGES_PURGE[@]}"
