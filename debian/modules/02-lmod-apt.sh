@@ -10,7 +10,9 @@ ln -s /usr/share/lmod/lmod/init/profile        /etc/profile.d/z00_lmod.sh
 # fish
 ln -s /usr/share/lmod/lmod/init/profile.fish   /etc/fish/conf.d/z00_lmod.fish
 
-# for .modulepath
+# for .modulespath, see
+# https://lmod.readthedocs.io/en/latest/030_installing.html#installing-lmod
+mkdir -p /etc/lmod
+
 # https://lmod.readthedocs.io/en/latest/060_locating.html
 # https://lmod.readthedocs.io/en/latest/090_configuring_lmod.html
-mkdir -p /etc/lmod
