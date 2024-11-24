@@ -15,7 +15,6 @@ else
 	cat >/etc/sssd/sssd.conf <<EOF
 [sssd]
 domains = LDAP
-# services = nss, pam, sudo
 config_file_version = 2
 
 [nss]
@@ -69,11 +68,6 @@ AuthorizedKeysCommandUser nobody
 AuthorizedKeysCommand /bin/goldaptools_ssh_withcheck
 EOF
 
-	sed -i '/^passwd:/s/:.*/:         sss files/' /etc/nsswitch.conf
-	sed -i '/^group:/s/:.*/:         sss files/' /etc/nsswitch.conf
-	sed -i '/^shadow:/s/:.*/:         sss files/' /etc/nsswitch.conf
-	sed -i '/^sudoers:/s/:.*/:         sss files/' /etc/nsswitch.conf
-
 	mkdir -p /etc/systemd/system/sssd.service.d
 	mkdir -p /etc/systemd/system/sssd-nss.service.d
 	mkdir -p /etc/systemd/system/sssd-pam.service.d
@@ -82,10 +76,6 @@ EOF
 Environment=DEBUG_LOGGER=--logger=journald
 EOF
 
-	mkdir -p /etc/systemd/system/docker.socket.d
-	cat >>/etc/systemd/system/docker.socket.d/override.conf <<EOF
-[Unit]
-After=sssd-nss.service
-Requires=sssd-nss.service
-EOF
+	# align important ID with LDAP
+	sed -i '/^docker:/s/:[0-9]*:/:700:/' /etc/group
 fi
