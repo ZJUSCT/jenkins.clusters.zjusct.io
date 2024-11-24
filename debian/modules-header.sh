@@ -40,11 +40,18 @@ install_deb_from_url() {
 }
 
 # https://gist.github.com/steinwaywhw/a4cd19cda655b8249d908261a62687f8
+
+get_github_url() {
+	repo=$1
+	match=$2
+	curl -x "$PROXY" "http://api.github.com/repos/$repo/releases" | jq -r ".[].assets[] | select(.name|$match) | .browser_download_url" | head -n 1
+}
+
+# https://ghp.ci/
 install_deb_from_github() {
 	repo=$1
 	match=$2
-	url=$(curl -x "$PROXY" "https://api.github.com/repos/$repo/releases/latest" | jq -r ".assets[] | select(.name|$match) | .browser_download_url")
-	# https://ghp.ci/
+	url=$(get_github_url "$repo" "$match")
 	install_deb_from_url https://ghp.ci/"$url"
 }
 
@@ -52,7 +59,7 @@ get_asset_from_github() {
 	repo=$1
 	match=$2
 	output=$3
-	url=$(curl -x "$PROXY" "https://api.github.com/repos/$repo/releases/latest" | jq -r ".assets[] | select(.name|$match) | .browser_download_url")
+	url=$(get_github_url "$repo" "$match")
 	wget -O "$output" https://ghp.ci/"$url"
 }
 
