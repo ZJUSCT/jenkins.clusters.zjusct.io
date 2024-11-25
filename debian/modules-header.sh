@@ -45,7 +45,12 @@ get_github_url() {
 	repo=$1
 	match=$2
 	set -o pipefail
-	curl -x "$PROXY" "http://api.github.com/repos/$repo/releases" | jq -r ".[].assets[] | select(.name|$match) | .browser_download_url" | head -n 1
+	local debugfile
+	debugfile=$(mktemp)
+	curl "http://api.github.com/repos/$repo/releases" \
+		| tee "$debugfile" \
+		| jq -r ".[].assets[] | select(.name|$match) | .browser_download_url" \
+		| head -n 1
 	set +o pipefail
 }
 
