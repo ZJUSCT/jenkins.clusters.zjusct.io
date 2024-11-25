@@ -2,7 +2,6 @@
 # https://pkgs.io/
 # https://tracker.debian.org/
 # https://packages.ubuntu.com/
-
 # special package information:
 # - exa is replaced by eza, the former is available in Debian 12, the latter is available in Ubuntu 24
 # - linux-tools is available on Ubuntu, but deprecated on Debian, split into tools like linux-perf
@@ -14,16 +13,16 @@ install_special_pkgs() {
 		apt-get install linux-cpupower linux-perf
 		case $VERSION_CODENAME in
 		bookworm) # stable
-			apt-get install exa golang/stable-backports
+			apt-get install exa
 			;;
 		trixie|sid) # testing, unstable
-			apt-get install eza gping golang
+			apt-get install eza gping
 			;;
 		esac
 		;;
 	ubuntu)
 		apt-get install linux-tools-common
-		apt-get install eza gping golang
+		apt-get install eza gping
 		case $VERSION_CODENAME in
 		noble) # 24.04 LTS
 			;;
@@ -43,8 +42,8 @@ install_special_pkgs() {
 }
 
 PACKAGES_COMMON=(
-	aptitude build-essential cargo clang clang-format clang-tidy cmake
-	cpu-checker htop iperf3 net-tools 
+	aptitude build-essential clang clang-format clang-tidy cmake
+	cpu-checker htop iperf3 net-tools
 	cpufetch curl devscripts doxygen exfatprogs fish fonts-firacode gcc-doc
 	gfortran git-extras git-lfs glibc-doc hwinfo hwloc ipmitool iptraf-ng jq
 	libgmp-dev libgtk-3-dev libpcap-dev linux-source lldb lldpd locate mc meson
@@ -52,12 +51,15 @@ PACKAGES_COMMON=(
 	proxychains4 rpm2cpio screenfetch snmp sudo systemd-container tcpdump tldr
 	traceroute tree tshark unrar valgrind vim wget wireshark zip
 	squashfs-tools 7zip hugo
+	# language
+	golang rustc cargo
 	# kvm # https://developer.android.com/studio/run/emulator-acceleration?utm_source=android-studio&hl=zh-cn#vm-linux
 	qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
 	# zfs # https://wiki.debian.org/ZFS
 	zfsutils-linux
 	# 现代 cli 工具 https://zjusct.pages.zjusct.io/opendocs/operation/system/service/modern_cli/
-	aria2 bat btop duf fd-find fq fzf fish gdu httpie hyperfine ripgrep tmux zoxide zsh
+	aria2 bat btop duf fd-find fq fzf fish gdu httpie hyperfine ripgrep
+	tmux zoxide zsh
 	# 课程：操作系统 https://zju-sec.github.io/os24fall-stu/lab0
 	gcc-aarch64-linux-gnu gcc-riscv64-linux-gnu
 	autoconf automake autotools-dev curl libmpc-dev libmpfr-dev libgmp-dev
@@ -112,4 +114,5 @@ EOF
 set_sources_list
 apt-get install "${PACKAGES_COMMON[@]}"
 install_special_pkgs
-apt-get purge "${PACKAGES_PURGE[@]}"
+apt-get purge "${PACKAGES_PURGE[@]}" >/dev/null 2>&1
+apt-get upgrade
