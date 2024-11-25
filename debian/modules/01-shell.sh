@@ -13,4 +13,3 @@ if [ -d /etc/profile.d ]; then
   setopt nomatch
 fi
 EOF
- 

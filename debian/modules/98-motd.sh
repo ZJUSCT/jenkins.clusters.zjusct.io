@@ -2,9 +2,9 @@
 
 # Copyright 2018-2023 Petr Všetečka <vsetecka@cesnet.cz>
 #           2024-2025 Baolin Zhu <zhubaolin228@gmail.com> and ZJUSCT
-# 
-# The following code is a derivative work of the code from the jenkins.debian.net, 
-# which is licensed GPLv3. This code therefore is also licensed under the terms 
+#
+# The following code is a derivative work of the code from the jenkins.debian.net,
+# which is licensed GPLv3. This code therefore is also licensed under the terms
 # of the GNU Public License, verison 3.
 
 rm -f /etc/update-motd.d/*
@@ -22,7 +22,7 @@ printf $(($(ps -e --no-headers | wc -l) - 1))
 printf " processes)\n"
 # RAM
 free -m | awk '/Mem/  { printf "  Memory:  %4sM  (%2d%%)  out of %2.1fG\n", $3, ($3/$2) * 100, $2/1000; }
-               /Swap/ { 
+               /Swap/ {
                         if ( $3 == 0 )
                             printf "  Swap:     not available\n";
                         else

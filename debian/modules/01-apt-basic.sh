@@ -51,8 +51,8 @@ PACKAGES_COMMON=(
 	proxychains4 rpm2cpio screenfetch snmp sudo systemd-container tcpdump tldr
 	traceroute tree tshark unrar valgrind vim wget wireshark zip
 	squashfs-tools 7zip hugo
-	# language
-	golang rustc cargo
+	# language and package manager
+	golang rustc cargo pipx
 	# kvm # https://developer.android.com/studio/run/emulator-acceleration?utm_source=android-studio&hl=zh-cn#vm-linux
 	qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
 	# zfs # https://wiki.debian.org/ZFS
@@ -92,7 +92,7 @@ Suites: ${VERSION_CODENAME} ${VERSION_CODENAME}-updates ${VERSION_CODENAME}-back
 EOF
 		else # sid
 			cat >>/etc/apt/sources.list.d/"$ID".sources <<EOF
-Suites: ${VERSION_CODENAME} 
+Suites: ${VERSION_CODENAME}
 EOF
 		fi
 		cat >>/etc/apt/sources.list.d/"$ID".sources <<EOF
