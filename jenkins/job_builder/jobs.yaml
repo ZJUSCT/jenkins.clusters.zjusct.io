@@ -1,6 +1,48 @@
 # https://jenkins-job-builder.readthedocs.io/en/latest/index.html#contents
+- job:
+    name: "Jenkins-Job-Builder"
+    project-type: freestyle
+    scm:
+      - git:
+          url: "https://git.zju.edu.cn/zjusct/ops/jenkins.clusters.zjusct.io.git"
+          branches:
+            - origin/main
+    triggers:
+      - gitlab
+      - timed: "H(0-29) 4 * * 6"
+      - pollscm:
+          cron: "H H/2 * * *"
+    publishers:
+      - gitlab-notifier:
+          name: "openEuler-{release}"
+          mark-unstable-as-success: true
+      - github-notifier
+    builders:
+      - shell: "jenkins/job_builder/update-jobs.sh"
+
+- job:
+    name: "chroot-archlinux"
+    project-type: freestyle
+    scm:
+      - git:
+          url: "https://git.zju.edu.cn/zjusct/ops/jenkins.clusters.zjusct.io.git"
+          branches:
+            - origin/main
+    triggers:
+      - gitlab
+      - timed: "H(0-29) 4 * * 6"
+      - pollscm:
+          cron: "H H/2 * * *"
+    publishers:
+      - gitlab-notifier:
+          name: "chroot-archilinux"
+          mark-unstable-as-success: true
+      - github-notifier
+    builders:
+      - shell: "archlinux/chroot-installation.sh"
+
 - job-template:
-    name: "openEuler-{release}"
+    name: "chroot-openEuler-{release}"
     id: "template-openEuler-{release}"
     scm:
       - git:

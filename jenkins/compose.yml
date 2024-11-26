@@ -9,6 +9,7 @@ services:
       - GITHUB_ACCESS_TOKEN=${GITHUB_ACCESS_TOKEN}
     volumes:
       - ./jenkins.yaml:/var/jenkins_casc.yml
+      - ./job_builder/jenkins_jobs.ini:/var/jenkins_jobs.ini
       - jenkins_home:/var/jenkins_home
       - /pxe/rootfs:/pxe/rootfs
       - /pxe/private:/pxe/private:ro

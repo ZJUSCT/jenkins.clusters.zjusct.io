@@ -18,6 +18,7 @@ RUN apt-get update \
         mmdebstrap \
         ubuntu-keyring \
         rsync \
+        jenkins-job-builder \
         dnf rpm
 RUN apt-get clean
 

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+cd "$SCRIPT_DIR"
 set -xe
 
 bw_login() {
@@ -50,10 +52,9 @@ if [ ! -f .env ]; then
 	done
 fi
 
-docker compose down
 docker compose build # --progress plain
 
-if [ ! -f jenkins_jobs.ini ]; then
+if [ ! -f job_builder/jenkins_jobs.ini ]; then
 	bw_login
 	JENKINS_PASSWORD=$(bw get password JENKINS_PASSWORD)
 	cat >jenkins_jobs.ini <<EOF
@@ -69,3 +70,6 @@ url=https://jenkins.clusters.zjusct.io
 query_plugins_info=False
 EOF
 fi
+
+docker compose up -d
+. job_builder/update-jobs.sh
