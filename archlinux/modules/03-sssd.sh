@@ -38,7 +38,7 @@ ldap_sudo_search_base = ou=sudoers,ou=Config,dc=zjusct,dc=io
 EOF
 
 chmod 600 /etc/sssd/sssd.conf
-	cat >/etc/sssd/ca.crt <<EOF
+cat >/etc/sssd/ca.crt <<EOF
 -----BEGIN CERTIFICATE-----
 MIID2zCCAsOgAwIBAgIUJ312aSIgWY/7zjPAf5qDhoSsks0wDQYJKoZIhvcNAQEL
 BQAwfTELMAkGA1UEBhMCQ04xDzANBgNVBAgMBlV0b3BpYTEZMBcGA1UEBwwQTG90

@@ -31,7 +31,7 @@ PACKAGES_COMMON=(
 	# 现代 cli 工具 https://zjusct.pages.zjusct.io/opendocs/operation/system/service/modern_cli/
 	aria2 bat btop duf fq fzf fish gdu httpie hyperfine ripgrep
 	tmux zoxide zsh
-    starship
+	starship
 	# 课程：操作系统 https://zju-sec.github.io/os24fall-stu/lab0
 	aarch64-linux-gnu-gcc riscv64-linux-gnu-gcc
 	autoconf automake curl bison flex texinfo gperf libtool patchutils bc

@@ -10,10 +10,11 @@ ubuntu)
 *)
 	echo "OS not supported"
 	exit 1
+	;;
 esac
 
-curl https://linux.mellanox.com/public/repo/doca/GPG-KEY-Mellanox.pub | gpg --dearmor > /etc/apt/trusted.gpg.d/GPG-KEY-Mellanox.pub
-echo "deb [signed-by=/etc/apt/trusted.gpg.d/GPG-KEY-Mellanox.pub] $DOCA_URL ./" > /etc/apt/sources.list.d/doca.list
+curl https://linux.mellanox.com/public/repo/doca/GPG-KEY-Mellanox.pub | gpg --dearmor >/etc/apt/trusted.gpg.d/GPG-KEY-Mellanox.pub
+echo "deb [signed-by=/etc/apt/trusted.gpg.d/GPG-KEY-Mellanox.pub] $DOCA_URL ./" >/etc/apt/sources.list.d/doca.list
 
 apt-get update
 apt-get -y install doca-all

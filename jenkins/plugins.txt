@@ -5,3 +5,4 @@ github
 gitlab-plugin
 matrix-auth
 theme-manager
+scmskip

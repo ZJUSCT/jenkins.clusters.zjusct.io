@@ -15,6 +15,6 @@ cd /opt/lmod || exit
 ./configure --prefix=/opt/lmod
 make
 make install
-ln -s /opt/lmod/lmod/init/profile        /etc/profile.d/z00_lmod.sh
-ln -s /opt/lmod/lmod/init/cshrc          /etc/profile.d/z00_lmod.csh
-ln -s /opt/lmod/lmod/init/profile.fish   /etc/fish/conf.d/z00_lmod.fish
+ln -s /opt/lmod/lmod/init/profile /etc/profile.d/z00_lmod.sh
+ln -s /opt/lmod/lmod/init/cshrc /etc/profile.d/z00_lmod.csh
+ln -s /opt/lmod/lmod/init/profile.fish /etc/fish/conf.d/z00_lmod.fish

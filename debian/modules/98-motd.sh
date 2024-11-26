@@ -22,18 +22,18 @@ printf $(($(ps -e --no-headers | wc -l) - 1))
 printf " processes)\n"
 # RAM
 free -m | awk '/Mem/  { printf "  Memory:  %4sM  (%2d%%)  out of %2.1fG\n", $3, ($3/$2) * 100, $2/1000; }
-               /Swap/ {
+		/Swap/ {
                         if ( $3 == 0 )
-                            printf "  Swap:     not available\n";
+				printf "  Swap:     not available\n";
                         else
                             printf "  Swap:    %4sM  (%2d%%)  out of %2.1fG\n", $3, ($3/$2) * 100, $2/1000;
 
-                      }'
+			}'
 # Disk
 df -h   | awk '/^\//  { printf "  Disk:    %5s  (%3s)  out of %4s %s\n", $3, $5, $2, $6; }'
 printf "\n"
 w -h | awk 'BEGIN { printf "Users logged in:"; }
-                  { printf " %s", $1; }'
+		{ printf " %s", $1; }'
 top -bn1 | awk 'BEGIN { FS=",  "; }
                 $2~/user/ { print " (" $2 " total)"; }
                 $3~/user/ { print " (" $3 " total)"; }'

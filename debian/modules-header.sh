@@ -47,10 +47,10 @@ get_github_url() {
 	set -o pipefail
 	local debugfile
 	debugfile=$(mktemp)
-	curl "http://api.github.com/repos/$repo/releases" \
-		| tee "$debugfile" \
-		| jq -r ".[].assets[] | select(.name|$match) | .browser_download_url" \
-		| head -n 1
+	curl "http://api.github.com/repos/$repo/releases" |
+		tee "$debugfile" |
+		jq -r ".[].assets[] | select(.name|$match) | .browser_download_url" |
+		head -n 1
 	set +o pipefail
 }
 
@@ -88,8 +88,7 @@ debian)
 		VERSION_CODENAME=sid
 	fi
 	;;
-ubuntu)
-	;;
+ubuntu) ;;
 *)
 	echo "OS not supported"
 	exit 1

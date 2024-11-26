@@ -15,9 +15,9 @@ DEBUG=true
 DISTRO=openEuler
 # $1=RELEASE
 if [ -z "$1" ]; then
-        RELEASE=24.09
+	RELEASE=24.09
 else
-        RELEASE=$1
+	RELEASE=$1
 fi
 CHROOT_BASE=/pxe/rootfs/openeuler/$RELEASE
 TIMESTAMP=$(date +%Y%m%dT%H%M%S%Z)
@@ -52,7 +52,7 @@ done
 #         mkdir -p "$CHROOT_TARGET"/$dir
 #         mount --bind /$dir "$CHROOT_TARGET"/$dir
 # done
-# 
+#
 # dnf --installroot="$CHROOT_TARGET" \
 #     --repo=openEuler \
 #     --releasever="$RELEASE" \
@@ -164,7 +164,6 @@ execute_ctmpfile() {
 	set +o pipefail
 	set +x
 }
-
 
 if [ -z "$LC_ALL" ]; then
 	export LC_ALL=C.UTF-8

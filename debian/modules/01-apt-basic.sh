@@ -15,7 +15,7 @@ install_special_pkgs() {
 		bookworm) # stable
 			apt-get install exa
 			;;
-		trixie|sid) # testing, unstable
+		trixie | sid) # testing, unstable
 			apt-get install eza gping
 			;;
 		esac
@@ -29,6 +29,7 @@ install_special_pkgs() {
 		oracular) # 24.10
 			;;
 		esac
+		;;
 	esac
 
 	# bat
