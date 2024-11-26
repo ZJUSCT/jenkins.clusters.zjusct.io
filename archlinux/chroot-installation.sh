@@ -33,7 +33,7 @@ CTMPFILE=$CHROOT_TARGET/$TMPFILE
 TMPLOG=/tmp/archlinux-$RELEASE-$TIMESTAMP.log
 
 # https://wiki.archlinux.org/title/Pacstrap
-PREREQUISITES=(arch-install-scripts wget)
+PREREQUISITES=(arch-install-scripts wget zstd)
 for pkg in "${PREREQUISITES[@]}"; do
     if ! dpkg -l "$pkg" &>/dev/null; then
         apt-get -qq update
