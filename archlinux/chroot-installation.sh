@@ -82,9 +82,9 @@ cleanup_all() {
 	systemd) # systemd-nspawn handles all mounts
 		;;
 	*)
-		for mount in proc tmp sys; do
+		for mount in proc tmp sys dev; do
 			if mountpoint -q "$CHROOT_TARGET/$mount"; then
-				umount -l "$CHROOT_TARGET/$mount"
+				umount -lR "$CHROOT_TARGET/$mount"
 			fi
 		done
 		;;
