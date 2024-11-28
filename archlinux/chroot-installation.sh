@@ -50,7 +50,7 @@ done
 # https://wiki.archlinux.org/title/Install_Arch_Linux_from_existing_Linux#Method_A:_Using_the_bootstrap_tarball_(recommended)
 IMAGEURL="https://mirrors.zju.edu.cn/archlinux/iso/latest/archlinux-bootstrap-x86_64.tar.zst"
 
-ROOTIMGPATH='root.x86_64/'
+ROOTIMGPATH='root.x86_64'
 TMPDIR=/tmp/archlinux-$TIMESTAMP
 mkdir -p "$TMPDIR"
 IMGFILE=$TMPDIR/archlinux-bootstrap-x86_64.tar.zst

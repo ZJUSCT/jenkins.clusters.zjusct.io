@@ -10,12 +10,12 @@ pacman-key --populate archlinux
 
 # Force update metadata and upgrade packages
 pacman --noconfirm -Syyu
+pacman --noconfirm -S archlinuxcn-keyring
 
 PACKAGES_COMMON=(
-	# build-essential
-	archlinuxcn-keyring
+	# Build Essential
 	vim nano git gdb gcc clang cmake
-	htop iperf3 net-tools cpufetch doxygen exfatprogs fish # fonts-firacode
+	htop iperf3 net-tools cpufetch doxygen exfatprogs fish
 	git-extras git-lfs hwinfo hwloc ipmitool iptraf-ng jq
 	lldb lldpd mc meson pipewire-jack
 	fastfetch networkmanager ninja numactl nvtop
@@ -27,7 +27,7 @@ PACKAGES_COMMON=(
 	# kvm # https://developer.android.com/studio/run/emulator-acceleration?utm_source=android-studio&hl=zh-cn#vm-linux
 	qemu-full bridge-utils
 	# zfs # https://wiki.debian.org/ZFS
-	zfs-utils
+	# zfs-utils zfs-dkms
 	# 现代 cli 工具 https://zjusct.pages.zjusct.io/opendocs/operation/system/service/modern_cli/
 	aria2 bat btop duf fq fzf fish gdu httpie hyperfine ripgrep
 	tmux zoxide zsh
