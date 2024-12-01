@@ -44,7 +44,7 @@ install_special_pkgs() {
 
 PACKAGES_COMMON=(
 	aptitude build-essential clang clang-format clang-tidy cmake
-	cpu-checker htop iperf3 net-tools
+	cpu-checker htop iperf3 net-tools rename
 	cpufetch curl devscripts doxygen exfatprogs fish fonts-firacode gcc-doc
 	gfortran git-extras git-lfs glibc-doc hwinfo hwloc ipmitool iptraf-ng jq
 	libgmp-dev libgtk-3-dev libpcap-dev linux-source lldb lldpd locate mc meson
