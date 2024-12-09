@@ -51,7 +51,7 @@ PACKAGES_COMMON=(
 	mmdebstrap neofetch network-manager ninja-build numactl nvtop pkg-config
 	proxychains4 rpm2cpio screenfetch snmp sudo systemd-container tcpdump tldr
 	traceroute tree tshark unrar valgrind vim wget wireshark zip
-	squashfs-tools 7zip hugo
+	squashfs-tools 7zip hugo sshfs
 	# language and package manager
 	golang rustc cargo pipx
 	# kvm # https://developer.android.com/studio/run/emulator-acceleration?utm_source=android-studio&hl=zh-cn#vm-linux
