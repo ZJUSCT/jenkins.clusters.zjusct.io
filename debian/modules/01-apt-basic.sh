@@ -82,7 +82,7 @@ PACKAGES_PURGE=(
 set_sources_list() {
 	rm -f /etc/apt/sources.list
 	cat >/etc/apt/sources.list.d/"$ID".sources <<EOF
-Types: deb
+Types: deb deb-src
 URIs: https://mirrors.zju.edu.cn/$ID/
 EOF
 	case $ID in
