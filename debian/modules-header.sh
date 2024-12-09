@@ -52,7 +52,6 @@ get_github_url() {
 		head -n 1)
 	set +o pipefail
 	if [ -z "$url" ]; then
-		echo "Failed to get URL from $repo"
 		exit 1
 	fi
 	echo "$url"
