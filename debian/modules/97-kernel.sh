@@ -6,11 +6,11 @@
 
 # get the source code
 cd /tmp || exit
-apt-get source linux
+apt-get source linux/"$VERSION_CODENAME"
 cd linux-*/ || exit
 
 # enable the feature
-cp /boot/config-$(uname -r) .config
+cp /boot/config-"$KERNEL_VERSION" .config
 ./scripts/config --enable AMD_HSMP
 ./scripts/config --disable DEBUG_INFO
 ./scripts/config --disable DEBUG_INFO_BTF
@@ -21,7 +21,7 @@ cp /boot/config-$(uname -r) .config
 MAKEFLAGS=-j$(nproc)
 export MAKEFLAGS
 export DEB_BUILD_PROFILES='pkg.linux.nokerneldbg pkg.linux.nokerneldbginfo'
-yes "" | make bindeb-pkg LOCALVERSION=-falcot KDEB_PKGVERSION="$(make kernelversion)-1"
+yes "" | make bindeb-pkg LOCALVERSION=-zjusct KDEB_PKGVERSION="$(make kernelversion)-1"
 
 # install the kernel
 cd ..

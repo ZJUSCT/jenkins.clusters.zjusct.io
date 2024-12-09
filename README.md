@@ -4,6 +4,11 @@
 
 本仓库是 ZJUSCT 无盘系统 CI/CD 平台（Jenkins）的配置文件。
 
+## TODO
+
+- [ ] 重构，统一各发行版的构建步骤。
+- [ ] 放弃多版本维护。Debian 仅保留 stable，Ubuntu 仅保留 LTS。
+
 ## Coding Style
 
 本仓库大量使用 Shell 脚本，因此请遵循以下代码风格：
