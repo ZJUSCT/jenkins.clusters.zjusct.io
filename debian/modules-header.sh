@@ -47,13 +47,16 @@ get_github_url() {
 	local match=$2
 	set -o pipefail
 	local url
-	url=$(curl "http://api.github.com/repos/$repo/releases" |
-		jq -r "$match" |
-		head -n 1)
+	local counter=20
+	# if url is empty, retry 20 times until it's not empty
+	while [ -z "$url" ] && [ $counter -gt 0 ]; do
+		url=$(curl "https://api.github.com/repos/$repo/releases" |
+			jq -r "$match" |
+			head -n 1)
+		counter=$((counter - 1))
+		sleep 1
+	done
 	set +o pipefail
-	if [ -z "$url" ]; then
-		exit 1
-	fi
 	echo "$url"
 }
 
