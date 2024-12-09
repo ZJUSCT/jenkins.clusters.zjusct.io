@@ -29,7 +29,8 @@ EOF
 }
 
 install_deb_from_url() {
-	url=$1
+	local url=$1
+	local tmpfile
 	tmpfile=$(mktemp).deb
 	if ! wget -O "$tmpfile" "$url"; then
 		echo "Failed to download $url"
@@ -42,40 +43,44 @@ install_deb_from_url() {
 # https://gist.github.com/steinwaywhw/a4cd19cda655b8249d908261a62687f8
 
 get_github_url() {
-	repo=$1
-	match=$2
+	local repo=$1
+	local match=$2
 	set -o pipefail
-	local debugfile
-	debugfile=$(mktemp)
-	curl "http://api.github.com/repos/$repo/releases" |
-		tee "$debugfile" |
-		jq -r ".[].assets[] | select(.name|$match) | .browser_download_url" |
-		head -n 1
+	local url
+	url=$(curl "http://api.github.com/repos/$repo/releases" |
+		jq -r "$match" |
+		head -n 1)
 	set +o pipefail
+	if [ -z "$url" ]; then
+		echo "Failed to get URL from $repo"
+		exit 1
+	fi
+	echo "$url"
 }
 
 # https://ghp.ci/
 install_deb_from_github() {
-	repo=$1
-	match=$2
-	url=$(get_github_url "$repo" "$match")
+	local repo=$1
+	local match=$2
+	local url
+	url=$(get_github_url "$repo" ".[].assets[] | select(.name|$match) | .browser_download_url")
 	install_deb_from_url https://ghp.ci/"$url"
 }
 
 get_asset_from_github() {
-	repo=$1
-	match=$2
-	output=$3
-	url=$(get_github_url "$repo" "$match")
+	local repo=$1
+	local match=$2
+	local output=$3
+	local url
+	url=$(get_github_url "$repo" ".[].assets[] | select(.name|$match) | .browser_download_url")
 	wget -O "$output" https://ghp.ci/"$url"
 }
 
 get_tarball_from_github() {
-	repo=$1
-	output=$2
-	set -o pipefail
-	url=$(curl -x "$PROXY" "https://api.github.com/repos/$repo/releases/latest" | jq -r ".tarball_url")
-	set +o pipefail
+	local repo=$1
+	local output=$2
+	local url
+	url=$(get_github_url "$repo" ".[].tarball_url")
 	wget -O "$output" https://ghp.ci/"$url"
 }
 
