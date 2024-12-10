@@ -43,7 +43,7 @@ install_special_pkgs() {
 }
 
 PACKAGES_COMMON=(
-	aptitude build-essential clang clang-format clang-tidy cmake clangd ccls ethtool chrony
+	aptitude build-essential clang clang-format clang-tidy cmake clangd ccls ethtool chrony libomp-dev libdrm-dev
 	cpu-checker htop iperf3 net-tools rename attr stress
 	cpufetch curl devscripts doxygen exfatprogs fish fonts-firacode gcc-doc
 	gfortran git-extras git-lfs glibc-doc hwinfo hwloc ipmitool iptraf-ng jq
