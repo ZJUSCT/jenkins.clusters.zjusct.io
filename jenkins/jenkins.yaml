@@ -80,7 +80,7 @@ jenkins:
       freeSpaceThreshold: "1GiB"
       freeSpaceWarningThreshold: "2GiB"
   - "responseTime"
-  numExecutors: 6
+  numExecutors: 3
   primaryView:
     all:
       description: "文档见 ZJUSCT OpenDocs/运维/系统运维/无盘系统\r\nhttps://zjusct.pages.zjusct.io/opendocs/operation/system/diskless/auto/"

@@ -4,23 +4,20 @@ bootstrap_all() {
 	# default console password, will be superseeded when SSSD is setup
 	echo "root:root" | chpasswd
 
-	case $INIT in
-	systemd) # systemd-nspawn handles mounts
-		;;
-	*) # if in chroot, you need to mount /proc first, so INIT is empty in bootstrap
-
-		# fix dns problem for ubuntu
+	# fix dns problem for specific distros
+	if [ "$INIT" != "systemd" ]; then
 		# https://askubuntu.com/questions/469209/how-to-resolve-hostnames-in-chroot
-		if [ "$ID" = "ubuntu" ]; then
+		case $ID in
+		ubuntu | arch)
 			rm -f /etc/resolv.conf
 			cat >/etc/resolv.conf <<EOF
 nameserver 127.0.0.1
 nameserver 172.25.2.253
 nameserver 10.10.0.21
 EOF
-		fi
-		;;
-	esac
+			;;
+		esac
+	fi
 }
 
 bootstrap_debian() {
