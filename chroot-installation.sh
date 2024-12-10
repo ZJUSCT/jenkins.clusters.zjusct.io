@@ -13,7 +13,7 @@ fi
 #################
 # Configuration #
 #################
-DEBUG=true
+DEBUG=false
 MIRROR=https://mirrors.zju.edu.cn/
 #PROXY=http://172.25.2.253:7890
 CHROOT_BASE=/pxe/rootfs
