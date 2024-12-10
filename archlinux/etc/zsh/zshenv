@@ -1,9 +1,0 @@
-if [ -d /etc/profile.d ]; then
-	setopt no_nomatch
-	for i in /etc/profile.d/*.sh; do
-		if [ -r $i ]; then
-			. $i
-		fi
-	done
-	setopt nomatch
-fi

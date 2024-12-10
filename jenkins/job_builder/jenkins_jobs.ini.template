@@ -1,0 +1,10 @@
+[job_builder]
+ignore_cache=True
+keep_descriptions=False
+update=all
+
+[jenkins]
+user=change_me
+password=change_me
+url=change_me
+query_plugins_info=False

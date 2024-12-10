@@ -14,36 +14,15 @@
           cron: "H H/2 * * *"
     publishers:
       - gitlab-notifier:
-          name: "openEuler-{release}"
+          name: "Jenkins-Job-Builder"
           mark-unstable-as-success: true
       - github-notifier
     builders:
       - shell: "jenkins/job_builder/update-jobs.sh"
 
-- job:
-    name: "chroot-archlinux"
-    project-type: freestyle
-    scm:
-      - git:
-          url: "https://git.zju.edu.cn/zjusct/ops/jenkins.clusters.zjusct.io.git"
-          branches:
-            - origin/main
-    triggers:
-      - gitlab
-      - timed: "H(0-29) 4 * * 6"
-      - pollscm:
-          cron: "H H/2 * * *"
-    publishers:
-      - gitlab-notifier:
-          name: "chroot-archilinux"
-          mark-unstable-as-success: true
-      - github-notifier
-    builders:
-      - shell: "archlinux/chroot-installation.sh"
-
 - job-template:
-    name: "chroot-openEuler-{release}"
-    id: "template-openEuler-{release}"
+    name: "chroot-{distro}-{release}"
+    id: "template-chroot-{distro}-{release}"
     scm:
       - git:
           url: "https://git.zju.edu.cn/zjusct/ops/jenkins.clusters.zjusct.io.git"
@@ -56,45 +35,14 @@
           cron: "H H/2 * * *"
     publishers:
       - gitlab-notifier:
-          name: "openEuler-{release}"
+          name: "chroot-{distro}-{release}"
           mark-unstable-as-success: true
       - github-notifier
     builders:
-      - shell: "openeuler/chroot-installation.sh {release}"
-
-- project:
-    name: "openEuler"
-    release:
-      - 24.09
-    jobs:
-      - template-openEuler-{release}
-
-- job-template:
-    name: "{method}-{distro}-{release}"
-    id: "template-debian-{method}-{distro}-{release}"
-    scm:
-      - git:
-          url: "https://git.zju.edu.cn/zjusct/ops/jenkins.clusters.zjusct.io.git"
-          branches:
-            - origin/main
-    triggers:
-      - gitlab
-      - timed: "H(0-29) 4 * * 6"
-      - pollscm:
-          cron: "H H/2 * * *"
-    publishers:
-      - gitlab-notifier:
-          name: "debian-{method}-{distro}-{release}"
-          mark-unstable-as-success: true
-      - github-notifier
-    builders:
-      - shell: "debian/{method}-installation.sh {distro} {release}"
+      - shell: "./chroot-installation.sh {distro} {release}"
 
 - project:
     name: "debian"
-    method:
-      - chroot
-    #  - image
     distro:
       - debian
     release:
@@ -102,17 +50,32 @@
       - stable
       - sid
     jobs:
-      - template-debian-{method}-{distro}-{release}
+      - template-chroot-{distro}-{release}
 
 - project:
     name: "ubuntu"
-    method:
-      - chroot
-    #  - image
     distro:
       - ubuntu
     release:
       - oracular
       - noble
     jobs:
-      - template-debian-{method}-{distro}-{release}
+      - template-chroot-{distro}-{release}
+
+- project:
+    name: "openEuler"
+    distro:
+      - openEuler
+    release:
+      - 24.09
+    jobs:
+      - template-chroot-{distro}-{release}
+
+- project:
+    name: "arch"
+    distro:
+      - arch
+    release:
+      - rolling
+    jobs:
+      - template-chroot-{distro}-{release}

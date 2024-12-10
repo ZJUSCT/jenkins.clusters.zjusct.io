@@ -4,26 +4,44 @@
 
 本仓库是 ZJUSCT 无盘系统 CI/CD 平台（Jenkins）的配置文件。
 
+This repository contains the configuration files for the ZJUSCT diskless system CI/CD platform (Jenkins).
+
 ## TODO
 
-- [ ] 重构，统一各发行版的构建步骤。
-- [ ] 放弃多版本维护。Debian 仅保留 stable，Ubuntu 仅保留 LTS。
+- [ ] Package system image from built rootfs
+
+## Usage
+
+```bash
+./chroot-installation.sh <DISTRO> [RELEASE]
+```
+
+`DISTRO` must match the name in `/etc/os-release`. Refer to [which-distro/os-release: A collection of /etc/os-release from various distros.](https://github.com/which-distro/os-release)
+
+## Design
+
+Our goal is to implement a **unified system build process**, so that the built systems are as consistent as possible in terms of **functionality and software environment**. That is, the build process is fixed, and each step in the process is customized for each distribution, rather than designing a separate process and configuration for each distribution.
+
+- `make_rootfs`
+- `exec_modules`: modularized build steps, including software installation, configuration, etc. These functions are named `module_*_$DISTRO`.
+    - `bootstrap`: basic system configuration
+    - `software`: software installation
 
 ## Coding Style
 
-本仓库大量使用 Shell 脚本，因此请遵循以下代码风格：
+This repository mainly contains Shell scripts, so please follow the following coding style:
 
-- 使用 EditorConfig 插件，或自行查看 `.editorconfig` 文件。Shell Script 使用 Tab 缩进。
-- 使用 [ShellCheck](https://marketplace.visualstudio.com/items?itemName=timonwong.shellcheck) 插件检查 Shell 脚本是否符合规范。
+- Use the EditorConfig plugin, or view the `.editorconfig` file yourself. Shell Script uses Tab indentation.
+- Use the [ShellCheck](https://marketplace.visualstudio.com/items?itemName=timonwong.shellcheck) plugin to check if the Shell script is compliant.
 
 ## Ignored Files
 
-下面的文件因为包含敏感信息而被忽略，使用时需要手动创建：
+The following files are ignored because they contain sensitive information and need to be created manually when used. An `.template` file is provided as a template.
 
 | File | Description |
 | ---- | ----------- |
-| `jenkins/jenkins_jobs.ini` | Jenkins Job Builder 配置文件，包含 Jenkins 服务器的地址、用户名和密码等信息。 |
-| `jenkins/.env` | Docker Compose 环境变量文件，包含 Jenkins 运行所需的 Token 等信息。 |
+| `jenkins/jenkins_jobs.ini` | Jenkins Job Builder configuration file, including the address, username, and password of the Jenkins server. |
+| `jenkins/.env` | Docker Compose environment variable file, including the Token required for Jenkins to run. |
 
 ## Thanks
 
