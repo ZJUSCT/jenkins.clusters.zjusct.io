@@ -48,8 +48,6 @@ ipmitool
 iptraf-ng
 jq
 libtool
-linux
-linux-headers
 lldb
 lldpd
 locate
@@ -57,7 +55,6 @@ mc
 meson
 neofetch
 net-tools
-nfs-utils
 numactl
 nvtop
 patchutils
