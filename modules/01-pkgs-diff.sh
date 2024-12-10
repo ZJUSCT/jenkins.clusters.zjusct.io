@@ -57,4 +57,10 @@ PKGS_debian=(
 	zlib1g-dev
 )
 
+PKGS_arch=(
+	linux
+	linux-headers
+	nfs-utils
+)
+
 eval "install_pkg \"\${PKGS_${ID}[@]}\""
