@@ -8,4 +8,8 @@ storage:/ocean /ocean nfs defaults 0 0
 none /tmp tmpfs defaults 0 0
 none /var/tmp tmpfs defaults 0 0
 none /var/log tmpfs defaults 0 0
+/dev/sda /local auto defaults 0 0
 EOF
+
+mkdir -p /local
+chmod 777 /local

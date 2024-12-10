@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# https://spack.readthedocs.io/en/latest/getting_started.html
 SPACK_PATH="/opt/spack"
 
 apt-get install bzip2 ca-certificates file g++ gcc gfortran git gzip lsb-release patch python3 tar unzip xz-utils zstd
