@@ -4,6 +4,9 @@
 # https://wiki.debian.org/KernelFAQ
 # https://debian-handbook.info/browse/stable/sect.kernel-compilation.html
 
+# deps
+apt install debhelper-compat libelf-dev libssl-dev rsync
+
 # get the source code
 cd /tmp || exit
 apt-get source linux/"$VERSION_CODENAME"
