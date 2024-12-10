@@ -111,7 +111,7 @@ for script in modules/*; do
 done
 
 # private files
-# rsync -a "$PRIVATE_BASE"/ "$CHROOT_TARGET"/
+rsync -a "$PRIVATE_BASE"/ "$CHROOT_TARGET"/
 
 echo "Debug: Cleanup fine"
 cleanup_all fine
