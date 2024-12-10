@@ -1,2 +1,2 @@
 #!/bin/bash
-sed 's/ /\n/g' /tmp/pkgs | sort | tr '\n' ' ' | fold -w 80 -s
+grep -vE "^#" common.txt | sed 's/ /\n/g' | sort | tr '\n' ' ' | fold -w 80 -s
