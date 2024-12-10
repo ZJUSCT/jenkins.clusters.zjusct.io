@@ -15,15 +15,4 @@ ubuntu)
 esac
 apt-get update
 
-# apt-get install cuda # NVIDIA's apt repository contains conflict itself
-#
-# cuda
-# |
-# +-----------+-----------+
-# |                       |
-# cuda-12-6               nvidia-open (is 565.57.01)
-# |                       |
-# cuda-runtime-12-6       |
-# |                       ↓
-# nvidia-open-560 -->!!! conflict !!!
-apt-get install cuda-toolkit-12-6 # from cuda download page
+apt-get install nvidia-open
