@@ -96,7 +96,10 @@ prepare_chroot_chroot() {
 cleanup_chroot() {
 	for mount in proc tmp sys dev; do
 		if mountpoint -q "$CHROOT_TARGET/$mount"; then
-			umount "$CHROOT_TARGET/$mount"
+		# why we need lazy umount?
+		# https://groups.google.com/g/linux.debian.user/c/ei2Guc_ZnXg?pli=1
+			umount -l "$CHROOT_TARGET/$mount" ||
+				fuser -mv "$CHROOT_TARGET/$mount"
 		fi
 	done
 	cleanup_all "$1"
