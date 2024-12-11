@@ -11,12 +11,10 @@
             - "jenkins/*"
           ignore-commits-with-messages:
             - "skip-ci"
-            - "(?s)^(?!.*test).*$"
+            # include jenkins
+            - "(?s)^(?!.*jenkins).*$"
     triggers:
       - gitlab
-      - timed: "H(0-29) 4 * * 6"
-      - pollscm:
-          cron: "H H/2 * * *"
     publishers:
       - gitlab-notifier:
           name: "Jenkins-Job-Builder"
@@ -39,12 +37,11 @@
             - "distro/{distro}*"
           ignore-commits-with-messages:
             - "skip-ci"
-            # messages not containing current distro
+            # include {distro}
             - "(?s)^(?!.*{distro}).*$"
     triggers:
-      - gitlab
-      - timed: "H(0-29) 4 * * 6"
       - pollscm:
+          # every 2 hours
           cron: "H H/2 * * *"
     publishers:
       - gitlab-notifier:
