@@ -97,8 +97,6 @@ export https_proxy=$PROXY
 export PROXY=$PROXY
 export MIRROR=$MIRROR"
 
-
-
 for script in modules/*; do
 	echo "Debug: Running $script."
 	prepare_module "$script"
@@ -109,4 +107,4 @@ done
 rsync -a "$PRIVATE_BASE"/ "$CHROOT_TARGET"/
 
 echo "Debug: Cleanup fine"
-cleanup_all fine
+cleanup_$CHROOT_METHOD fine

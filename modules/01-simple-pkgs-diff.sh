@@ -23,7 +23,6 @@ debian=(
 	glibc-doc
 	glibc-doc
 	golang
-	jenkins-job-builder
 	libdrm-dev
 	libexpat-dev
 	libgmp-dev
@@ -93,7 +92,7 @@ debian)
 	debian+=(linux-perf)
 	case $RELEASE in
 	stable)
-		debian+=(exa)
+		debian+=(exa jenkins-job-builder)
 		;;
 	testing)
 		debian+=(eza gping)

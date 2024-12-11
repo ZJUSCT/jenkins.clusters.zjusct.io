@@ -6,7 +6,7 @@ if [ "$EUID" -ne 0 ]; then
 	exit 1
 fi
 
-PREREQUISITES=(rsync)
+PREREQUISITES=(psmisc rsync)
 case "$INIT" in
 systemd)
 	PREREQUISITES+=(systemd-container systemd-resolved)

@@ -7,8 +7,12 @@
 # which is licensed GPLv3. This code therefore is also licensed under the terms
 # of the GNU Public License, verison 3.
 
-rm -f /etc/update-motd.d/*
-cat >/etc/update-motd.d/00-nice-motd <<'EOF'
+case $ID in
+arch) # arch has no update-motd
+	;;
+*)
+	rm -f /etc/update-motd.d/*
+	cat >/etc/update-motd.d/00-nice-motd <<'EOF'
 #!/bin/sh
 printf "\nWelcome to "; lsb_release -ds
 printf "  Kernel: "; uname -v
@@ -42,8 +46,10 @@ apt-get -s upgrade | awk '/newly installed,/ { print $1 " packages can be update
 printf $(($(apt-get -s upgrade | grep -ci "security") / 2))
 printf " updates are security updates.\n\n"
 EOF
-chmod +x /etc/update-motd.d/00-nice-motd
+	chmod +x /etc/update-motd.d/00-nice-motd
 
-cat >/etc/motd <<EOF
+	cat >/etc/motd <<EOF
 See https://go.zjusct.io/opendocs for more information.
 EOF
+	;;
+esac
