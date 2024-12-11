@@ -24,6 +24,9 @@ make_kernel_debian() {
 	# update the version
 
 	# make the kernel
+	# avoid error arch/amd64/Makefile: No such file or directory
+	# this is because dpkg outputs the architecture as amd64, but the kernel expects x86
+	unset ARCH
 	MAKEFLAGS=-j$(nproc)
 	export MAKEFLAGS
 	export DEB_BUILD_PROFILES='pkg.linux.nokerneldbg pkg.linux.nokerneldbginfo'
