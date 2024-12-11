@@ -1,4 +1,3 @@
-# common pkgs in debian(stable, testing, unstable), arch
 aria2
 attr
 autoconf
@@ -46,6 +45,7 @@ hyperfine
 iperf3
 ipmitool
 iptraf-ng
+jenkins-job-builder
 jq
 libtool
 lldb

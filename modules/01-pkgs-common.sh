@@ -6,10 +6,10 @@ COMMON_PACKAGES=(
 	clang clang cmake cmake cpufetch curl curl doxygen dracut duf ethtool
 	exfatprogs fish fish flex fq fzf gawk gdb gdb-multiarch gdu git git git-extras
 	git-lfs gperf htop httpie hugo hwinfo hwloc hyperfine iperf3 ipmitool iptraf-ng
-	jq libtool lldb lldpd locate mc meson neofetch net-tools numactl nvtop
-	patchutils pkg-config pkg-config ripgrep screenfetch squashfs-tools sshfs
-	stress sudo tcpdump tcpdump texinfo tldr tmux traceroute tree unrar valgrind
-	vim wget zip zoxide zsh
+	jenkins-job-builder jq libtool lldb lldpd locate mc meson neofetch net-tools
+	numactl nvtop patchutils pkg-config pkg-config ripgrep screenfetch
+	squashfs-tools sshfs stress sudo tcpdump tcpdump texinfo tldr tmux traceroute
+	tree unrar valgrind vim wget zip zoxide zsh
 )
 
 case $ID in

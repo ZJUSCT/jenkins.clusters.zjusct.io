@@ -7,9 +7,11 @@
           url: "https://git.zju.edu.cn/zjusct/ops/jenkins.clusters.zjusct.io.git"
           branches:
             - origin/main
-          # java regular expression pattern matching
           included-regions:
             - "jenkins/*"
+          ignore-commits-with-messages:
+            - "skip-ci"
+            - "(?s)^(?!.*test).*$"
     triggers:
       - gitlab
       - timed: "H(0-29) 4 * * 6"
@@ -34,7 +36,11 @@
           included-regions:
             - "chroot-installation.sh"
             - "common-functions.sh"
-            - "distro/{distro}.sh"
+            - "distro/{distro}*"
+          ignore-commits-with-messages:
+            - "skip-ci"
+            # messages not containing current distro
+            - "(?s)^(?!.*{distro}).*$"
     triggers:
       - gitlab
       - timed: "H(0-29) 4 * * 6"
