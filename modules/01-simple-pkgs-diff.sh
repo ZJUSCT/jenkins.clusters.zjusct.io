@@ -54,7 +54,6 @@ debian=(
 	tshark
 	u-boot-qemu
 	wireshark
-	zfsutils-linux
 	zlib1g-dev
 	# with arch
 	aria2

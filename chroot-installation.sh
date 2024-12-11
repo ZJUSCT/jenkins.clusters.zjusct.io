@@ -15,7 +15,7 @@ fi
 #################
 DEBUG=true
 MIRROR=https://mirrors.zju.edu.cn/
-#PROXY=http://172.25.2.253:7890
+#PROXY=
 CHROOT_BASE=/pxe/rootfs
 # TODO: change private file into modules
 PRIVATE_BASE=/pxe/private/
