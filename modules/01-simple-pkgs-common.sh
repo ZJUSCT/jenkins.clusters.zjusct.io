@@ -9,7 +9,8 @@ COMMON_PACKAGES=(
 	jq libtool lldb mc meson net-tools
 	numactl patchutils pkg-config pkg-config
 	squashfs-tools sshfs sudo tcpdump tcpdump texinfo tldr tmux traceroute
-	tree valgrind vim wget zip zsh openssl
+	tree valgrind vim wget zip zsh openssl 
+	ffmpeg
 )
 
 case $ID in
