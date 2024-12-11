@@ -6,10 +6,6 @@
 
 This repository contains the configuration files for the ZJUSCT diskless system CI/CD platform (Jenkins).
 
-## TODO
-
-- [ ] Package system image from built rootfs
-
 ## Usage
 
 ```bash

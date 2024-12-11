@@ -1,6 +1,14 @@
 #!/bin/bash
 
-install_pkg sssd-ldap libsss-sudo openssh-server sssd-tools ldap-utils
+case $ID in
+debian | ubuntu)
+	install_pkg sssd-ldap libsss-sudo openssh-server sssd-tools ldap-utils
+	;;
+openEuler | arch)
+	install_pkg sssd
+	echo arch is $ARCH
+	;;
+esac
 
 curl https://gitlab.star-home.top:4430/star/deploy-ldap/-/raw/main/linux_"$ARCH" -o /bin/goldaptools
 chmod +x /bin/goldaptools

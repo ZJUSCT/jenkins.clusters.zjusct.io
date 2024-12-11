@@ -1,6 +1,14 @@
 #!/bin/bash
 
-install_pkg dracut dracut-network
+install_pkg dracut
+
+case $ID in
+debian | ubuntu | openEuler)
+	install_pkg dracut-network
+	;;
+arch)
+	KERNEL_VERSION=$(pacman -Q linux | awk '{print $2}' | sed 's/\(.*\)\.\(arch1-1\)/\1-\2/')
+esac
 
 # picked from debian source
 if [ ! -d /usr/lib/dracut/modules.d/90overlay-root ]; then
@@ -88,3 +96,8 @@ if $DEBUG; then
 	dracut --list-modules --kver "$KERNEL_VERSION"
 fi
 dracut --add "base network nfs overlayfs" --kver "$KERNEL_VERSION" --force
+
+case $ID in
+arch)
+	cp "/usr/lib/modules/$KERNEL_VERSION/vmlinuz" "/boot/vmlinuz-$KERNEL_VERSION"
+esac

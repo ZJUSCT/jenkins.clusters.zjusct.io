@@ -19,6 +19,7 @@ export PATH="$CONDA_PATH/bin:$PATH"
 # will add /etc/profile.d/conda.sh
 conda init --system --all
 # fish
+mkdir -p /etc/fish/conf.d
 ln -s $CONDA_PATH/etc/fish/conf.d/conda.fish /etc/fish/conf.d/z00_conda.fish
 
 cat >$CONDA_PATH/.condarc <<EOF

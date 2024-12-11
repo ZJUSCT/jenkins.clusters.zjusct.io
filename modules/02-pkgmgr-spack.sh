@@ -2,7 +2,14 @@
 # https://spack.readthedocs.io/en/latest/getting_started.html
 SPACK_PATH="/opt/spack"
 
-apt-get install bzip2 ca-certificates file g++ gcc gfortran git gzip lsb-release patch python3 tar unzip xz-utils zstd
+case $ID in
+debian | ubuntu)
+	install_pkg bzip2 ca-certificates file g++ gcc gfortran git gzip lsb-release patch python3 tar unzip xz-utils zstd
+	;;
+openEuler)
+	dnf group install "Development Tools"
+	install_pkg gcc-gfortran python3 unzip
+esac
 
 tmpfile=/tmp/spack.tar.gz
 get_asset_from_github "spack/spack" 'startswith("spack-")' "$tmpfile"

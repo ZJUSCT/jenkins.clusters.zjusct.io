@@ -11,7 +11,18 @@ debian() {
 		install_pkg_from_url https://developer.download.nvidia.com/compute/cuda/repos/"$NVIDIA_VERSION"/cuda-keyring_1.1-1_all.deb
 		apt-get update
 	fi
-	apt-get install nvidia-open
+	# apt-get install cuda # NVIDIA's apt repository contains conflict itself
+	#
+	# cuda
+	# |
+	# +-----------+-----------+
+	# |                       |
+	# cuda-12-6               nvidia-open (is 565.57.01)
+	# |                       |
+	# cuda-runtime-12-6       |
+	# |                       ↓
+	# nvidia-open-560 -->!!! conflict !!!
+	apt-get install cuda-toolkit-12-6 # from cuda download page
 }
 
 ubuntu() {
@@ -20,9 +31,7 @@ ubuntu() {
 }
 
 arch() {
-	# AMD, YES
-	# https://wiki.archlinux.org/title/NVIDIA
-	pacman -S nvidia-open
+	pacman -S cuda cuda-tools
 }
 
 check_and_exec "$ID"

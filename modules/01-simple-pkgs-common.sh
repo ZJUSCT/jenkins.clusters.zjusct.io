@@ -2,14 +2,14 @@
 # https://pkgs.io/
 
 COMMON_PACKAGES=(
-	aria2 attr autoconf automake bat bc bison bridge-utils btop cargo ccls chrony
-	clang clang cmake cmake cpufetch curl curl doxygen dracut duf ethtool
-	exfatprogs fish fish flex fq fzf gawk gdb gdb-multiarch gdu git git git-extras
-	git-lfs gperf htop httpie hugo hwinfo hwloc hyperfine iperf3 ipmitool iptraf-ng
-	jenkins-job-builder jq libtool lldb lldpd locate mc meson neofetch net-tools
-	numactl nvtop patchutils pkg-config pkg-config ripgrep screenfetch
-	squashfs-tools sshfs stress sudo tcpdump tcpdump texinfo tldr tmux traceroute
-	tree unrar valgrind vim wget zip zoxide zsh
+	attr autoconf automake bc bison bridge-utils cargo chrony
+	clang clang cmake cmake curl curl doxygen dracut ethtool
+	fish fish flex gawk gdb git git
+	gperf htop hwinfo hwloc iperf3 ipmitool iptraf-ng
+	jq libtool lldb mc meson net-tools
+	numactl patchutils pkg-config pkg-config
+	squashfs-tools sshfs sudo tcpdump tcpdump texinfo tldr tmux traceroute
+	tree valgrind vim wget zip zsh openssl
 )
 
 case $ID in

@@ -23,6 +23,7 @@ debian=(
 	glibc-doc
 	glibc-doc
 	golang
+	jenkins-job-builder
 	libdrm-dev
 	libexpat-dev
 	libgmp-dev
@@ -33,8 +34,10 @@ debian=(
 	libomp-dev
 	libpcap-dev
 	libpcap-dev
+	libssl-dev
 	libvirt-clients
 	libvirt-daemon-system
+	linux-cpupower
 	linux-source
 	mmdebstrap
 	network-manager
@@ -55,12 +58,95 @@ debian=(
 	wireshark
 	zfsutils-linux
 	zlib1g-dev
+	# with arch
+	aria2
+	bat
+	btop
+	ccls
+	cpufetch
+	duf
+	exfatprogs
+	fq
+	fzf
+	gdb-multiarch
+	gdu
+	git-extras
+	git-lfs
+	httpie
+	hugo
+	hyperfine
+	lldpd
+	locate
+	neofetch
+	nvtop
+	ripgrep
+	screenfetch
+	stress
+	unrar
+	zoxide
 )
+
+ubuntu=("${debian[@]}")
+
+case $ID in
+debian)
+	debian+=(linux-perf)
+	case $RELEASE in
+	stable)
+		debian+=(exa)
+		;;
+	testing)
+		debian+=(eza gping)
+		;;
+	esac
+	;;
+ubuntu)
+	ubuntu+=(linux-tools-common eza gping)
+	;;
+esac
 
 arch=(
 	linux
 	linux-headers
 	nfs-utils
+	# with debian
+	aria2
+	bat
+	btop
+	ccls
+	cpufetch
+	duf
+	exfatprogs
+	fq
+	fzf
+	gdb-multiarch
+	gdu
+	git-extras
+	git-lfs
+	httpie
+	hugo
+	hyperfine
+	lldpd
+	locate
+	neofetch
+	nvtop
+	ripgrep
+	screenfetch
+	stress
+	unrar
+	zoxide
 )
 
-eval "install_pkg \"\${${ID}[@]}\""
+# check if ${ID} is defined
+if [ -n "${!ID}" ]; then
+	eval "install_pkg \"\${${ID}[@]}\""
+fi
+
+# bat
+if [ ! -e /usr/bin/bat ]; then
+	ln -s /usr/bin/batcat /usr/bin/bat
+fi
+# fd-find
+if [ ! -e /usr/bin/fd ]; then
+	ln -s /usr/bin/fdfind /usr/bin/fd
+fi
