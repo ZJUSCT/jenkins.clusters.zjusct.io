@@ -2,7 +2,7 @@
 
 set -x
 
-make_kernel_debian() {
+debian() {
 	# https://wiki.ubuntu.com/Kernel/BuildYourOwnKernel
 	# https://wiki.debian.org/KernelFAQ
 	# https://debian-handbook.info/browse/stable/sect.kernel-compilation.html
@@ -42,8 +42,8 @@ make_kernel_debian() {
 	apt-get clean
 }
 
-make_kernel_ubuntu() {
-	make_kernel_debian
+ubuntu() {
+	debian
 }
 
-check_and_exec make_kernel_"$DISTRO"
+check_and_exec "$DISTRO"

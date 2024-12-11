@@ -15,5 +15,5 @@ else
 fi
 
 jenkins-jobs --conf $CONFIG_FILE test jobs.yaml >/dev/null
-#sleep 10 # wait for jenkins server to start
+sleep 10 # wait for jenkins server to start
 jenkins-jobs --conf $CONFIG_FILE update --delete-old jobs.yaml

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-bootstrap_all() {
+all() {
 	# default console password, will be superseeded when SSSD is setup
 	echo "root:bootstrap" | chpasswd
 
@@ -22,7 +22,7 @@ EOF
 	fi
 }
 
-bootstrap_debian() {
+debian() {
 	echo -e '#!/bin/sh\nexit 101' >/usr/sbin/policy-rc.d
 	chmod +x /usr/sbin/policy-rc.d
 	# configure dpkg to use unsafe io for faster installs
@@ -73,11 +73,11 @@ EOF
 	apt-get update
 }
 
-bootstrap_ubuntu() {
-	bootstrap_debian
+ubuntu() {
+	debian
 }
 
-bootstrap_openEuler() {
+openEuler() {
 	# workaround for bootstrapping, there is no https support
 	mkdir -p /etc/yum.repos.d
 	cat >/etc/yum.repos.d/openeuler.repo <<'EOF'
@@ -100,7 +100,7 @@ EOF
 		groupinstall core
 }
 
-bootstrap_arch() {
+arch() {
 	cat >/etc/pacman.d/mirrorlist <<'EOF'
 Server = https://mirrors.zju.edu.cn/archlinux/$repo/os/$arch
 Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch
@@ -165,5 +165,5 @@ EOF
 	pacman -S pikaur
 }
 
-bootstrap_all
-check_and_exec bootstrap_"$DISTRO"
+all
+check_and_exec "$DISTRO"

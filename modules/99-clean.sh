@@ -1,9 +1,9 @@
 #!/bin/bash
-clean_all() {
+all() {
 	echo "" >/etc/hostname
 }
 
-clean_debian() {
+debian() {
 	apt-get autopurge
 	apt-get clean
 	rm -f /etc/apt/apt.conf.d/80proxy
@@ -12,21 +12,21 @@ clean_debian() {
 	rm -f /etc/dpkg/dpkg.cfg.d/02dpkg-unsafe-io
 }
 
-clean_ubuntu() {
-	clean_debian
+ubuntu() {
+	debian
 }
 
-clean_arch()
+arch()
 {
 	pacman --noconfirm -Scc
 	sed -i 's/^#CheckSpace/CheckSpace/' /etc/pacman.conf
 	rm -rf /dev/fd
 }
 
-clean_openEuler()
+openEuler()
 {
 	dnf clean all
 }
 
-clean_all
-check_and_exec clean_"$DISTRO"
+all
+check_and_exec "$DISTRO"

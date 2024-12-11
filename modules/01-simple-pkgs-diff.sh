@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PKGS_debian=(
+debian=(
 	7zip
 	aptitude
 	autotools-dev
@@ -57,10 +57,10 @@ PKGS_debian=(
 	zlib1g-dev
 )
 
-PKGS_arch=(
+arch=(
 	linux
 	linux-headers
 	nfs-utils
 )
 
-eval "install_pkg \"\${PKGS_${ID}[@]}\""
+eval "install_pkg \"\${${ID}[@]}\""

@@ -12,7 +12,7 @@
           ignore-commits-with-messages:
             - "skip-ci"
             # include jenkins
-            - "(?s)^(?!.*jenkins).*$"
+            # - "(?s)^(?!.*jenkins).*$"
     triggers:
       - gitlab
     publishers:
@@ -37,8 +37,8 @@
             - "distro/{distro}*"
           ignore-commits-with-messages:
             - "skip-ci"
-            # include {distro}
-            - "(?s)^(?!.*{distro}).*$"
+            # include {distro}, but now functions little
+            # - "(?s)^(?!.*{distro}).*$"
     triggers:
       - pollscm:
           # every 2 hours

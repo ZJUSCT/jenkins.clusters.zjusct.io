@@ -1,3 +1,0 @@
-linux
-linux-headers
-nfs-utils
