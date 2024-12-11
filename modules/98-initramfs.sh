@@ -1,6 +1,6 @@
 #!/bin/bash
 
-install_pkg dracut dracut-network nfs-utils
+install_pkg dracut dracut-network
 
 # picked from debian source
 if [ ! -d /usr/lib/dracut/modules.d/90overlay-root ]; then
