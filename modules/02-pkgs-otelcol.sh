@@ -9,7 +9,9 @@ debian | ubuntu)
 	apt-get --fix-broken --fix-missing install
 	;;
 arch)
-	# TODO
+	# install_pkg_from_aur https://aur.archlinux.org/otelcol-contrib.git
+	echo "TODO"
+	return 0
 	;;
 *)
 	install_pkg_from_github "open-telemetry/opentelemetry-collector-releases" 'contains("contrib")'

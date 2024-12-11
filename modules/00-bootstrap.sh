@@ -143,14 +143,32 @@ EOF
 	sed -i 's/^CheckSpace/#CheckSpace/' /etc/pacman.conf
 
 	# Init public keyring
-	pacman-key --init
-	pacman-key --populate archlinux
+	# gpg: Warning: using insecure memory! is ok to ignore
+	# it relates to the security risks of caching of gpg keys on disk
+	# https://bbs.archlinux.org/viewtopic.php?id=278170
+	# https://bbs.archlinux32.org/viewtopic.php?id=3022
+	pacman-key --init &>/dev/null
+	pacman-key --populate archlinux &>/dev/null
 
 	# Force update metadata and upgrade packages
-	pacman -Syyu
-	pacman -S archlinuxcn-keyring
+	pacman -Syyu &>/dev/null
+	pacman -S archlinuxcn-keyring &>/dev/null
 
 	# Visit: https://wiki.archlinux.org/title/Kernel to choose a flavor
+
+	pacman -S --needed git base-devel
+
+	# https://github.com/Jguer/yay
+	# from archlinuxcn
+	pacman -S yay
+
+	# https://github.com/Morganamilo/paru
+	# from archlinuxcn
+	pacman -S paru
+
+	# https://github.com/actionless/pikaur
+	# from archlinuxcn
+	pacman -S pikaur
 }
 
 bootstrap_all
