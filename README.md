@@ -18,6 +18,13 @@ This repository contains the configuration files for the ZJUSCT diskless system 
 
 `DISTRO` must match the name in `/etc/os-release`. Refer to [which-distro/os-release: A collection of /etc/os-release from various distros.](https://github.com/which-distro/os-release)
 
+| Distribution | Supported Releases |
+| ------------ | ------------------- |
+| [debian](https://www.debian.org/releases/) | `stable`, `testing`, `unstable` |
+| [ubuntu](https://releases.ubuntu.com/) | `oracular`(latest), `noble`(LTS) |
+| [arch](https://archlinux.org/download/) | latest |
+| [openEuler](https://openeuler.org/en/download.html) | `24.09`(latest), `24.03`(LTS) |
+
 ## Design
 
 Our goal is to implement a **unified system build process**, so that the built systems are as consistent as possible in terms of **functionality and software environment**. That is, the build process is fixed, and each step in the process is customized for each distribution, rather than designing a separate process and configuration for each distribution.
