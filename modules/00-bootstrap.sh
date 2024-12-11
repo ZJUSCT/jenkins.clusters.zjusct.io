@@ -2,18 +2,20 @@
 
 bootstrap_all() {
 	# default console password, will be superseeded when SSSD is setup
-	echo "root:root" | chpasswd
+	echo "root:bootstrap" | chpasswd
 
 	# fix dns problem for specific distros
 	if [ "$INIT" != "systemd" ]; then
 		# https://askubuntu.com/questions/469209/how-to-resolve-hostnames-in-chroot
+		# it seems that only debian do not use systemd-resolvd by default
 		case $ID in
-		ubuntu | arch)
+		ubuntu | arch | openEuler)
 			rm -f /etc/resolv.conf
 			cat >/etc/resolv.conf <<EOF
 nameserver 127.0.0.1
 nameserver 172.25.2.253
 nameserver 10.10.0.21
+nameserver 10.10.2.21
 EOF
 			;;
 		esac
