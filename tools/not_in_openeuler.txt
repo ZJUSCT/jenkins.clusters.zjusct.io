@@ -1,0 +1,1 @@
+aria2 bat btop ccls cpufetch duf exfatprogs fq fzf gdb-multiarch gdu git-extras git-lfs httpie hugo hyperfine lldpd locate neofetch nvtop ripgrep screenfetch stress unrar zoxide

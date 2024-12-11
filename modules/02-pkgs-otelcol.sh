@@ -11,7 +11,10 @@ debian | ubuntu)
 arch)
 	# install_pkg_from_aur https://aur.archlinux.org/otelcol-contrib.git
 	echo "TODO"
-	exit 0
+	mkdir -p /etc/otelcol-contrib
+	wget https://ghp.ci/https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-releases/refs/heads/main/distributions/otelcol-contrib/otelcol-contrib.service -O /etc/systemd/system/otelcol-contrib.service
+	wget https://ghp.ci/https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-releases/refs/heads/main/distributions/otelcol-contrib/otelcol-contrib.conf -O /etc/otelcol-contrib/otelcol-contrib.conf
+	systemctl enable otelcol-contrib
 	;;
 *)
 	install_pkg_from_github "open-telemetry/opentelemetry-collector-releases" 'contains("contrib")'
