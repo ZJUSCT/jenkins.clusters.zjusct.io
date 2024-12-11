@@ -36,7 +36,6 @@ debian=(
 	libssl-dev
 	libvirt-clients
 	libvirt-daemon-system
-	linux-cpupower
 	linux-source
 	mmdebstrap
 	network-manager
@@ -89,7 +88,7 @@ ubuntu=("${debian[@]}")
 
 case $ID in
 debian)
-	debian+=(linux-perf)
+	debian+=(linux-perf linux-cpupower)
 	case $RELEASE in
 	stable)
 		debian+=(exa jenkins-job-builder)
@@ -101,6 +100,11 @@ debian)
 	;;
 ubuntu)
 	ubuntu+=(linux-tools-common eza gping)
+	case $RELEASE in
+	oracular)
+		ubuntu+=(linux-cpupower)
+		;;
+	esac
 	;;
 esac
 
