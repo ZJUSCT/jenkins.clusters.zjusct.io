@@ -9,7 +9,8 @@ curl (){
 	command curl --retry-all-errors --retry 5 --silent --show-error --location "$@"
 }
 wget (){
-	command wget --tries=5 --quiet "$@"
+	# retry forever
+	command wget --retry-connrefused --waitretry=1 --tries=5 --quiet "$@"
 }
 
 # https://unix.stackexchange.com/questions/351557/on-what-linux-distributions-can-i-rely-on-the-presence-of-etc-os-release
@@ -70,7 +71,8 @@ get_tarball_from_github() {
 	local output=$2
 	local url
 	url=$(get_github_url "$repo" ".[].tarball_url")
-	wget -O "$output" https://ghp.ci/"$url"
+	# tarball is in api.github.com, which ghp.ci doesn't support
+	wget -O "$output" "$url"
 }
 
 ########

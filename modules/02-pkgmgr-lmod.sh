@@ -22,7 +22,7 @@ lmod_git() {
 	get_tarball_from_github "TACC/Lmod" "$tmpfile"
 	tar -C /opt -xzf "$tmpfile"
 	rm -f "$tmpfile"
-	mv /opt/Lmod* /opt/lmod
+	mv /opt/TACC-Lmod-* /opt/lmod
 
 	cd /opt/lmod || exit
 	./configure --prefix=/opt/lmod
