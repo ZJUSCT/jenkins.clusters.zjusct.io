@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 make_kernel_debian() {
 	# https://wiki.ubuntu.com/Kernel/BuildYourOwnKernel
 	# https://wiki.debian.org/KernelFAQ
@@ -9,7 +11,7 @@ make_kernel_debian() {
 	apt-get install debhelper-compat libelf-dev libssl-dev rsync devscripts
 
 	# get the source code
-	cd /tmp || exit
+	cd /root || exit
 	apt-get source linux/"$VERSION_CODENAME"
 	cd linux-*/ || exit
 
