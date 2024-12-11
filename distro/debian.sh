@@ -7,8 +7,8 @@ check_release() {
 		RELEASE=stable
 	fi
 	case $RELEASE in
-	# stable, testing, unstable
-	stable | testing | sid) ;;
+	# stable, testing
+	stable | testing) ;;
 	*)
 		return 1
 		;;

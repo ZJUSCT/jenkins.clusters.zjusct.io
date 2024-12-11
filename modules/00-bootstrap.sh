@@ -56,16 +56,8 @@ URIs: https://mirrors.zju.edu.cn/$ID/
 EOF
 	case $ID in
 	debian)
-		if [ "$VERSION_CODENAME" != "sid" ]; then
-			cat >>/etc/apt/sources.list.d/"$ID".sources <<EOF
-Suites: ${VERSION_CODENAME} ${VERSION_CODENAME}-updates ${VERSION_CODENAME}-backports
-EOF
-		else # sid
-			cat >>/etc/apt/sources.list.d/"$ID".sources <<EOF
-Suites: ${VERSION_CODENAME}
-EOF
-		fi
 		cat >>/etc/apt/sources.list.d/"$ID".sources <<EOF
+Suites: ${VERSION_CODENAME} ${VERSION_CODENAME}-updates ${VERSION_CODENAME}-backports
 Components: main contrib non-free non-free-firmware
 Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 EOF

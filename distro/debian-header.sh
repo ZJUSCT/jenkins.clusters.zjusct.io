@@ -7,8 +7,3 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get() {
 	command apt-get -qq -o=Dpkg::Use-Pty=0 "$@"
 }
-
-# VERSION_CODENAME of sid is same with testing, need to distinguish
-if [ "$ID" = "debian" ] && echo "$PRETTY_NAME" | grep -q sid; then
-	VERSION_CODENAME=sid
-fi
