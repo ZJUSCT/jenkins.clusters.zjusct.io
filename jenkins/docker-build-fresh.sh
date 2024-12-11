@@ -12,8 +12,7 @@ bw_login() {
 
 	if [ -z "$BW_SESSION" ] || ! bw unlock --check &>/dev/null; then
 		echo "Logging into Bitwarden..."
-		BW_SESSION=$(bw login --raw)
-		if [ $? -ne 0 ]; then
+		if ! BW_SESSION=$(bw login --raw); then
 			echo "bw login failed, exit"
 			exit 1
 		fi

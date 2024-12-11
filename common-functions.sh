@@ -102,11 +102,15 @@ cleanup_chroot() {
 }
 
 prepare_module() {
+	# /tmp is mount to tmpfs in systemd-nspawn
+	TMPFILE=/root/$TIMESTAMP.sh
+	CTMPFILE=$CHROOT_TARGET/$TMPFILE
+	TMPLOG=/tmp/$DISTRO-$RELEASE-$TIMESTAMP.log
 	# https://www.shellcheck.net/wiki/SC2129
 	{
 		echo "$MODULE_HEADER"
-		cat modules/common-header.sh
-		cat modules/"$DISTRO"-header.sh
+		cat common-header.sh
+		cat distro/"$DISTRO"-header.sh
 		cat "$1"
 	} >>"$CTMPFILE"
 }

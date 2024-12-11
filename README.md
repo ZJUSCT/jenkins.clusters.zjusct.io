@@ -20,7 +20,7 @@ This repository contains the configuration files for the ZJUSCT diskless system 
 
 | Distribution | Supported Releases |
 | ------------ | ------------------- |
-| [debian](https://www.debian.org/releases/) | `stable`, `testing`, `unstable` |
+| [debian](https://www.debian.org/releases/) | `stable`, `testing` |
 | [ubuntu](https://releases.ubuntu.com/) | `oracular`(latest), `noble`(LTS) |
 | [arch](https://archlinux.org/download/) | latest |
 | [openEuler](https://openeuler.org/en/download.html) | `24.09`(latest), `24.03`(LTS) |

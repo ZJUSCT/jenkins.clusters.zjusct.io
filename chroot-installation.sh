@@ -97,17 +97,12 @@ export https_proxy=$PROXY
 export PROXY=$PROXY
 export MIRROR=$MIRROR"
 
-# /tmp is mount to tmpfs in systemd-nspawn
-TMPFILE=/root/$TIMESTAMP.sh
-CTMPFILE=$CHROOT_TARGET/$TMPFILE
-TMPLOG=/tmp/$DISTRO-$RELEASE-$TIMESTAMP.log
+
 
 for script in modules/*; do
-	if [[ "$script" != *-header.sh ]]; then
-		echo "Debug: Running $script."
-		prepare_module "$script"
-		execute_module
-	fi
+	echo "Debug: Running $script."
+	prepare_module "$script"
+	execute_module
 done
 
 # private files

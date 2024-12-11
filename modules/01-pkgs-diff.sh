@@ -53,7 +53,6 @@ PKGS_debian=(
 	tshark
 	u-boot-qemu
 	wireshark
-	zfsutils-linux
 	zlib1g-dev
 )
 

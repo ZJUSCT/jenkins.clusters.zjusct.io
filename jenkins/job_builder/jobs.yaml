@@ -7,6 +7,9 @@
           url: "https://git.zju.edu.cn/zjusct/ops/jenkins.clusters.zjusct.io.git"
           branches:
             - origin/main
+          # java regular expression pattern matching
+          included-regions:
+            - "jenkins/*"
     triggers:
       - gitlab
       - timed: "H(0-29) 4 * * 6"
@@ -28,6 +31,10 @@
           url: "https://git.zju.edu.cn/zjusct/ops/jenkins.clusters.zjusct.io.git"
           branches:
             - origin/main
+          included-regions:
+            - "chroot-installation.sh"
+            - "common-functions.sh"
+            - "distro/{distro}.sh"
     triggers:
       - gitlab
       - timed: "H(0-29) 4 * * 6"
@@ -39,6 +46,7 @@
           mark-unstable-as-success: true
       - github-notifier
     builders:
+      - shell: "./validate.sh"
       - shell: "./chroot-installation.sh {distro} {release}"
 
 - project:
@@ -48,7 +56,6 @@
     release:
       - testing
       - stable
-      - sid
     jobs:
       - template-chroot-{distro}-{release}
 

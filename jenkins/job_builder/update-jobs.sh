@@ -6,12 +6,12 @@ cd "$SCRIPT_DIR"
 set -xe
 
 if [ -f jenkins_jobs.ini ]; then
-    CONFIG_FILE="jenkins_jobs.ini"
+	CONFIG_FILE="jenkins_jobs.ini"
 elif [ -f /var/jenkins_jobs.ini ]; then
-    CONFIG_FILE="/var/jenkins_jobs.ini"
+	CONFIG_FILE="/var/jenkins_jobs.ini"
 else
-    echo "jenkins_jobs.ini not found"
-    exit 1
+	echo "jenkins_jobs.ini not found"
+	exit 1
 fi
 
 jenkins-jobs --conf $CONFIG_FILE test jobs.yaml >/dev/null

@@ -19,7 +19,7 @@ RUN apt-get update \
         ubuntu-keyring \
         rsync \
         jenkins-job-builder \
-        dnf rpm
+        dnf rpm shellcheck
 RUN apt-get clean
 
 # # prepare dnf repos
