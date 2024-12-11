@@ -6,7 +6,6 @@ debian | ubuntu)
 	;;
 openEuler | arch)
 	install_pkg sssd
-	echo arch is $ARCH
 	;;
 esac
 

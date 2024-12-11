@@ -1,15 +1,13 @@
 #!/bin/bash
 
-debian(){
+case $ID in
+debian|ubuntu)
 	install_pkg_from_github apptainer/apptainer 'contains("apptainer")'
-}
-
-ubuntu(){
-	debian
-}
-
-arch() {
+	;;
+arch)
 	pacman -S apptainer
-}
-
-check_and_exec "$ID"
+	;;
+*)
+	echo "Warning: apptainer needs support in $ID"
+	;;
+esac

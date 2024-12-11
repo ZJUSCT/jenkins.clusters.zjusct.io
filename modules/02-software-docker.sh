@@ -1,7 +1,8 @@
 #!/bin/bash
 set -x
 
-debian() {
+case $ID in
+debian | ubuntu)
 	# https://docs.docker.com/engine/install/ubuntu/
 	# https://docs.docker.com/engine/install/debian/
 	# https://docs.docker.com/engine/install/linux-postinstall/
@@ -22,21 +23,16 @@ EOF
 	apt-get update
 
 	apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-}
+	;;
 
-ubuntu(){
-	debian
-}
-
-arch() {
+arch)
 	# https://wiki.archlinux.org/title/Docker
 	pacman -S docker docker-buildx docker-compose containerd
-}
+	;;
+*)
+	echo "Warning: docker needs support in $ID"
+	;;
+esac
 
-config() {
-	# align with LDAP
-	sed -i '/^docker:/s/:[0-9]*:/:700:/' /etc/group
-}
-
-check_and_exec "$ID"
-config
+# align with LDAP
+sed -i '/^docker:/s/:[0-9]*:/:700:/' /etc/group

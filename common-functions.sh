@@ -86,16 +86,17 @@ prepare_chroot_chroot() {
 	# some packages (like intel oneapi) need /sys to build
 	# https://superuser.com/questions/165116/mount-dev-proc-sys-in-a-chroot-environment
 	# https://askubuntu.com/questions/1111839/dev-null-permission-denied-in-chroot-environment
-	mount -o bind /sys "$CHROOT_TARGET/sys"
-	mount -o bind /proc "$CHROOT_TARGET/proc"
-	mount -o bind /dev "$CHROOT_TARGET/dev"
+	# https://askubuntu.com/questions/1347156/what-happens-if-i-do-mount-bind-dev-to-a-chroot-directory-and-i-remove-it-i
+	mount -t sysfs /sys "$CHROOT_TARGET/sys"
+	mount -t proc /proc "$CHROOT_TARGET/proc"
+	mount -t devtmpfs /dev "$CHROOT_TARGET/dev"
 	mount -t tmpfs tmpfs "$CHROOT_TARGET/tmp"
 }
 
 cleanup_chroot() {
 	for mount in proc tmp sys dev; do
 		if mountpoint -q "$CHROOT_TARGET/$mount"; then
-			umount -l "$CHROOT_TARGET/$mount"
+			umount "$CHROOT_TARGET/$mount"
 		fi
 	done
 	cleanup_all "$1"
