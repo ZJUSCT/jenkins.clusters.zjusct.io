@@ -47,16 +47,14 @@ common_init() {
 cleanup_all() {
 	case $CHROOT_METHOD in
 	chroot)
-		# for mount in tmp run dev/pts dev sys proc; do
-		# 	if mountpoint -q "$CHROOT_TARGET/$mount"; then
-		# 		# why we need lazy umount?
-		# 		# https://groups.google.com/g/linux.debian.user/c/ei2Guc_ZnXg?pli=1
-		# 		umount -l "$CHROOT_TARGET/$mount" ||
-		# 			fuser -mv "$CHROOT_TARGET/$mount"
-		# 	fi
-		# done
-		umount --recursive "$CHROOT_TARGET" ||
-			fuser -mv "$CHROOT_TARGET"
+		for mount in tmp run dev/pts dev sys proc; do
+			if mountpoint -q "$CHROOT_TARGET/$mount"; then
+				# why we need lazy umount?
+				# https://groups.google.com/g/linux.debian.user/c/ei2Guc_ZnXg?pli=1
+				umount -l "$CHROOT_TARGET/$mount" ||
+					fuser -mv "$CHROOT_TARGET/$mount"
+			fi
+		done
 		;;
 	esac
 

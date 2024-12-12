@@ -2,7 +2,16 @@
 if [ "$CHROOT_METHOD" == "chroot" ]; then
 	mount /proc -t proc /proc
 	mount /sys -t sysfs /sys
-	mount /dev -t devtmpfs /dev
+	#mount /dev -t devtmpfs /dev
+	mount /dev -t tmpfs /dev # better isolation
+	# fix for /dev/fd
+	# https://bbs.archlinux.org/viewtopic.php?id=287248
+	# DKMS also needs /dev/fd
+	# /dev/fd -> /proc/self/fd -> /dev/pts/* and other files
+	if [ ! -h /dev/fd ]; then
+		ln -s /proc/self/fd /dev/fd
+		exit 1
+	fi
 	mount /dev/pts -t devpts /dev/pts
 	mount /run -t tmpfs /run
 	mount /tmp -t tmpfs /tmp
@@ -21,13 +30,6 @@ fi
 
 # default console password, will be superseeded when SSSD is setup
 echo "root:bootstrap" | chpasswd
-
-# fix for /dev/fd, https://bbs.archlinux.org/viewtopic.php?id=287248
-# /dev/fd -> /proc/self/fd -> /dev/pts/* and other files
-if [ ! -h /dev/fd ]; then
-	ln -s /proc/self/fd /dev/fd
-	exit 1
-fi
 
 # Debug: show /etc/resolv.conf
 ls -lah /etc/resolv.conf
