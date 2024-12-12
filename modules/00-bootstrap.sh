@@ -2,8 +2,7 @@
 if [ "$CHROOT_METHOD" == "chroot" ]; then
 	mount /proc -t proc /proc
 	mount /sys -t sysfs /sys
-	#mount /dev -t devtmpfs /dev
-	mount /dev -t tmpfs /dev # better isolation
+	mount /dev -t devtmpfs /dev
 	# fix for /dev/fd
 	# https://bbs.archlinux.org/viewtopic.php?id=287248
 	# DKMS also needs /dev/fd
@@ -11,8 +10,10 @@ if [ "$CHROOT_METHOD" == "chroot" ]; then
 	if [ ! -h /dev/fd ]; then
 		ln -s /proc/self/fd /dev/fd
 	fi
-	mkdir /dev/pts
-	mount /dev/pts -t devpts /dev/pts
+	if [ ! -d /dev/pts ]; then
+		mkdir /dev/pts
+		mount /dev/pts -t devpts /dev/pts
+	fi
 	mount /run -t tmpfs /run
 	mount /tmp -t tmpfs /tmp
 fi
