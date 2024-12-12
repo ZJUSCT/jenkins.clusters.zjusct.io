@@ -45,6 +45,10 @@ common_init() {
 }
 
 cleanup_all() {
+	echo "Doing cleanup now."
+	echo "Debug: Removing trap."
+	trap - INT TERM EXIT
+
 	case $CHROOT_METHOD in
 	chroot)
 		for mount in tmp run dev/pts dev sys proc; do
@@ -58,9 +62,6 @@ cleanup_all() {
 		;;
 	esac
 
-	echo "Doing cleanup now."
-	echo "Debug: Removing trap."
-	trap - INT TERM EXIT
 	set -x
 	echo "\$1 = $1"
 	rm -f "$TMPLOG"

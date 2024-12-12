@@ -11,6 +11,7 @@ if [ "$CHROOT_METHOD" == "chroot" ]; then
 	if [ ! -h /dev/fd ]; then
 		ln -s /proc/self/fd /dev/fd
 	fi
+	mkdir /dev/pts
 	mount /dev/pts -t devpts /dev/pts
 	mount /run -t tmpfs /run
 	mount /tmp -t tmpfs /tmp
