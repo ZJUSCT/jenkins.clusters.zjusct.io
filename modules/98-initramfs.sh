@@ -3,8 +3,11 @@
 install_pkg dracut
 
 case $ID in
-debian | ubuntu | openEuler)
+debian | ubuntu)
 	install_pkg dracut-network
+	;;
+openEuler)
+	install_pkg dracut-network nfs-utils
 	;;
 arch)
 	KERNEL_VERSION=$(pacman -Q linux | awk '{print $2}' | sed 's/\(.*\)\.\(arch1-1\)/\1-\2/')
