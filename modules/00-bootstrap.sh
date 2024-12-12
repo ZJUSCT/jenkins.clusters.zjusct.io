@@ -1,13 +1,20 @@
 #!/bin/bash
 
+if $DEBUG; then
+	# Debug: show mounts
+	mount
+	ls -lah /sys
+	ls -lah /proc
+	ls -lah /dev
+	ls -lah /dev/pts
+	ls -lah /dev/fd
+fi
+
 # default console password, will be superseeded when SSSD is setup
 echo "root:bootstrap" | chpasswd
 
-# Debug: show /dev status
-ls -lah /dev
-ls -lah /dev/fd
-
 # fix for /dev/fd, https://bbs.archlinux.org/viewtopic.php?id=287248
+# /dev/fd -> /proc/self/fd -> /dev/pts/* and other files
 if [ ! -h /dev/fd ]; then
 	ln -s /proc/self/fd /dev/fd
 	exit 1
