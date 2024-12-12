@@ -1,13 +1,26 @@
 #!/bin/bash
+if $DEBUG; then
+	mount
+fi
+
+if [ "$CHROOT_METHOD" == "chroot" ]; then
+	mount /proc -t proc /proc
+	mount /sys -t sysfs /sys
+	mount /dev -t devtmpfs /dev
+	mount /dev/pts -t devpts /dev/pts
+	mount /run -t tmpfs /run
+	mount /tmp -t tmpfs /tmp
+fi
 
 if $DEBUG; then
 	# Debug: show mounts
 	mount
-	ls -lah /sys
 	ls -lah /proc
+	ls -lah /sys
 	ls -lah /dev
 	ls -lah /dev/pts
 	ls -lah /dev/fd
+	ls -lah /run
 fi
 
 # default console password, will be superseeded when SSSD is setup

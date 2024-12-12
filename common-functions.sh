@@ -45,6 +45,16 @@ common_init() {
 }
 
 cleanup_all() {
+	if [ "$CHROOT_METHOD" = "chroot" ]; then
+		for mount in tmp run dev/pts dev sys proc; do
+			if mountpoint -q "$CHROOT_TARGET/$mount"; then
+				# why we need lazy umount?
+				# https://groups.google.com/g/linux.debian.user/c/ei2Guc_ZnXg?pli=1
+				umount -l "$CHROOT_TARGET/$mount" ||
+					fuser -mv "$CHROOT_TARGET/$mount"
+			fi
+		done
+	fi
 	echo "Doing cleanup now."
 	echo "Debug: Removing trap."
 	trap - INT TERM EXIT
@@ -71,40 +81,6 @@ cleanup_all() {
 			fuser -mv "$CHROOT_TARGET" "$CHROOT_BASE".latest
 		echo "$CHROOT_BASE.latest can now be released."
 	fi
-}
-
-prepare_chroot_systemd() {
-	# systemd-nspawn handles all mounts
-	return 0
-}
-
-cleanup_systemd() {
-	cleanup_all "$1"
-}
-
-prepare_chroot_chroot() {
-	# some packages (like intel oneapi) need /sys to build
-	# https://wiki.archlinux.org/title/Chroot#Using_chroot
-	# https://superuser.com/questions/165116/mount-dev-proc-sys-in-a-chroot-environment
-	# https://askubuntu.com/questions/1111839/dev-null-permission-denied-in-chroot-environment
-	# https://askubuntu.com/questions/1347156/what-happens-if-i-do-mount-bind-dev-to-a-chroot-directory-and-i-remove-it-i
-	mount -t sysfs none "$CHROOT_TARGET/sys"
-	mount -t proc none "$CHROOT_TARGET/proc"
-	mount -t devtmpfs none "$CHROOT_TARGET/dev"
-	mount -t devpts none "$CHROOT_TARGET/dev/pts"
-	mount -t tmpfs none "$CHROOT_TARGET/tmp"
-}
-
-cleanup_chroot() {
-	for mount in tmp dev/pts dev proc sys; do
-		if mountpoint -q "$CHROOT_TARGET/$mount"; then
-		# why we need lazy umount?
-		# https://groups.google.com/g/linux.debian.user/c/ei2Guc_ZnXg?pli=1
-			umount -l "$CHROOT_TARGET/$mount" ||
-				fuser -mv "$CHROOT_TARGET/$mount"
-		fi
-	done
-	cleanup_all "$1"
 }
 
 prepare_module() {

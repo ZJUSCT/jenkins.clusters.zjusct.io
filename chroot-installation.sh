@@ -75,8 +75,7 @@ systemd)
 	;;
 esac
 
-trap cleanup_$CHROOT_METHOD INT TERM EXIT
-prepare_chroot_$CHROOT_METHOD
+# prepare_chroot_$CHROOT_METHOD
 
 # use these settings in the scripts in the (s)chroots too
 export MODULE_HEADER="#!/bin/bash
@@ -84,6 +83,7 @@ if $DEBUG ; then
 	set -x
 fi
 set -e
+export CHROOT_METHOD=$CHROOT_METHOD
 export DEBUG=$DEBUG
 export DISTRO=$DISTRO
 export RELEASE=$RELEASE
@@ -107,4 +107,4 @@ done
 rsync -a "$PRIVATE_BASE"/ "$CHROOT_TARGET"/
 
 echo "Debug: Cleanup fine"
-cleanup_$CHROOT_METHOD fine
+cleanup_all fine
