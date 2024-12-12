@@ -3,6 +3,19 @@
 # default console password, will be superseeded when SSSD is setup
 echo "root:bootstrap" | chpasswd
 
+# Debug: show /dev status
+ls -lah /dev
+ls -lah /dev/fd
+
+# fix for /dev/fd, https://bbs.archlinux.org/viewtopic.php?id=287248
+if [ ! -h /dev/fd ]; then
+	ln -s /proc/self/fd /dev/fd
+	exit 1
+fi
+
+# Debug: show /etc/resolv.conf
+ls -lah /etc/resolv.conf
+
 # fix dns problem for specific distros
 if [ "$INIT" != "systemd" ]; then
 	# https://askubuntu.com/questions/469209/how-to-resolve-hostnames-in-chroot
@@ -28,17 +41,17 @@ debian | ubuntu)
 	mkdir -p /etc/dpkg/dpkg.cfg.d
 	echo force-unsafe-io >/etc/dpkg/dpkg.cfg.d/02dpkg-unsafe-io
 
-# 	# apt debug
-# 	if $DEBUG; then
-# 		cat >/etc/apt/apt.conf.d/80debug <<EOF
-# # solution calculation
-# Debug::pkgDepCache::Marker "true";
-# Debug::pkgDepCache::AutoInstall "true";
-# Debug::pkgProblemResolver "true";
-# # installation order
-# Debug::pkgPackageManager "true";
-# EOF
-# 	fi
+	# apt debug
+	if $DEBUG; then
+		cat >/etc/apt/apt.conf.d/80debug <<EOF
+# solution calculation
+Debug::pkgDepCache::Marker "true";
+Debug::pkgDepCache::AutoInstall "true";
+Debug::pkgProblemResolver "true";
+# installation order
+Debug::pkgPackageManager "true";
+EOF
+	fi
 
 	# apt proxy
 	if [ -n "$PROXY" ]; then
@@ -122,8 +135,6 @@ Include = /etc/pacman.d/mirrorlist
 [archlinuxcn]
 Server = https://mirrors.zju.edu.cn/archlinuxcn/$arch
 EOF
-	# fix for /dev/fd, https://bbs.archlinux.org/viewtopic.php?id=287248
-	[ ! -h /dev/fd ] && ln -s /proc/self/fd /dev/fd
 
 	# Workaround to fix "error: could not determine cachedir mount point"
 	# Need to be re-enabled at clean

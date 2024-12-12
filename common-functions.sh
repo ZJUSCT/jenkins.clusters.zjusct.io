@@ -84,17 +84,19 @@ cleanup_systemd() {
 
 prepare_chroot_chroot() {
 	# some packages (like intel oneapi) need /sys to build
+	# https://wiki.archlinux.org/title/Chroot#Using_chroot
 	# https://superuser.com/questions/165116/mount-dev-proc-sys-in-a-chroot-environment
 	# https://askubuntu.com/questions/1111839/dev-null-permission-denied-in-chroot-environment
 	# https://askubuntu.com/questions/1347156/what-happens-if-i-do-mount-bind-dev-to-a-chroot-directory-and-i-remove-it-i
-	mount -t sysfs /sys "$CHROOT_TARGET/sys"
-	mount -t proc /proc "$CHROOT_TARGET/proc"
-	mount -t devtmpfs /dev "$CHROOT_TARGET/dev"
-	mount -t tmpfs tmpfs "$CHROOT_TARGET/tmp"
+	mount -t sysfs none "$CHROOT_TARGET/sys"
+	mount -t proc none "$CHROOT_TARGET/proc"
+	mount -t devtmpfs none "$CHROOT_TARGET/dev"
+	mount -t devpts none "$CHROOT_TARGET/dev/pts"
+	mount -t tmpfs none "$CHROOT_TARGET/tmp"
 }
 
 cleanup_chroot() {
-	for mount in proc tmp sys dev; do
+	for mount in tmp dev/pts dev proc sys; do
 		if mountpoint -q "$CHROOT_TARGET/$mount"; then
 		# why we need lazy umount?
 		# https://groups.google.com/g/linux.debian.user/c/ei2Guc_ZnXg?pli=1
