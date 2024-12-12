@@ -7,7 +7,7 @@ if [ "$CHROOT_METHOD" == "chroot" ]; then
 	# https://bbs.archlinux.org/viewtopic.php?id=287248
 	# DKMS also needs /dev/fd
 	# /dev/fd -> /proc/self/fd -> /dev/pts/* and other files
-	if [ ! -h /dev/fd ]; then
+	if [ ! -L /dev/fd ]; then
 		ln -s /proc/self/fd /dev/fd
 	fi
 	if [ ! -d /dev/pts ]; then
@@ -16,17 +16,6 @@ if [ "$CHROOT_METHOD" == "chroot" ]; then
 	fi
 	mount /run -t tmpfs /run
 	mount /tmp -t tmpfs /tmp
-fi
-
-if $DEBUG; then
-	# Debug: show mounts
-	mount
-	ls -lah /proc
-	ls -lah /sys
-	ls -lah /dev
-	ls -lah /dev/pts
-	ls -lah /dev/fd
-	ls -lah /run
 fi
 
 # default console password, will be superseeded when SSSD is setup
@@ -39,8 +28,9 @@ if [ "$CHROOT_METHOD" == "chroot" ]; then
 	# fix dns problem for specific distros
 	# https://askubuntu.com/questions/469209/how-to-resolve-hostnames-in-chroot
 	# it seems that only debian do not use systemd-resolvd by default
-	case $ID in
-	ubuntu | arch | openEuler)
+
+	# if resolv.conf is a link
+	if [ -L /etc/resolv.conf ]; then
 		rm -f /etc/resolv.conf
 		cat >/etc/resolv.conf <<EOF
 nameserver 127.0.0.1
@@ -48,8 +38,7 @@ nameserver 172.25.2.253
 nameserver 10.10.0.21
 nameserver 10.10.2.21
 EOF
-		;;
-	esac
+	fi
 fi
 
 case $ID in

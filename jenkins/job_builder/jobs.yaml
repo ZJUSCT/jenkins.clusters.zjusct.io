@@ -42,7 +42,8 @@
     triggers:
       - pollscm:
           # every 2 hours
-          cron: "H H/2 * * *"
+          #cron: "H H/2 * * *"
+          cron: "* * * * *"
     publishers:
       - gitlab-notifier:
           name: "chroot-{distro}-{release}"
