@@ -45,16 +45,21 @@ common_init() {
 }
 
 cleanup_all() {
-	if [ "$CHROOT_METHOD" = "chroot" ]; then
-		for mount in tmp run dev/pts dev sys proc; do
-			if mountpoint -q "$CHROOT_TARGET/$mount"; then
-				# why we need lazy umount?
-				# https://groups.google.com/g/linux.debian.user/c/ei2Guc_ZnXg?pli=1
-				umount -l "$CHROOT_TARGET/$mount" ||
-					fuser -mv "$CHROOT_TARGET/$mount"
-			fi
-		done
-	fi
+	case $CHROOT_METHOD in
+	chroot)
+		# for mount in tmp run dev/pts dev sys proc; do
+		# 	if mountpoint -q "$CHROOT_TARGET/$mount"; then
+		# 		# why we need lazy umount?
+		# 		# https://groups.google.com/g/linux.debian.user/c/ei2Guc_ZnXg?pli=1
+		# 		umount -l "$CHROOT_TARGET/$mount" ||
+		# 			fuser -mv "$CHROOT_TARGET/$mount"
+		# 	fi
+		# done
+		umount --recursive "$CHROOT_TARGET" ||
+			fuser -mv "$CHROOT_TARGET"
+		;;
+	esac
+
 	echo "Doing cleanup now."
 	echo "Debug: Removing trap."
 	trap - INT TERM EXIT
@@ -104,10 +109,15 @@ execute_module() {
 	set -o pipefail # see eg http://petereisentraut.blogspot.com/2010/11/pipefail.html
 	case $CHROOT_METHOD in
 	systemd)
-		(systemd-nspawn --resolv-conf=replace-stub --hostname="$DISTRO"-"$RELEASE" -D "$CHROOT_TARGET" "$TMPFILE" 2>&1 | tee "$TMPLOG") || true
+		(systemd-nspawn --resolv-conf=replace-stub \
+			-D "$CHROOT_TARGET" "$TMPFILE" 2>&1 |
+			tee "$TMPLOG") ||
+			true
 		;;
 	chroot)
-		(chroot "$CHROOT_TARGET" "$TMPFILE" 2>&1 | tee "$TMPLOG") || true
+		(chroot "$CHROOT_TARGET" "$TMPFILE" 2>&1 |
+			tee "$TMPLOG") ||
+			true
 		;;
 	esac
 	RESULT=$(grep "xxxxxSUCCESSxxxxx" "$TMPLOG" || true)

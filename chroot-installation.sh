@@ -67,15 +67,14 @@ systemd)
 	# use systemd-nspawn
 	CHROOT_METHOD=systemd
 	;;
-*)
-	# use chroot
-	echo "Debug: INIT=$INIT, running chroot."
+tini)
 	CHROOT_METHOD=chroot
-
+	;;
+*)
+	echo "Unsupported init system."
+	exit 1
 	;;
 esac
-
-# prepare_chroot_$CHROOT_METHOD
 
 # use these settings in the scripts in the (s)chroots too
 export MODULE_HEADER="#!/bin/bash

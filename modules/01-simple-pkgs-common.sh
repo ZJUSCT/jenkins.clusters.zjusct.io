@@ -10,7 +10,7 @@ COMMON_PACKAGES=(
 	numactl patchutils pkg-config pkg-config
 	squashfs-tools sshfs sudo tcpdump tcpdump texinfo tldr tmux traceroute
 	tree valgrind vim wget zip zsh openssl
-	ffmpeg
+	ffmpeg skopeo umoci
 )
 
 case $ID in

@@ -26,9 +26,17 @@ This repository contains the configuration files for the ZJUSCT diskless system 
 Our goal is to implement a **unified system build process**, so that the built systems are as consistent as possible in terms of **functionality and software environment**. That is, the build process is fixed, and each step in the process is customized for each distribution, rather than designing a separate process and configuration for each distribution.
 
 - `make_rootfs`
-- `exec_modules`: modularized build steps, including software installation, configuration, etc. These functions are named `module_*_$DISTRO`.
-    - `bootstrap`: basic system configuration
-    - `software`: software installation
+- `execute_module`: modularized build steps, including software installation, configuration, etc.
+
+These steps usually require chroot environment. Depending on the environment where the script is executed, two methods are supported:
+
+- `chroot`: If running inside docker, use simple `chroot` because docker has provided some isolation.
+- `systemd`: If running on the host, use `systemd-nspawn` to create a more isolated environment.
+
+We now determine the environment based on PID 1. If PID 1 is:
+
+- `tini`: We are in docker. Jenkins docker now use this, but can't tell if it's a docker container
+- `systemd`: We are on the host running systemd.
 
 ## Coding Style
 

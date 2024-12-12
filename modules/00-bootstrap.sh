@@ -1,8 +1,4 @@
 #!/bin/bash
-if $DEBUG; then
-	mount
-fi
-
 if [ "$CHROOT_METHOD" == "chroot" ]; then
 	mount /proc -t proc /proc
 	mount /sys -t sysfs /sys
@@ -36,8 +32,8 @@ fi
 # Debug: show /etc/resolv.conf
 ls -lah /etc/resolv.conf
 
-# fix dns problem for specific distros
-if [ "$INIT" != "systemd" ]; then
+if [ "$CHROOT_METHOD" == "chroot" ]; then
+	# fix dns problem for specific distros
 	# https://askubuntu.com/questions/469209/how-to-resolve-hostnames-in-chroot
 	# it seems that only debian do not use systemd-resolvd by default
 	case $ID in
