@@ -10,7 +10,6 @@ if [ "$CHROOT_METHOD" == "chroot" ]; then
 	# /dev/fd -> /proc/self/fd -> /dev/pts/* and other files
 	if [ ! -h /dev/fd ]; then
 		ln -s /proc/self/fd /dev/fd
-		exit 1
 	fi
 	mount /dev/pts -t devpts /dev/pts
 	mount /run -t tmpfs /run
