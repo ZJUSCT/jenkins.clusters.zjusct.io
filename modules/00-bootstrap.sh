@@ -28,17 +28,17 @@ debian | ubuntu)
 	mkdir -p /etc/dpkg/dpkg.cfg.d
 	echo force-unsafe-io >/etc/dpkg/dpkg.cfg.d/02dpkg-unsafe-io
 
-	# apt debug
-	if $DEBUG; then
-		cat >/etc/apt/apt.conf.d/80debug <<EOF
-# solution calculation
-Debug::pkgDepCache::Marker "true";
-Debug::pkgDepCache::AutoInstall "true";
-Debug::pkgProblemResolver "true";
-# installation order
-Debug::pkgPackageManager "true";
-EOF
-	fi
+# 	# apt debug
+# 	if $DEBUG; then
+# 		cat >/etc/apt/apt.conf.d/80debug <<EOF
+# # solution calculation
+# Debug::pkgDepCache::Marker "true";
+# Debug::pkgDepCache::AutoInstall "true";
+# Debug::pkgProblemResolver "true";
+# # installation order
+# Debug::pkgPackageManager "true";
+# EOF
+# 	fi
 
 	# apt proxy
 	if [ -n "$PROXY" ]; then
