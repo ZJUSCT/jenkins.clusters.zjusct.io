@@ -157,7 +157,7 @@ EOF
 	pacman-key --populate archlinux &>/dev/null
 
 	# Force update metadata and upgrade packages
-	pacman -Syyu &>/dev/null
+	pacman -Syyu
 	pacman -S archlinuxcn-keyring &>/dev/null
 
 	# Visit: https://wiki.archlinux.org/title/Kernel to choose a flavor
