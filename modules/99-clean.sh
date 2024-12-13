@@ -1,6 +1,9 @@
 #!/bin/bash
 
 echo "" >/etc/hostname
+if [ -f /etc/resolv.conf.bak ]; then
+	mv /etc/resolv.conf.bak /etc/resolv.conf
+fi
 
 case $ID in
 debian | ubuntu)

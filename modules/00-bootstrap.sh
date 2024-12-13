@@ -19,10 +19,7 @@ if [ "$CHROOT_METHOD" == "chroot" ]; then
 fi
 
 # default console password, will be superseeded when SSSD is setup
-echo "root:bootstrap" | chpasswd
-
-# Debug: show /etc/resolv.conf
-ls -lah /etc/resolv.conf
+echo "root:Boot1234" | chpasswd
 
 if [ "$CHROOT_METHOD" == "chroot" ]; then
 	# fix dns problem for specific distros
@@ -30,15 +27,20 @@ if [ "$CHROOT_METHOD" == "chroot" ]; then
 	# it seems that only debian do not use systemd-resolvd by default
 
 	# if resolv.conf is a link
-	if [ -L /etc/resolv.conf ]; then
-		rm -f /etc/resolv.conf
-		cat >/etc/resolv.conf <<EOF
+	#if [ -L /etc/resolv.conf ]; then
+	#	rm -f /etc/resolv.conf
+	#fi
+	if [ -f /etc/resolv.conf ]; then
+		# Debug: show /etc/resolv.conf
+		ls -lah /etc/resolv.conf
+		mv /etc/resolv.conf /etc/resolv.conf.bak
+	fi
+	cat >/etc/resolv.conf <<EOF
 nameserver 127.0.0.1
 nameserver 172.25.2.253
 nameserver 10.10.0.21
 nameserver 10.10.2.21
 EOF
-	fi
 fi
 
 case $ID in
