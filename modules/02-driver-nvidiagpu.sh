@@ -25,4 +25,10 @@ arch() {
 	pacman -S nvidia-open
 }
 
+openEuler()
+{
+	# https://forum.openeuler.org/t/topic/979
+	echo "not planned"
+}
+
 check_and_exec "$ID"

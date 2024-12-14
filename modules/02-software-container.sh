@@ -59,11 +59,11 @@ check_and_exec "$ID"_apptainer
 ###############
 # singularity #
 ###############
-debian_singularity() {
-	install_pkg singularity-container
-}
-ubuntu_singularity() {
-	debian_singularity
-}
-
-check_and_exec "$ID"_singularity
+# debian_singularity() {
+# 	install_pkg singularity-container # currently unstable
+# }
+# ubuntu_singularity() {
+# 	debian_singularity
+# }
+#
+# check_and_exec "$ID"_singularity
