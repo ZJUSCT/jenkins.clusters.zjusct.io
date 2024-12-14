@@ -38,8 +38,8 @@
           #   - "modules/*"
           ignore-commits-with-messages:
             - "skip-ci"
-            # include {distro}, but now functions little
-            #- "(?s)^(?!.*{distro}).*$"
+            # include {distro}
+            - "(?s)^(?!.*{distro}).*$"
     triggers:
       - pollscm:
           # every 2 hours

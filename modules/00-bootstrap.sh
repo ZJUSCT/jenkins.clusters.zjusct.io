@@ -27,7 +27,7 @@ if [ "$CHROOT_METHOD" == "chroot" ]; then
 	# it seems that only debian do not use systemd-resolvd by default
 
 	# if resolv.conf exist(regardless of symlink or not), backup it
-	if [ -e /etc/resolv.conf ]; then
+	if [ -e /etc/resolv.conf ] || [ -L /etc/resolv.conf ]; then
 		# Debug: show /etc/resolv.conf
 		ls -lah /etc/resolv.conf
 		mv /etc/resolv.conf /etc/resolv.conf.bak

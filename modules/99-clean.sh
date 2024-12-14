@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "" >/etc/hostname
-if [ -f /etc/resolv.conf.bak ]; then
+if [ -e /etc/resolv.conf.bak ] || [ -L /etc/resolv.conf.bak ]; then
 	mv /etc/resolv.conf.bak /etc/resolv.conf
 fi
 
