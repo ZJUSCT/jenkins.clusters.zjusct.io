@@ -26,11 +26,8 @@ if [ "$CHROOT_METHOD" == "chroot" ]; then
 	# https://askubuntu.com/questions/469209/how-to-resolve-hostnames-in-chroot
 	# it seems that only debian do not use systemd-resolvd by default
 
-	# if resolv.conf is a link
-	#if [ -L /etc/resolv.conf ]; then
-	#	rm -f /etc/resolv.conf
-	#fi
-	if [ -f /etc/resolv.conf ]; then
+	# if resolv.conf exist(regardless of symlink or not), backup it
+	if [ -e /etc/resolv.conf ]; then
 		# Debug: show /etc/resolv.conf
 		ls -lah /etc/resolv.conf
 		mv /etc/resolv.conf /etc/resolv.conf.bak
