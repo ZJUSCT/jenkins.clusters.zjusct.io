@@ -43,8 +43,7 @@ nameserver 10.10.2.21
 EOF
 fi
 
-case $ID in
-debian | ubuntu)
+debian() {
 	echo -e '#!/bin/sh\nexit 101' >/usr/sbin/policy-rc.d
 	chmod +x /usr/sbin/policy-rc.d
 	# configure dpkg to use unsafe io for faster installs
@@ -93,8 +92,12 @@ EOF
 		;;
 	esac
 	apt-get update
-	;;
-openEuler)
+}
+ubuntu() {
+	debian
+}
+
+openEuler() {
 	# workaround for bootstrapping, there is no https support
 	mkdir -p /etc/yum.repos.d
 	cat >/etc/yum.repos.d/openeuler.repo <<'EOF'
@@ -115,8 +118,9 @@ EOF
 	# now we have the everything repo
 	dnf --releasever="$VERSION_ID" \
 		groupinstall core
-	;;
-arch)
+}
+arch() {
+
 	cat >/etc/pacman.d/mirrorlist <<'EOF'
 Server = https://mirrors.zju.edu.cn/archlinux/$repo/os/$arch
 Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch
@@ -177,5 +181,6 @@ EOF
 	# https://github.com/actionless/pikaur
 	# from archlinuxcn
 	pacman -S pikaur
-	;;
-esac
+}
+
+check_and_exec "$ID"

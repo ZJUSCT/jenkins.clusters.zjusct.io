@@ -144,11 +144,11 @@ if [ -n "${!ID}" ]; then
 	eval "install_pkg \"\${${ID}[@]}\""
 fi
 
-# bat
-if [ ! -e /usr/bin/bat ]; then
-	ln -s /usr/bin/batcat /usr/bin/bat
-fi
-# fd-find
-if [ ! -e /usr/bin/fd ]; then
-	ln -s /usr/bin/fdfind /usr/bin/fd
-fi
+# # bat
+# if [ ! -e /usr/bin/bat ]; then
+# 	ln -s /usr/bin/batcat /usr/bin/bat
+# fi
+# # fd-find
+# if [ ! -e /usr/bin/fd ]; then
+# 	ln -s /usr/bin/fdfind /usr/bin/fd
+# fi

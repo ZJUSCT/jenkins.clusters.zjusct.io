@@ -26,7 +26,8 @@ check_and_exec() {
 	if declare -f "$1" >/dev/null; then
 		"$1"
 	else
-		echo "Warning: $1 is not defined"
+		echo "Warning: $1 is not supported"
+		return 1
 	fi
 }
 

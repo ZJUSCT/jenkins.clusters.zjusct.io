@@ -1,8 +1,11 @@
 #!/bin/bash
 set -x
 
-case $ID in
-debian | ubuntu)
+##########
+# docker #
+##########
+debian_docker() {
+
 	# https://docs.docker.com/engine/install/ubuntu/
 	# https://docs.docker.com/engine/install/debian/
 	# https://docs.docker.com/engine/install/linux-postinstall/
@@ -23,16 +26,44 @@ EOF
 	apt-get update
 
 	apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-	;;
+}
 
-arch)
+ubuntu_docker() {
+	debian_docker
+}
+arch_docker() {
 	# https://wiki.archlinux.org/title/Docker
 	pacman -S docker docker-buildx docker-compose containerd
-	;;
-*)
-	echo "Warning: docker needs support in $ID"
-	;;
-esac
+}
+
+check_and_exec "$ID"_docker
 
 # align with LDAP
 sed -i '/^docker:/s/:[0-9]*:/:700:/' /etc/group
+
+#############
+# apptainer #
+#############
+debian_apptainer() {
+	install_pkg_from_github apptainer/apptainer 'contains("apptainer")'
+}
+ubuntu_apptainer() {
+	debian_apptainer
+}
+arch_apptainer() {
+	pacman -S apptainer
+}
+
+check_and_exec "$ID"_apptainer
+
+###############
+# singularity #
+###############
+debian_singularity() {
+	install_pkg singularity-container
+}
+ubuntu_singularity() {
+	debian_singularity
+}
+
+check_and_exec "$ID"_singularity

@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# bitwarden/clients
+#####################
+# bitwarden/clients #
+#####################
 install_pkg zip
 case $ID in
 arch)

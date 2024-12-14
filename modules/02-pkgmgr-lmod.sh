@@ -33,21 +33,20 @@ lmod_git() {
 	ln -s /opt/lmod/lmod/init/profile.fish /etc/fish/conf.d/z00_lmod.fish
 }
 
-openEuler() {
-	# install_pkg bc lua lua-posix procps-ng tcl tcsh zsh
-	# lmod_git
+#openEuler() {
+# install_pkg bc lua lua-posix procps-ng tcl tcsh zsh
+# lmod_git
 
-	# checking for lua modules: lfs... no
-	# checking for lua modules: term... no
-	# checking for pkg-config... (cached) /usr/bin/pkg-config
-	#
-	# Error can not find lua.h which is needed to build lua-term.
-	# You can either install lua-term or the lua development package.
-	# Quitting!
-	# checking for tcl.h... no
-	# configure: Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h.  You can also provide your own tcl installation.  Please set TCL_PKG_CONFIG_DIR to point to the directory containing tcl.pc. This is typically in <tcl-installation>/lib/pkgconfig.  Or specify TCL_INCLUDE and TCL_LIBS w/o TCL_PKG_CONFIG_DIR.  If you use TCL_INCLUDE and TCL_LIBS you must provide the -I for TCL_INCLUDE and the -L -l to TCL_LIBS.  The directories alone are not sufficient!
-	echo "Not implemented yet."
-}
+# # checking for lua modules: lfs... no
+# # checking for lua modules: term... no
+# # checking for pkg-config... (cached) /usr/bin/pkg-config
+#
+# # Error can not find lua.h which is needed to build lua-term.
+# # You can either install lua-term or the lua development package.
+# # Quitting!
+# # checking for tcl.h... no
+# # configure: Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h.  You can also provide your own tcl installation.  Please set TCL_PKG_CONFIG_DIR to point to the directory containing tcl.pc. This is typically in <tcl-installation>/lib/pkgconfig.  Or specify TCL_INCLUDE and TCL_LIBS w/o TCL_PKG_CONFIG_DIR.  If you use TCL_INCLUDE and TCL_LIBS you must provide the -I for TCL_INCLUDE and the -L -l to TCL_LIBS.  The directories alone are not sufficient!
+#}
 
 arch() {
 	## https://aur.archlinux.org/packages/lmod

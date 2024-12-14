@@ -13,14 +13,4 @@ COMMON_PACKAGES=(
 	ffmpeg skopeo umoci
 )
 
-case $ID in
-debian | ubuntu)
-	apt-get install "${COMMON_PACKAGES[@]}"
-	;;
-openEuler)
-	dnf install "${COMMON_PACKAGES[@]}"
-	;;
-arch)
-	pacman -S "${COMMON_PACKAGES[@]}"
-	;;
-esac
+install_pkg "${COMMON_PACKAGES[@]}"
