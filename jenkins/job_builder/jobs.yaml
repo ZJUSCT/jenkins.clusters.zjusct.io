@@ -31,15 +31,15 @@
           url: "https://git.zju.edu.cn/zjusct/ops/jenkins.clusters.zjusct.io.git"
           branches:
             - origin/main
-          included-regions:
-            - "chroot-installation.sh"
-            - "common-functions.sh"
-            - "distro/{distro}*"
-            - "modules/*"
+          # included-regions:
+          #   - "chroot-installation.sh"
+          #   - "common-functions.sh"
+          #   - "distro/{distro}*"
+          #   - "modules/*"
           ignore-commits-with-messages:
             - "skip-ci"
             # include {distro}, but now functions little
-            - "(?s)^(?!.*{distro}).*$"
+            #- "(?s)^(?!.*{distro}).*$"
     triggers:
       - pollscm:
           # every 2 hours
