@@ -4,6 +4,15 @@ set -x
 ##########
 # docker #
 ##########
+# group should be created before installing docker
+# so that files can be created with the correct group
+# GID should be the same as LDAP
+if ! getent group docker; then
+	groupadd --gid 700 docker
+else
+	groupmod --gid 700 docker
+fi
+
 debian_docker() {
 
 	# https://docs.docker.com/engine/install/ubuntu/
@@ -37,9 +46,6 @@ arch_docker() {
 }
 
 check_and_exec "$ID"_docker
-
-# align with LDAP
-sed -i '/^docker:/s/:[0-9]*:/:700:/' /etc/group
 
 #############
 # apptainer #

@@ -1,10 +1,10 @@
 #!/bin/bash
 
-debian(){
+debian() {
 	install_pkg sssd-ldap libsss-sudo openssh-server sssd-tools ldap-utils
 }
 
-ubuntu(){
+ubuntu() {
 	debian
 }
 
@@ -16,14 +16,15 @@ arch() {
 	install_pkg sssd
 }
 
-configure() {
-	curl https://gitlab.star-home.top:4430/star/deploy-ldap/-/raw/main/linux_"$ARCH" -o /bin/goldaptools
-	chmod +x /bin/goldaptools
-	chmod u+s /bin/goldaptools
-	ln -s /bin/goldaptools /bin/pubkey
-	ln -s /bin/goldaptools /bin/goldaptools_ssh_withcheck
+check_and_exec "$ID"
 
-	cat >/etc/sssd/sssd.conf <<EOF
+curl https://gitlab.star-home.top:4430/star/deploy-ldap/-/raw/main/linux_"$ARCH" -o /bin/goldaptools
+chmod +x /bin/goldaptools
+chmod u+s /bin/goldaptools
+ln -s /bin/goldaptools /bin/pubkey
+ln -s /bin/goldaptools /bin/goldaptools_ssh_withcheck
+
+cat >/etc/sssd/sssd.conf <<EOF
 [sssd]
 domains = LDAP
 config_file_version = 2
@@ -47,8 +48,8 @@ ldap_search_base = dc=zjusct,dc=io
 ldap_group_search_base = ou=Groups,dc=zjusct,dc=io
 ldap_sudo_search_base = ou=sudoers,ou=Config,dc=zjusct,dc=io
 EOF
-	chmod 600 /etc/sssd/sssd.conf
-	cat >/etc/sssd/ca.crt <<EOF
+chmod 600 /etc/sssd/sssd.conf
+cat >/etc/sssd/ca.crt <<EOF
 -----BEGIN CERTIFICATE-----
 MIID2zCCAsOgAwIBAgIUJ312aSIgWY/7zjPAf5qDhoSsks0wDQYJKoZIhvcNAQEL
 BQAwfTELMAkGA1UEBhMCQ04xDzANBgNVBAgMBlV0b3BpYTEZMBcGA1UEBwwQTG90
@@ -73,20 +74,17 @@ Df4bQRNQr+tE0EDU9WXw1YD/WSvDdeTgLYAFSJMxMobvIVM1y/Qg/nGpFwiVwmQ3
 Ynw35HjwG8Uh3Zjhl1EOcfKNSNi0tDCOpdMbIpWwBA==
 -----END CERTIFICATE-----
 EOF
-	cat >>/etc/ssh/sshd_config <<EOF
+cat >>/etc/ssh/sshd_config <<EOF
 PasswordAuthentication no
 AuthorizedKeysCommandUser nobody
 AuthorizedKeysCommand /bin/goldaptools_ssh_withcheck
 EOF
 
-	mkdir -p /etc/systemd/system/sssd.service.d
-	mkdir -p /etc/systemd/system/sssd-nss.service.d
-	mkdir -p /etc/systemd/system/sssd-pam.service.d
-	tee /etc/systemd/system/sssd.service.d/override.conf /etc/systemd/system/sssd-nss.service.d/override.conf /etc/systemd/system/sssd-pam.service.d/override.conf <<EOF
+mkdir -p /etc/systemd/system/sssd.service.d
+mkdir -p /etc/systemd/system/sssd-nss.service.d
+mkdir -p /etc/systemd/system/sssd-pam.service.d
+tee /etc/systemd/system/sssd.service.d/override.conf /etc/systemd/system/sssd-nss.service.d/override.conf /etc/systemd/system/sssd-pam.service.d/override.conf <<EOF
 [Service]
 Environment=DEBUG_LOGGER=--logger=journald
 EOF
-}
 
-check_and_exec "$ID"
-configure

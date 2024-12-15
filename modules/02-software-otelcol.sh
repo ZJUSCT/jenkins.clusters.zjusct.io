@@ -25,10 +25,11 @@ openEuler() {
 	install_pkg_from_github "open-telemetry/opentelemetry-collector-releases" 'contains("contrib")'
 }
 
-configure() {
-	curl https://ghp.ci/https://raw.githubusercontent.com/ZJUSCT/clusters.zju.edu.cn/refs/heads/main/config/otelcol/agent.yaml -o /etc/otelcol-contrib/config.yaml
-	mkdir -p /etc/systemd/system/otelcol-contrib.service.d
-	cat >/etc/systemd/system/otelcol-contrib.service.d/override.conf <<EOF
+check_and_exec "$ID"
+
+curl https://ghp.ci/https://raw.githubusercontent.com/ZJUSCT/clusters.zju.edu.cn/refs/heads/main/config/otelcol/agent.yaml -o /etc/otelcol-contrib/config.yaml
+mkdir -p /etc/systemd/system/otelcol-contrib.service.d
+cat >/etc/systemd/system/otelcol-contrib.service.d/override.conf <<EOF
 [Unit]
 After=docker.service
 Requires=docker.service
@@ -38,13 +39,9 @@ Group=root
 Environment=OTEL_CLOUD_REGION=zjusct-cluster
 EOF
 
-	# remember to set Environment=OTEL_BEARER_TOKEN=
-	# centralized logging for otelcol
-	cat >/etc/systemd/journald.conf <<EOF
+# remember to set Environment=OTEL_BEARER_TOKEN=
+# centralized logging for otelcol
+cat >/etc/systemd/journald.conf <<EOF
 [Journal]
 Storage=volatile
 EOF
-}
-
-check_and_exec "$ID"
-configure
