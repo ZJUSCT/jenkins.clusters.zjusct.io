@@ -20,7 +20,7 @@ storage:/river		/river		nfs	defaults	0	0
 #root:/lake		/lake		nfs	defaults	0	0
 storage:/ocean		/ocean		nfs	defaults	0	0
 storage:/slurm		/slurm		nfs	defaults	0	0
-storage:/pxe		/pxe		nfs	defaults	0	0
+storage:/pxe/rootfs	/pxe/rootfs	nfs	defaults	0	0
 /dev/sda		/local		auto	defaults	0	0
 # # tmpfs mount are useless because we already use overlay root
 # none			/pxe		tmpfs	defaults	0	0
@@ -29,5 +29,6 @@ storage:/pxe		/pxe		nfs	defaults	0	0
 # none			/var/log	tmpfs	defaults	0	0
 EOF
 
+mkdir -p /pxe/rootfs
 mkdir -p /local
 chmod 777 /local
