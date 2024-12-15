@@ -38,9 +38,8 @@
           #   - "modules/*"
           ignore-commits-with-messages:
             - "skip-ci"
-            # include {distro}
-            - "(?s)^(?!.*{distro}).*$"
-            - "(?s)^(?!.*force-ci).*$"
+            # include {distro} and force-ci
+            - "(?s)^(?!.*\\({distro}\\)|\\(force-ci\\)).*$"
     triggers:
       - pollscm:
           # every 2 hours

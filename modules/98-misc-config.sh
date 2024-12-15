@@ -32,3 +32,13 @@ EOF
 mkdir -p /pxe/rootfs
 mkdir -p /local
 chmod 777 /local
+
+# a watchdog to restart machine when NFS break
+case $ID in
+debian | ubuntu)
+	install_pkg watchdog
+	;;
+*)
+	echo "TODO"
+	;;
+esac
