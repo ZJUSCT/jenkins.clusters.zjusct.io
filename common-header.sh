@@ -64,7 +64,7 @@ get_asset_from_github() {
 	local output=$3
 	local url
 	url=$(get_github_url "$repo" ".[].assets[] | select(.name|$match) | .browser_download_url")
-	wget -O "$output" https://ghp.ci/"$url"
+	wget -O "$output" https://ghgo.xyz/"$url"
 }
 
 get_tarball_from_github() {
@@ -72,7 +72,7 @@ get_tarball_from_github() {
 	local output=$2
 	local url
 	url=$(get_github_url "$repo" ".[].tarball_url")
-	# tarball is in api.github.com, which ghp.ci doesn't support
+	# tarball is in api.github.com, which ghgo.xyz doesn't support
 	wget -O "$output" "$url"
 }
 
