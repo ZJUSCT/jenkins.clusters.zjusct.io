@@ -15,7 +15,7 @@ fi
 #################
 DEBUG=true
 MIRROR=https://mirrors.zju.edu.cn/
-#PROXY=
+PROXY=http://bridge.internal.zjusct.io:7890
 CHROOT_BASE=/pxe/rootfs
 # TODO: change private file into modules
 PRIVATE_BASE=/pxe/private/
@@ -94,7 +94,8 @@ export LANG=$LANG
 export http_proxy=$PROXY
 export https_proxy=$PROXY
 export PROXY=$PROXY
-export MIRROR=$MIRROR"
+export MIRROR=$MIRROR
+"
 
 for script in modules/*; do
 	echo "Debug: Running $script."

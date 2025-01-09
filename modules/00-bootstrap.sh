@@ -59,13 +59,13 @@ Debug::pkgPackageManager "true";
 EOF
 	fi
 
-	# apt proxy
-	if [ -n "$PROXY" ]; then
-		cat >/etc/apt/apt.conf.d/80proxy <<EOF
-Acquire::http::Proxy "$PROXY";
-Acquire::https::Proxy "$PROXY";
-EOF
-	fi
+#	# apt proxy
+#	if [ -n "$PROXY" ]; then
+#		cat >/etc/apt/apt.conf.d/80proxy <<EOF
+#Acquire::http::Proxy "$PROXY";
+#Acquire::https::Proxy "$PROXY";
+#EOF
+#	fi
 
 	rm -f /etc/apt/sources.list
 	cat >/etc/apt/sources.list.d/"$ID".sources <<EOF
