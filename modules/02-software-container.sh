@@ -55,7 +55,7 @@ check_and_exec "$ID"_docker
 # apptainer #
 #############
 debian_apptainer() {
-	install_pkg_from_github apptainer/apptainer 'contains("apptainer")'
+	install_pkg_from_github apptainer/apptainer 'contains("apptainer_") and endswith("amd64.deb")'
 }
 
 ubuntu_apptainer() {

@@ -151,7 +151,6 @@ install_pkg_from_github() {
 	local repo=$1
 	local match=$2
 	local tmpfile
-	match+=" and contains(\"linux\") and contains(\"$ARCH\") and endswith(\"$PKG_FORMAT\")"
 	tmpfile=$(mktemp)
 	get_asset_from_github "$repo" "$match" "$tmpfile"
 	install_pkg_local "$tmpfile"

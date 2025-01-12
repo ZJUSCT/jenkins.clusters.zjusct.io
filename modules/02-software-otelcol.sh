@@ -2,7 +2,7 @@
 
 debian() {
 	# otelcol will start the systemd service in the postinst script, causing errors in the nspawn environment
-	install_pkg_from_github "open-telemetry/opentelemetry-collector-releases" 'contains("contrib")' || true
+	install_pkg_from_github "open-telemetry/opentelemetry-collector-releases" 'contains("contrib") and endswith ("linux_amd64.deb")' || true
 	rm -f /var/lib/dpkg/info/otelcol-contrib.postinst
 	dpkg --configure -a >/dev/null
 	apt-get --fix-broken --fix-missing install
@@ -22,7 +22,7 @@ arch() {
 }
 
 openEuler() {
-	install_pkg_from_github "open-telemetry/opentelemetry-collector-releases" 'contains("contrib")'
+	install_pkg_from_github "open-telemetry/opentelemetry-collector-releases" 'contains("contrib") and endswith("linux_amd64.rpm")'
 }
 
 check_and_exec "$ID"
