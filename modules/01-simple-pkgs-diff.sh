@@ -121,7 +121,6 @@ arch=(
 	exfatprogs
 	fq
 	fzf
-	gdb-multiarch
 	gdu
 	git-extras
 	git-lfs
