@@ -1,24 +1,27 @@
 #!/bin/bash
 # spack managed software
 
+# debug: check fs size
+df -h
+
 SPACK_PATH="/opt/spack"
 export PATH=$SPACK_PATH/bin:$PATH
 
 pkgs=(
 	# cuda
 	cuda+dev@12.4.0
-	cuda+dev@12.3.0
-	cuda+dev@12.2.0
+	# cuda+dev@12.3.0
+	# cuda+dev@12.2.0
 	cuda+dev@12.1.0
-	cuda+dev@12.0.0
-	cuda+dev@11.8.0
-	cuda+dev@11.7.0
-	cuda+dev@11.6.0
+	# cuda+dev@12.0.0
+	# cuda+dev@11.8.0
+	# cuda+dev@11.7.0
+	# cuda+dev@11.6.0
 	cuda+dev@11.5.0
-	cuda+dev@11.4.0
-	cuda+dev@11.3.0
-	cuda+dev@11.2.0
-	cuda+dev@11.1.0
+	# cuda+dev@11.4.0
+	# cuda+dev@11.3.0
+	# cuda+dev@11.2.0
+	# cuda+dev@11.1.0
 	# nvidia-nsight-systems
 
 	# intel
@@ -47,7 +50,6 @@ pkgs=(
 	# others
 	mpich
 	mvapich2
-	mvapich2x
 	openmpi
 	scorep
 )

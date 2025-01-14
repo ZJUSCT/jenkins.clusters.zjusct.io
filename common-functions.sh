@@ -49,6 +49,11 @@ cleanup_all() {
 	echo "Debug: Removing trap."
 	trap - INT TERM EXIT
 
+	# debug: preserve content of /tmp
+	if [ "$1" != "fine" ]; then
+		tar -czf /tmp /root/tmp.tar.gz
+	fi
+
 	case $CHROOT_METHOD in
 	chroot)
 		for mount in tmp run dev/pts dev sys proc; do

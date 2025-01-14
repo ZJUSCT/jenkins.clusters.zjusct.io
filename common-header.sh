@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# goto /tmp
+cd /tmp || exit 1
+
 # https://unix.stackexchange.com/questions/1496/why-doesnt-my-bash-script-recognize-aliases
 # shopt -s expand_aliases
 # alias curl="curl --retry-all-errors --retry 5 --silent --show-error --location"
