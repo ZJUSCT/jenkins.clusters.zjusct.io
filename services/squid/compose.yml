@@ -4,3 +4,4 @@ services:
     volumes:
       - ./squid:/etc/squid
       - ./squid_cache:/cache
+    restart: unless-stopped
