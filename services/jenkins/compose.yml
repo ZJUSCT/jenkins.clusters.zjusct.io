@@ -1,26 +1,17 @@
 services:
   jenkins:
     build: .
-    container_name: jenkins.clusters.zjusct.io
     privileged: true # chroot and systemd-nspawn need privileged
     environment:
       - JENKINS_PASSWORD=${JENKINS_PASSWORD}
       - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
       - GITHUB_ACCESS_TOKEN=${GITHUB_ACCESS_TOKEN}
     volumes:
-      - ./job_builder/jenkins_jobs.ini:/var/jenkins_jobs.ini
+      - ../job_builder/jenkins_jobs.ini:/var/jenkins_jobs.ini
       - ./jenkins.yaml:/var/jenkins_home/jenkins_casc.yml
-      - jenkins_home:/var/jenkins_home
+      - ./jenkins_home:/var/jenkins_home
       - /pxe/rootfs:/pxe/rootfs
       - /pxe/private:/pxe/private:ro
     ports:
       - "8080:8080"
     restart: unless-stopped
-
-volumes:
-  jenkins_home:
-    driver: local
-    driver_opts:
-      type: none
-      device: ./jenkins_home
-      o: bind

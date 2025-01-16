@@ -29,14 +29,15 @@ common_init() {
 	export LANG=$LC_ALL
 	echo "===================================================================================="
 	echo "$(date) - running $0 on $(hostname), called using \"$*\" as arguments."
+	n
 	echo "$(date) - actually running \"$(basename "$0")\" (md5sum $(md5sum "$0" | cut -d ' ' -f1))"
 	echo
 	export MIRROR=$MIRROR
 	# do not enable proxy by default
-	# if [ -n "$PROXY" ]; then
-	# 	export http_proxy=$PROXY
-	# 	export https_proxy=$PROXY
-	# fi
+	if [ -n "$CACHE_PROXY" ]; then
+		export http_proxy=$CACHE_PROXY
+		export https_proxy=$CACHE_PROXY
+	fi
 	# be more verbose, maybe
 	if $DEBUG; then
 		export

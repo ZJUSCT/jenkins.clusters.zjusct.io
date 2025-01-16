@@ -15,7 +15,8 @@ fi
 #################
 DEBUG=true
 MIRROR=https://mirrors.zju.edu.cn/
-PROXY=http://bridge.internal.zjusct.io:7890
+# use squid caching proxy
+CACHE_PROXY=http://squid:3128
 CHROOT_BASE=/pxe/rootfs
 # TODO: change private file into modules
 PRIVATE_BASE=/pxe/private/
@@ -91,9 +92,8 @@ export ARCH=$ARCH
 export LC_ALL=$LC_ALL
 export LC_CTYPE=$LC_CTYPE
 export LANG=$LANG
-export http_proxy=$PROXY
-export https_proxy=$PROXY
-export PROXY=$PROXY
+export http_proxy=$CACHE_PROXY
+export https_proxy=$CACHE_PROXY
 export MIRROR=$MIRROR
 "
 

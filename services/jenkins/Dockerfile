@@ -8,7 +8,7 @@ USER root
 # and install required packages
 RUN . /etc/os-release && cat <<EOF >/etc/apt/sources.list.d/debian.sources
 Types: deb
-URIs: https://mirrors.tuna.tsinghua.edu.cn/debian
+URIs: https://mirrors.zju.edu.cn/debian
 Suites: $VERSION_CODENAME $VERSION_CODENAME-updates $VERSION_CODENAME-backports
 Components: main contrib non-free non-free-firmware
 EOF
@@ -44,6 +44,10 @@ ENV JENKINS_UC_DOWNLOAD https://mirrors.tuna.tsinghua.edu.cn/jenkins/
 ENV JENKINS_PLUGIN_INFO https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/current/plugin-versions.json
 # timezone
 ENV TZ="Asia/Shanghai"
+
+# trust squid certificate
+COPY ../squid/squid/bump.crt /usr/local/share/ca-certificates/bump.crt
+RUN sudo update-ca-certificates
 
 # install plugins
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt

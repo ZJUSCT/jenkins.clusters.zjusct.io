@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ "$EUID" -ne 0 ]; then
+	echo "Please run as root."
+	exit 1
+fi
+
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 cd "$SCRIPT_DIR"
 set -xe
@@ -20,24 +25,15 @@ bw_login() {
 	fi
 }
 
-if ! command -v jenkins-jobs &>/dev/null; then
-	echo "jenkins-jobs could not be found, installing..."
-	sudo apt-get install -y jenkins-job-builder
-fi
-
 credential_names=(
 	"JENKINS_PASSWORD"
 	"GITLAB_ACCESS_TOKEN"
 	"GITHUB_ACCESS_TOKEN"
 )
 
-if [ ! -f .env ]; then
-	echo ".env not found, generating..."
+if [ ! -f jenkins/.env ]; then
+	echo "jenkins/.env not found, generating..."
 	bw_login
-	# create .env file
-	if [ -f .env ]; then
-		rm .env
-	fi
 
 	# for each credential name, get the password, append it to .env using format CREDENTIAL_NAME=PASSWORD
 	for credential_name in "${credential_names[@]}"; do
@@ -51,7 +47,32 @@ if [ ! -f .env ]; then
 	done
 fi
 
+if [ ! -f squid/bump.key ] || [ ! -f squid/bump.crt ] || [ ! -f squid/bump_dhparam.pem ]; then
+	echo "Generating bump key and cert..."
+	if [ ! -f squid/bump.conf ]; then
+		echo "bump.conf not found, exit"
+		exit 1
+	fi
+	openssl req \
+		-new -newkey rsa:2048 \
+		-sha256 -days 365 -nodes \
+		-x509 \
+		-keyout squid/squid/bump.key \
+		-out squid/squid/bump.crt \
+		-addext "crlDistributionPoints=URI:http://localhost/revocationlist.crl" \
+		-config squid/squid/bump.conf
+	openssl dhparam -outform PEM -out squid/squid/bump_dhparam.pem 2048
+	chown proxy:proxy squid/squid/bump*
+	chmod 400 squid/squid/bump*
+fi
+
 docker compose build # --progress plain
+docker compose up -d
+
+if ! command -v jenkins-jobs &>/dev/null; then
+	echo "jenkins-jobs could not be found, installing..."
+	sudo apt-get install -y jenkins-job-builder
+fi
 
 if [ ! -f job_builder/jenkins_jobs.ini ]; then
 	bw_login
@@ -70,5 +91,4 @@ query_plugins_info=False
 EOF
 fi
 
-docker compose up -d
 . job_builder/update-jobs.sh

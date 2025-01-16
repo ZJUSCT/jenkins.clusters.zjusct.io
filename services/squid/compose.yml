@@ -1,0 +1,6 @@
+services:
+  squid:
+    build: .
+    volumes:
+      - ./squid:/etc/squid
+      - ./squid_cache:/cache

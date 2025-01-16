@@ -1,4 +1,0 @@
-.env
-jenkins_jobs.ini
-jenkins_home/
-!jenkins_home/.gitkeep
