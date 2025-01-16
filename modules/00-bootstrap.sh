@@ -33,7 +33,7 @@ if [ "$CHROOT_METHOD" == "chroot" ]; then
 		mv /etc/resolv.conf /etc/resolv.conf.bak
 	fi
 	cat >/etc/resolv.conf <<EOF
-nameserver 127.0.0.1
+nameserver 127.0.0.11
 nameserver 172.25.2.253
 nameserver 10.10.0.21
 nameserver 10.10.2.21
