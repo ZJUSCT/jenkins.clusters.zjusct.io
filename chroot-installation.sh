@@ -6,7 +6,7 @@ SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 cd "$SCRIPT_DIR"
 
 if [ "$#" -lt 1 ]; then
-	echo "Usage: $0 <DISTRO> [RELEASE]"
+	echo "Usage: $0 <DISTRO> [RELEASE] [INCREDIMENTAL]"
 	exit 1
 fi
 
@@ -21,10 +21,15 @@ CHROOT_BASE=/pxe/rootfs
 # TODO: change private file into modules
 PRIVATE_BASE=/pxe/private/
 
-TIMESTAMP=$(date +%Y%m%dT%H%M%S%Z)
-
 DISTRO=$1
 RELEASE=$2
+INCREDIMENTAL=${3:-false}
+
+if $INCREDIMENTAL; then
+	TIMESTAMP=latest
+else
+	TIMESTAMP=$(date +%Y%m%dT%H%M%S%Z)
+fi
 
 if [ ! -f "distro/$DISTRO.sh" ]; then
 	echo "Unsupported distro."
@@ -44,18 +49,25 @@ common_init "$@"
 ####################
 # Bootstrap System #
 ####################
-echo "Bootstraping $DISTRO $RELEASE into $CHROOT_TARGET now."
-set -e
-trap cleanup_all INT TERM EXIT
-
 CHROOT_BASE=$CHROOT_BASE/$DISTRO/$RELEASE
 CHROOT_TARGET=$CHROOT_BASE.$TIMESTAMP
-mkdir -p "$CHROOT_TARGET"
-# workaround #844220 / #872812
-chmod +x "$CHROOT_TARGET"
+if $INCREDIMENTAL; then
+	if [ ! -d "$CHROOT_TARGET" ]; then
+		echo "No previous chroot found"
+		exit 1
+	fi
+else
+	echo "Bootstraping $DISTRO $RELEASE into $CHROOT_TARGET now."
+	set -e
+	trap cleanup_all INT TERM EXIT
 
-make_rootfs
-cp /usr/local/share/ca-certificates/bump.crt "$CHROOT_TARGET"/root/bump.crt
+	mkdir -p "$CHROOT_TARGET"
+	# workaround #844220 / #872812
+	chmod +x "$CHROOT_TARGET"
+
+	make_rootfs
+	cp /usr/local/share/ca-certificates/bump.crt "$CHROOT_TARGET"/root/bump.crt
+fi
 
 ###################
 # Modular Scripts #
@@ -79,16 +91,29 @@ export LANG=$LANG
 export http_proxy=$CACHE_PROXY
 export https_proxy=$CACHE_PROXY
 export MIRROR=$MIRROR
+export INCREDIMENTAL=$INCREDIMENTAL
 "
 
-for script in modules/*; do
+if $INCREDIMENTAL; then
+	MODULES=(
+		modules/00-bootstrap.sh
+		modules/03-spack.sh
+		modules/99-clean.sh
+	)
+else
+	MODULES=(modules/*)
+fi
+
+for script in "${MODULES[@]}"; do
 	echo "Debug: Running $script."
 	prepare_module "$script"
 	execute_module
 done
 
 # private files
-rsync -a "$PRIVATE_BASE"/ "$CHROOT_TARGET"/
+if ! $INCREDIMENTAL; then
+	rsync -a "$PRIVATE_BASE"/ "$CHROOT_TARGET"/
+fi
 
 echo "Debug: Cleanup fine"
 cleanup_all fine

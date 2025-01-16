@@ -92,3 +92,24 @@
       - rolling
     jobs:
       - template-chroot-{distro}-{release}
+
+- job-template:
+    name: "incremental-{distro}-{release}"
+    id: "template-incremental-{distro}-{release}"
+    scm:
+      - git:
+          url: "https://git.zju.edu.cn/zjusct/ops/jenkins.clusters.zjusct.io.git"
+          branches:
+            - origin/main
+    builders:
+      - shell: "./validate.sh"
+      - shell: "./chroot-installation.sh {distro} {release} true"
+
+- project:
+    name: "debian-incremental"
+    distro:
+      - debian
+    release:
+      - stable
+    jobs:
+      - template-incremental-{distro}-{release}
