@@ -50,7 +50,6 @@ get_github_url() {
 	set -o pipefail
 	local url
 	local counter=20
-	export https_proxy=$CACHE_PROXY
 	# if url is empty, retry 20 times until it's not empty
 	while [ -z "$url" ] && [ $counter -gt 0 ]; do
 		url=$(curl "https://api.github.com/repos/$repo/releases" |
@@ -69,7 +68,6 @@ get_asset_from_github() {
 	local output=$3
 	local url
 	url=$(get_github_url "$repo" ".[].assets[] | select(.name|$match) | .browser_download_url")
-	export https_proxy=$CACHE_PROXY
 	wget -O "$output" "$url"
 }
 
@@ -78,7 +76,6 @@ get_tarball_from_github() {
 	local output=$2
 	local url
 	url=$(get_github_url "$repo" ".[].tarball_url")
-	export https_proxy=$CACHE_PROXY
 	wget -O "$output" "$url"
 }
 
