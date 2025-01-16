@@ -97,7 +97,7 @@ export INCREDIMENTAL=$INCREDIMENTAL
 if $INCREDIMENTAL; then
 	MODULES=(
 		modules/00-bootstrap.sh
-		modules/03-spack.sh
+		modules-incremental/*
 		modules/99-clean.sh
 	)
 else
