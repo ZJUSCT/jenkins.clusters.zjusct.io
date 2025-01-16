@@ -13,6 +13,23 @@ systemd)
 	;;
 esac
 
+INIT=$(ps --no-headers -o comm 1)
+ARCH=$(dpkg --print-architecture)
+# choose chroot method
+case $INIT in
+systemd)
+	# use systemd-nspawn
+	CHROOT_METHOD=systemd
+	;;
+tini)
+	CHROOT_METHOD=chroot
+	;;
+*)
+	echo "Unsupported init system."
+	exit 1
+	;;
+esac
+
 common_init() {
 	if ! dpkg -l "${PREREQUISITES[@]}" &>/dev/null; then
 		apt-get -qq update

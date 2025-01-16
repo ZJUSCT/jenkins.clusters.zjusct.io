@@ -11,7 +11,7 @@ export PATH=$SPACK_PATH/bin:$PATH
 
 pkgs=(
 	# cuda
-	cuda+dev@12.4.0
+	# cuda+dev@12.4.0
 	# cuda+dev@12.3.0
 	# cuda+dev@12.2.0
 	cuda+dev@12.1.0
@@ -53,7 +53,7 @@ pkgs=(
 	mpich
 	mvapich2
 	openmpi
-	scorep
+	# scorep # due to https://github.com/spack/spack/issues/43700
 )
 
 spack spec -I "${pkgs[@]}"

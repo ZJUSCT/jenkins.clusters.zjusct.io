@@ -21,9 +21,7 @@ CHROOT_BASE=/pxe/rootfs
 # TODO: change private file into modules
 PRIVATE_BASE=/pxe/private/
 
-INIT=$(ps --no-headers -o comm 1)
 TIMESTAMP=$(date +%Y%m%dT%H%M%S%Z)
-ARCH=$(dpkg --print-architecture)
 
 DISTRO=$1
 RELEASE=$2
@@ -62,21 +60,6 @@ cp /usr/local/share/ca-certificates/bump.crt "$CHROOT_TARGET"/root/bump.crt
 ###################
 # Modular Scripts #
 ###################
-
-# choose chroot method
-case $INIT in
-systemd)
-	# use systemd-nspawn
-	CHROOT_METHOD=systemd
-	;;
-tini)
-	CHROOT_METHOD=chroot
-	;;
-*)
-	echo "Unsupported init system."
-	exit 1
-	;;
-esac
 
 # use these settings in the scripts in the (s)chroots too
 export MODULE_HEADER="#!/bin/bash
