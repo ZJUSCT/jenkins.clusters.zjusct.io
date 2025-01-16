@@ -3,6 +3,8 @@
 
 # debug: check fs size
 df -h
+# intel installer needs / to be mounted to get volume information
+mount --bind / /
 
 SPACK_PATH="/opt/spack"
 export PATH=$SPACK_PATH/bin:$PATH
@@ -56,3 +58,5 @@ pkgs=(
 
 spack spec -I "${pkgs[@]}"
 spack install "${pkgs[@]}"
+
+umount /

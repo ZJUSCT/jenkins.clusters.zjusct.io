@@ -1,7 +1,5 @@
 #!/bin/bash
 if [ "$CHROOT_METHOD" == "chroot" ]; then
-	# intel installer needs / to be mounted to get volume information
-	mount --bind / /
 	mount /proc -t proc /proc
 	mount /sys -t sysfs /sys
 	mount /dev -t devtmpfs /dev
@@ -19,6 +17,10 @@ if [ "$CHROOT_METHOD" == "chroot" ]; then
 	mount /run -t tmpfs /run
 	mount /tmp -t tmpfs /tmp
 fi
+
+# debug info
+mount
+df -h
 
 # default console password, will be superseeded when SSSD is setup
 echo "root:Boot1234" | chpasswd
