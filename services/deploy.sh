@@ -47,9 +47,11 @@ if [ ! -f jenkins/.env ]; then
 	done
 fi
 
-if [ ! -f squid/bump.key ] || [ ! -f squid/bump.crt ] || [ ! -f squid/bump_dhparam.pem ]; then
+cd squid/squid || exit 1
+
+if [ ! -f bump.key ] || [ ! -f bump.crt ] || [ ! -f bump_dhparam.pem ]; then
 	echo "Generating bump key and cert..."
-	if [ ! -f squid/bump.conf ]; then
+	if [ ! -f bump.conf ]; then
 		echo "bump.conf not found, exit"
 		exit 1
 	fi
@@ -57,16 +59,18 @@ if [ ! -f squid/bump.key ] || [ ! -f squid/bump.crt ] || [ ! -f squid/bump_dhpar
 		-new -newkey rsa:2048 \
 		-sha256 -days 365 -nodes \
 		-x509 \
-		-keyout squid/squid/bump.key \
-		-out squid/squid/bump.crt \
+		-keyout bump.key \
+		-out bump.crt \
 		-addext "crlDistributionPoints=URI:http://localhost/revocationlist.crl" \
-		-config squid/squid/bump.conf
-	openssl dhparam -outform PEM -out squid/squid/bump_dhparam.pem 2048
-	chown proxy:proxy squid/squid/bump*
-	chmod 400 squid/squid/bump*
+		-config bump.conf
+	openssl dhparam -outform PEM -out bump_dhparam.pem 2048
+	chown proxy:proxy bump.key bump.crt bump_dhparam.pem
+	chmod 400 bump.key bump.crt bump_dhparam.pem
 fi
 
-docker compose build # --progress plain
+cd "$SCRIPT_DIR" || exit 1
+
+docker compose build --progress plain
 docker compose up -d
 
 if ! command -v jenkins-jobs &>/dev/null; then
