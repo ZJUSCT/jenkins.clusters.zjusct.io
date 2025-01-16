@@ -57,6 +57,7 @@ mkdir -p "$CHROOT_TARGET"
 chmod +x "$CHROOT_TARGET"
 
 make_rootfs
+cp /usr/local/share/ca-certificates/bump.crt "$CHROOT_TARGET"/root/bump.crt
 
 ###################
 # Modular Scripts #

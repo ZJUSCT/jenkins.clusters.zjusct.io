@@ -41,6 +41,9 @@ EOF
 fi
 
 debian() {
+	mv /root/bump.crt /usr/local/share/ca-certificates/bump.crt
+	update-ca-certificates
+
 	echo -e '#!/bin/sh\nexit 101' >/usr/sbin/policy-rc.d
 	chmod +x /usr/sbin/policy-rc.d
 	# configure dpkg to use unsafe io for faster installs
@@ -116,7 +119,11 @@ EOF
 	dnf --releasever="$VERSION_ID" \
 		groupinstall core
 }
+
 arch() {
+	# https://wiki.archlinux.org/title/User:Grawity/Adding_a_trusted_CA_certificate
+	mv /root/bump.crt /etc/ca-certificates/trust-source/anchors/bump.crt
+	update-ca-trust
 
 	cat >/etc/pacman.d/mirrorlist <<'EOF'
 Server = https://mirrors.zju.edu.cn/archlinux/$repo/os/$arch
