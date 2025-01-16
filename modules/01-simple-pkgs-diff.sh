@@ -4,7 +4,7 @@ debian=(
 	7zip
 	aptitude
 	autotools-dev
-	build-essential
+	binutils-dev
 	build-essential
 	clangd
 	clang-format
@@ -108,6 +108,7 @@ ubuntu)
 esac
 
 arch=(
+	binutils
 	linux
 	linux-headers
 	nfs-utils
@@ -136,6 +137,10 @@ arch=(
 	stress
 	unrar
 	zoxide
+)
+
+openEuler=(
+	binutils-devel
 )
 
 # check if ${ID} is defined
