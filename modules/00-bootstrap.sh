@@ -1,5 +1,7 @@
 #!/bin/bash
 if [ "$CHROOT_METHOD" == "chroot" ]; then
+	# intel installer needs / to be mounted to get volume information
+	mount --bind / /
 	mount /proc -t proc /proc
 	mount /sys -t sysfs /sys
 	mount /dev -t devtmpfs /dev

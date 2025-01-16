@@ -57,7 +57,7 @@ cleanup_all() {
 
 	case $CHROOT_METHOD in
 	chroot)
-		for mount in tmp run dev/pts dev sys proc; do
+		for mount in tmp run dev/pts dev sys proc /; do
 			if mountpoint -q "$CHROOT_TARGET/$mount"; then
 				# why we need lazy umount?
 				# https://groups.google.com/g/linux.debian.user/c/ei2Guc_ZnXg?pli=1
