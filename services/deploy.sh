@@ -21,12 +21,14 @@ bw_login() {
 		if bw login --check; then
 			bw logout
 		fi
-		export BW_SESSION=$(bw login --raw)
+		BW_SESSION=$(bw login --raw)
+		export BW_SESSION
 	else
 		# check if BW_SESSION is still valid
 		if ! bw unlock --check; then
 			echo "BW_SESSION is not valid, please login to bitwarden"
-			export BW_SESSION=$(bw login --raw)
+			BW_SESSION=$(bw login --raw)
+			export BW_SESSION
 		fi
 	fi
 	if ! bw login --check; then
