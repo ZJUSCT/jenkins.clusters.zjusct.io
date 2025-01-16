@@ -76,9 +76,8 @@ if [ ! -f bump.key ] || [ ! -f bump.crt ] || [ ! -f bump_dhparam.pem ]; then
 		-out bump.crt \
 		-addext "crlDistributionPoints=URI:http://localhost/revocationlist.crl" \
 		-config bump.conf
-	openssl dhparam -outform PEM -out bump_dhparam.pem 2048
-	chown proxy:proxy bump.key bump.crt bump_dhparam.pem
-	chmod 400 bump.key bump.crt bump_dhparam.pem
+	chown proxy:proxy bump.key bump.crt
+	chmod 400 bump.key bump.crt
 fi
 cp bump.crt "$SCRIPT_DIR"/jenkins/bump.crt
 
@@ -89,7 +88,7 @@ if ! command -v jenkins-jobs &>/dev/null; then
 	sudo apt-get install -y jenkins-job-builder
 fi
 
-docker compose build --progress plain
+docker compose build --no-cache --progress plain
 rm jenkins/bump.crt
 
 # jenkins_jobs.ini is mounted by docker
@@ -110,6 +109,8 @@ query_plugins_info=False
 EOF
 fi
 
+mkdir -p squid/squid_cache
+chmod 777 squid/squid_cache
 docker compose up -d
 
 . job_builder/update-jobs.sh
