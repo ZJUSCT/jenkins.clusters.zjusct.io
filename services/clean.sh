@@ -9,7 +9,8 @@ SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 cd "$SCRIPT_DIR"
 set -xe
 
-docker compose down
+./stop.sh
+
 docker compose rm -f
 
 # clean volumes
@@ -24,7 +25,3 @@ rm -rf squid/squid/bump.key
 rm -rf jenkins/.env
 rm -rf job_builder/jenkins_jobs.ini
 
-rm -rf /pxe/rootfs/debian/*.2*
-rm -rf /pxe/rootfs/ubuntu/*.2*
-rm -rf /pxe/rootfs/openEuler/*.2*
-rm -rf /pxe/rootfs/arch/*.2*
