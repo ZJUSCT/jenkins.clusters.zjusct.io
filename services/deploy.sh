@@ -107,6 +107,8 @@ password=$JENKINS_PASSWORD
 url=https://jenkins.clusters.zjusct.io
 query_plugins_info=False
 EOF
+
+	bw logout
 fi
 
 mkdir -p squid/squid_cache
