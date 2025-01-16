@@ -57,6 +57,13 @@ pkgs=(
 )
 
 spack spec -I "${pkgs[@]}"
-spack install "${pkgs[@]}"
+
+# try 20 times to recover from network failure
+counter=5
+while [ $counter -gt 0 ]; do
+	spack install "${pkgs[@]}" && break
+	counter=$((counter - 1))
+	sleep 1
+done
 
 umount /
