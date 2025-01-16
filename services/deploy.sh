@@ -12,16 +12,26 @@ set -xe
 bw_login() {
 	if ! command -v bw &>/dev/null; then
 		echo "bw could not be found, please install it"
-		exit 1
+		exit
 	fi
-
-	if [ -z "$BW_SESSION" ] || ! bw unlock --check &>/dev/null; then
-		echo "Logging into Bitwarden..."
-		if ! BW_SESSION=$(bw login --raw); then
-			echo "bw login failed, exit"
-			exit 1
+	bw config server https://key.clusters.zjusct.io
+	if [ -z "$BW_SESSION" ]; then
+		echo "BW_SESSION is not set, please login to bitwarden"
+		# check if logged in, if success, then logout and login again
+		if bw login --check; then
+			bw logout
 		fi
-		export BW_SESSION
+		export BW_SESSION=$(bw login --raw)
+	else
+		# check if BW_SESSION is still valid
+		if ! bw unlock --check; then
+			echo "BW_SESSION is not valid, please login to bitwarden"
+			export BW_SESSION=$(bw login --raw)
+		fi
+	fi
+	if ! bw login --check; then
+		echo "bw login failed, exit"
+		exit
 	fi
 }
 
@@ -43,8 +53,9 @@ if [ ! -f jenkins/.env ]; then
 			echo "Failed to get $credential_name"
 			continue
 		fi
-		echo "$credential_name=\"$password\"" >>.env
+		echo "$credential_name=\"$password\"" >>jenkins/.env
 	done
+	bw logout
 fi
 
 cd squid/squid || exit 1
@@ -67,21 +78,23 @@ if [ ! -f bump.key ] || [ ! -f bump.crt ] || [ ! -f bump_dhparam.pem ]; then
 	chown proxy:proxy bump.key bump.crt bump_dhparam.pem
 	chmod 400 bump.key bump.crt bump_dhparam.pem
 fi
+cp bump.crt "$SCRIPT_DIR"/jenkins/bump.crt
 
 cd "$SCRIPT_DIR" || exit 1
-
-docker compose build --progress plain
-docker compose up -d
 
 if ! command -v jenkins-jobs &>/dev/null; then
 	echo "jenkins-jobs could not be found, installing..."
 	sudo apt-get install -y jenkins-job-builder
 fi
 
+docker compose build --progress plain
+rm jenkins/bump.crt
+
+# jenkins_jobs.ini is mounted by docker
 if [ ! -f job_builder/jenkins_jobs.ini ]; then
 	bw_login
 	JENKINS_PASSWORD=$(bw get password JENKINS_PASSWORD)
-	cat >jenkins_jobs.ini <<EOF
+	cat >job_builder/jenkins_jobs.ini <<EOF
 [job_builder]
 ignore_cache=True
 keep_descriptions=False
@@ -94,5 +107,7 @@ url=https://jenkins.clusters.zjusct.io
 query_plugins_info=False
 EOF
 fi
+
+docker compose up -d
 
 . job_builder/update-jobs.sh

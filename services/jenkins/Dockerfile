@@ -46,8 +46,8 @@ ENV JENKINS_PLUGIN_INFO https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/cur
 ENV TZ="Asia/Shanghai"
 
 # trust squid certificate
-COPY ../squid/squid/bump.crt /usr/local/share/ca-certificates/bump.crt
-RUN sudo update-ca-certificates
+COPY bump.crt /usr/local/share/ca-certificates/bump.crt
+RUN update-ca-certificates
 
 # install plugins
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
