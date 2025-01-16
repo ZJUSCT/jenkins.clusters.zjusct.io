@@ -5,3 +5,5 @@ services:
       - ./squid:/etc/squid
       - ./squid_cache:/cache
     restart: unless-stopped
+    ports:
+      - "3128:3128"

@@ -16,8 +16,8 @@ arch() {
 	get_asset_from_github "open-telemetry/opentelemetry-collector-releases" 'contains("contrib") and endswith("linux_amd64.tar.gz")' /tmp/otelcol-contrib.tar.gz
 	tar -C /usr/bin -xzf /tmp/otelcol-contrib.tar.gz otelcol-contrib
 	mkdir -p /etc/otelcol-contrib
-	wget https://ghgo.xyz/https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-releases/refs/heads/main/distributions/otelcol-contrib/otelcol-contrib.service -O /etc/systemd/system/otelcol-contrib.service
-	wget https://ghgo.xyz/https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-releases/refs/heads/main/distributions/otelcol-contrib/otelcol-contrib.conf -O /etc/otelcol-contrib/otelcol-contrib.conf
+	wget https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-releases/refs/heads/main/distributions/otelcol-contrib/otelcol-contrib.service -O /etc/systemd/system/otelcol-contrib.service
+	wget https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-releases/refs/heads/main/distributions/otelcol-contrib/otelcol-contrib.conf -O /etc/otelcol-contrib/otelcol-contrib.conf
 	systemctl enable otelcol-contrib
 }
 
@@ -27,7 +27,7 @@ openEuler() {
 
 check_and_exec "$ID"
 
-curl https://ghgo.xyz/https://raw.githubusercontent.com/ZJUSCT/clusters.zju.edu.cn/refs/heads/main/config/otelcol/agent.yaml -o /etc/otelcol-contrib/config.yaml
+curl https://raw.githubusercontent.com/ZJUSCT/clusters.zju.edu.cn/refs/heads/main/config/otelcol/agent.yaml -o /etc/otelcol-contrib/config.yaml
 mkdir -p /etc/systemd/system/otelcol-contrib.service.d
 cat >/etc/systemd/system/otelcol-contrib.service.d/override.conf <<EOF
 [Unit]
