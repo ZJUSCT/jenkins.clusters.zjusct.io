@@ -21,7 +21,7 @@
           mark-unstable-as-success: true
       - github-notifier
     builders:
-      - shell: "jenkins/job_builder/update-jobs.sh"
+      - shell: "services/job_builder/update-jobs.sh"
 
 - job-template:
     name: "chroot-{distro}-{release}"
