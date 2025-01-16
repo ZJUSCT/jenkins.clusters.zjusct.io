@@ -9,7 +9,6 @@ services:
     volumes:
       - ../job_builder/jenkins_jobs.ini:/var/jenkins_jobs.ini
       - ./jenkins.yaml:/var/jenkins_home/jenkins_casc.yml
-      - ./jenkins_home:/var/jenkins_home
       - /pxe/rootfs:/pxe/rootfs
       - /pxe/private:/pxe/private:ro
     ports:
