@@ -14,19 +14,20 @@ if $INCREDIMENTAL; then
 		# cuda
 		# note: A100 80GB PCIe supports cuda 11.4 or later
 		# https://docs.nvidia.com/deploy/cuda-compatibility/
-		cuda+dev@12.6.3
-		cuda+dev@12.5.0
-		# cuda+dev@12.4.0
-		# cuda+dev@12.3.0
-		# cuda+dev@12.2.0
-		cuda+dev@12.1.0
-		cuda+dev@12.0.0
-		# cuda+dev@11.8.0
-		# cuda+dev@11.7.0
-		# cuda+dev@11.6.0
-		cuda+dev@11.5.0
-		cuda+dev@11.4.0
-		# nvidia-nsight-systems
+		cuda
+		# cuda@12.6.3
+		# cuda@12.5.0
+		# cuda@12.4.0
+		# cuda@12.3.0
+		# cuda@12.2.0
+		# cuda@12.1.0
+		# cuda@12.0.0
+		# cuda@11.8.0
+		# cuda@11.7.0
+		# cuda@11.6.0
+		# cuda@11.5.0
+		# cuda@11.4.0
+		nvidia-nsight-systems
 
 		# intel
 		# warning: intel-* packages are usually deprecated, use intel-oneapi-* instead
