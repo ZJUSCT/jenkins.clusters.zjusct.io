@@ -58,8 +58,6 @@ if $INCREDIMENTAL; then
 	fi
 else
 	echo "Bootstraping $DISTRO $RELEASE into $CHROOT_TARGET now."
-	set -e
-	trap cleanup_all INT TERM EXIT
 
 	mkdir -p "$CHROOT_TARGET"
 	# workaround #844220 / #872812
@@ -72,6 +70,8 @@ fi
 ###################
 # Modular Scripts #
 ###################
+trap cleanup_all INT TERM EXIT
+set -e
 
 # use these settings in the scripts in the (s)chroots too
 export MODULE_HEADER="#!/bin/bash
