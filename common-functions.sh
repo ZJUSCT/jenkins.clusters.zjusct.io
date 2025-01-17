@@ -123,7 +123,7 @@ prepare_module() {
 		cat common-header.sh
 		cat distro/"$DISTRO"-header.sh
 		cat "$1"
-	} >>"$CTMPFILE"
+	} >"$CTMPFILE"
 }
 
 execute_module() {
