@@ -11,11 +11,13 @@ openEuler)
 	install_pkg gcc-gfortran python3 unzip
 esac
 
-tmpfile=/tmp/spack.tar.gz
-get_asset_from_github "spack/spack" 'startswith("spack-")' "$tmpfile"
-tar -C /opt -xzf "$tmpfile"
-rm -f "$tmpfile"
-mv /opt/spack* "$SPACK_PATH"
+# GitHub Release is too old
+# tmpfile=/tmp/spack.tar.gz
+# get_asset_from_github "spack/spack" 'startswith("spack-")' "$tmpfile"
+# tar -C /opt -xzf "$tmpfile"
+# rm -f "$tmpfile"
+# mv /opt/spack* "$SPACK_PATH"
+git clone -c feature.manyFiles=true --depth=2 https://github.com/spack/spack.git "$SPACK_PATH"
 
 # bash, zsh
 cat >/etc/profile.d/z00_spack.sh <<EOF
