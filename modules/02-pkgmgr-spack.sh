@@ -17,6 +17,8 @@ esac
 # tar -C /opt -xzf "$tmpfile"
 # rm -f "$tmpfile"
 # mv /opt/spack* "$SPACK_PATH"
+
+export https_proxy=$PROXY
 git clone -c feature.manyFiles=true --depth=2 https://github.com/spack/spack.git "$SPACK_PATH"
 
 # bash, zsh
