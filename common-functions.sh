@@ -71,6 +71,7 @@ cleanup_all() {
 	# if [ "$1" != "fine" ]; then
 	# 	tar -czf /tmp /root/tmp.tar.gz
 	# fi
+	set -x
 
 	case $CHROOT_METHOD in
 	chroot)
@@ -85,7 +86,6 @@ cleanup_all() {
 		;;
 	esac
 
-	set -x
 	echo "\$1 = $1"
 	rm -f "$TMPLOG"
 	if ! $INCREDIMENTAL; then
