@@ -51,6 +51,19 @@ openEuler() {
 
 check_and_exec "$ID"_docker
 
+cat >/etc/docker/daemon.json <<EOF
+{
+    "proxies": {
+    "http-proxy":  "http://storage:3128",
+    "https-proxy": "http://storage:3128",
+    "no-proxy": ""
+  },
+  "log-opts": {
+    "tag": "container.name={{.Name}} container.id={{.ID}} container.image.name={{.ImageName}} container.runtime={{.DaemonName}}"
+  }
+}
+EOF
+
 #############
 # apptainer #
 #############
