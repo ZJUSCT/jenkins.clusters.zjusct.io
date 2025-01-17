@@ -30,3 +30,18 @@ arch)
 	tar -C /usr/bin -xzf /tmp/gdg.tar.gz gdg
 	;;
 esac
+
+############
+# sing-box #
+############
+case $ID in
+debian|ubuntu)
+	bash <(curl -fsSL https://sing-box.app/deb-install.sh)
+	;;
+openEuler)
+	bash <(curl -fsSL https://sing-box.app/rpm-install.sh)
+	;;
+arch)
+	bash <(curl -fsSL https://sing-box.app/arch-install.sh)
+	;;
+esac
