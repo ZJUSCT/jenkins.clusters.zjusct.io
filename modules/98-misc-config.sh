@@ -35,6 +35,23 @@ mkdir -p /pxe/rootfs
 mkdir -p /local
 chmod 777 /local
 
+# a systemd service to create /local/docker
+cat >/etc/systemd/system/local-disk.service <<'EOF'
+[Unit]
+Description=Handle /local disk
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/chmod 777 /local
+ExecStart=/bin/mkdir -p /local/docker
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl enable local-docker
+
 # a watchdog to restart machine when NFS break
 case $ID in
 debian | ubuntu)
