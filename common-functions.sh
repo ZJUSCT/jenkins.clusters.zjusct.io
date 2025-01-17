@@ -88,25 +88,27 @@ cleanup_all() {
 	set -x
 	echo "\$1 = $1"
 	rm -f "$TMPLOG"
-	if [ "$1" != "fine" ]; then
-		# rename to .error
-		rm -rf --one-file-system "$CHROOT_BASE".error ||
-			fuser -mv "$CHROOT_BASE".error
-		mv "$CHROOT_TARGET" "$CHROOT_BASE".error ||
-			fuser -mv "$CHROOT_TARGET" "$CHROOT_BASE".error
-		echo "Something went wrong, $CHROOT_TARGET is moved to $CHROOT_BASE.error for further inspection."
-		exit 1
-	else
-		# remove .error
-		rm -rf --one-file-system "$CHROOT_BASE".error ||
-			fuser -mv "$CHROOT_BASE".error
-		# rename to .latest
-		rm -rf --one-file-system "$CHROOT_BASE".latest ||
-			fuser -mv "$CHROOT_BASE".latest
-		echo "$CHROOT_TARGET succeeded."
-		mv "$CHROOT_TARGET" "$CHROOT_BASE".latest ||
-			fuser -mv "$CHROOT_TARGET" "$CHROOT_BASE".latest
-		echo "$CHROOT_BASE.latest can now be released."
+	if ! $INCREDIMENTAL; then
+		if [ "$1" != "fine" ]; then
+			# rename to .error
+			rm -rf --one-file-system "$CHROOT_BASE".error ||
+				fuser -mv "$CHROOT_BASE".error
+			mv "$CHROOT_TARGET" "$CHROOT_BASE".error ||
+				fuser -mv "$CHROOT_TARGET" "$CHROOT_BASE".error
+			echo "Something went wrong, $CHROOT_TARGET is moved to $CHROOT_BASE.error for further inspection."
+			exit 1
+		else
+			# remove .error
+			rm -rf --one-file-system "$CHROOT_BASE".error ||
+				fuser -mv "$CHROOT_BASE".error
+			# rename to .latest
+			rm -rf --one-file-system "$CHROOT_BASE".latest ||
+				fuser -mv "$CHROOT_BASE".latest
+			echo "$CHROOT_TARGET succeeded."
+			mv "$CHROOT_TARGET" "$CHROOT_BASE".latest ||
+				fuser -mv "$CHROOT_TARGET" "$CHROOT_BASE".latest
+			echo "$CHROOT_BASE.latest can now be released."
+		fi
 	fi
 }
 
