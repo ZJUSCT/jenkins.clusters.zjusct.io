@@ -22,6 +22,8 @@ storage:/ocean		/ocean		nfs	defaults	0	0
 storage:/slurm		/slurm		nfs	defaults	0	0
 storage:/pxe/rootfs	/pxe/rootfs	nfs	defaults	0	0
 /dev/sda		/local		auto	defaults	0	0
+# bind mount /var/lib/docker to /local/docker
+/local/docker		/var/lib/docker	none	bind		0	0
 # # tmpfs mount are useless because we already use overlay root
 # none			/pxe		tmpfs	defaults	0	0
 # none			/tmp		tmpfs	defaults	0	0

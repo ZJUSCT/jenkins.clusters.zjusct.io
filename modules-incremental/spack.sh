@@ -63,7 +63,7 @@ spack spec -I "${pkgs[@]}"
 # try 20 times to recover from network failure
 counter=5
 while [ $counter -gt 0 ]; do
-	spack install --dont-restage --show-log-on-error -v -y \
+	spack install --dont-restage --show-log-on-error -y \
 		"${pkgs[@]}" && break
 	counter=$((counter - 1))
 	sleep 1

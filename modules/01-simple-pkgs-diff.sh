@@ -43,6 +43,7 @@ debian=(
 	opensbi
 	pipx
 	proxychains4
+	python-is-python3
 	qemu-kvm
 	qemu-system-misc
 	rename
