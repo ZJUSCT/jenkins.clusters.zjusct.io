@@ -14,12 +14,12 @@ if $INCREDIMENTAL; then
 		# cuda
 		# note: A100 80GB PCIe supports cuda 11.4 or later
 		# https://docs.nvidia.com/deploy/cuda-compatibility/
-		cuda+dev@12.4.0
+		# cuda+dev@12.4.0
 		# cuda+dev@12.3.0
 		# cuda+dev@12.2.0
 		cuda+dev@12.1.0
 		cuda+dev@12.0.0
-		cuda+dev@11.8.0
+		# cuda+dev@11.8.0
 		# cuda+dev@11.7.0
 		# cuda+dev@11.6.0
 		cuda+dev@11.5.0
