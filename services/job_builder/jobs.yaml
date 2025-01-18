@@ -97,10 +97,10 @@
     name: "incremental-{distro}-{release}"
     id: "template-incremental-{distro}-{release}"
     block-upstream: true
-    triggers:
-      - reverse:
-          jobs:
-            - "chroot-{distro}-{release}"
+    # triggers:
+    #   - reverse:
+    #       jobs:
+    #         - "chroot-{distro}-{release}"
     scm:
       - git:
           url: "https://git.zju.edu.cn/zjusct/ops/jenkins.clusters.zjusct.io.git"
