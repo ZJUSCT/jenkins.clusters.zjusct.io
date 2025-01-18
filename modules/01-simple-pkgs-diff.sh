@@ -91,7 +91,7 @@ debian)
 	debian+=(linux-perf linux-cpupower)
 	case $RELEASE in
 	stable)
-		debian+=(exa jenkins-job-builder)
+		debian+=(exa jenkins-job-builder opensm)
 		;;
 	testing)
 		debian+=(eza gping)
@@ -99,7 +99,7 @@ debian)
 	esac
 	;;
 ubuntu)
-	ubuntu+=(linux-tools-common eza gping)
+	ubuntu+=(linux-tools-common eza gping opensm)
 	case $RELEASE in
 	oracular)
 		ubuntu+=(linux-cpupower)

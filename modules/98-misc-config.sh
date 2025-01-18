@@ -21,9 +21,6 @@ storage:/river		/river		nfs	defaults	0	0
 storage:/ocean		/ocean		nfs	defaults	0	0
 storage:/slurm		/slurm		nfs	defaults	0	0
 storage:/pxe/rootfs	/pxe/rootfs	nfs	defaults	0	0
-/dev/sda		/local		auto	defaults	0	0
-# bind mount /var/lib/docker to /local/docker
-/local/docker		/var/lib/docker	none	bind		0	0
 # # tmpfs mount are useless because we already use overlay root
 # none			/pxe		tmpfs	defaults	0	0
 # none			/tmp		tmpfs	defaults	0	0
@@ -32,25 +29,38 @@ storage:/pxe/rootfs	/pxe/rootfs	nfs	defaults	0	0
 EOF
 
 mkdir -p /pxe/rootfs
-mkdir -p /local
-chmod 777 /local
 
-# a systemd service to handle /local disk
-cat >/etc/systemd/system/local-disk.service <<'EOF'
+# conditional mount /local:
+# if /dev/sda is present and is ext4, mount it
+cat >/usr/local/bin/mount-local.sh <<'EOF'
+#!/bin/bash
+set -e
+
+if [ -b /dev/sda ] && blkid /dev/sda | grep -q ext4; then
+	mkdir -p /local
+	mount /local
+	chmod 777 /local
+	mkdir -p /local/docker
+	mount --bind /local/docker /var/lib/docker
+fi
+
+EOF
+chmod +x /usr/local/bin/mount-local.sh
+
+cat >/etc/systemd/system/mount-local.service <<'EOF'
 [Unit]
-Description=Handle /local disk
+Description=Mount /local
 After=local-fs.target
 
 [Service]
 Type=oneshot
-ExecStart=/bin/chmod 777 /local
-ExecStart=/bin/mkdir -p /local/docker
+ExecStart=/usr/local/bin/mount-local.sh
 RemainAfterExit=yes
 
 [Install]
 WantedBy=multi-user.target
 EOF
-systemctl enable local-disk
+systemctl enable mount-local
 
 # a watchdog to restart machine when NFS break
 case $ID in

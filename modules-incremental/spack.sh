@@ -15,10 +15,10 @@ pkgs=(
 	# https://docs.nvidia.com/deploy/cuda-compatibility/
 	# cuda
 	# cuda@12.6.3
-	cuda@12.6.2
-	cuda@12.6.1
-	cuda@12.6.0
-	cuda@12.5.1
+	# cuda@12.6.2
+	# cuda@12.6.1
+	# cuda@12.6.0
+	# cuda@12.5.1
 	# cuda@12.5.0
 	# cuda@12.4.0
 	# cuda@12.3.0

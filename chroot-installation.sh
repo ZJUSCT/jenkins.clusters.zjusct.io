@@ -27,7 +27,7 @@ RELEASE=$2
 INCREDIMENTAL=${3:-false}
 
 if $INCREDIMENTAL; then
-	TIMESTAMP=latest
+	TIMESTAMP=incr
 else
 	TIMESTAMP=$(date +%Y%m%dT%H%M%S%Z)
 fi
@@ -54,8 +54,7 @@ CHROOT_BASE=$CHROOT_BASE/$DISTRO/$RELEASE
 CHROOT_TARGET=$CHROOT_BASE.$TIMESTAMP
 if $INCREDIMENTAL; then
 	if [ ! -d "$CHROOT_TARGET" ]; then
-		echo "No previous chroot found"
-		exit 1
+		cp -al "$CHROOT_BASE" "$CHROOT_TARGET"
 	fi
 else
 	echo "Bootstraping $DISTRO $RELEASE into $CHROOT_TARGET now."
