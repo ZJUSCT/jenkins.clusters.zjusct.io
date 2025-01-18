@@ -12,6 +12,7 @@ debian() {
 		apt-get update
 	fi
 	apt-get install nvidia-open
+	apt-get install nvidia-container-toolkit
 }
 
 ubuntu() {

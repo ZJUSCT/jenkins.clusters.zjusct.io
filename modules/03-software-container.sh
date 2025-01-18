@@ -88,6 +88,7 @@ check_and_exec "$ID"_apptainer
 ###############
 # singularity #
 ###############
+# singularity conflicts with apptainer
 # debian_singularity() {
 # 	install_pkg singularity-container # currently unstable
 # }
