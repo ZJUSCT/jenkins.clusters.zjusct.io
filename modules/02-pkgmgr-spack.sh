@@ -43,6 +43,7 @@ spack compiler find --scope=site
 spack external find --scope=site
 spack config --scope=site add modules:default:enable:[lmod]
 spack config --scope=site add modules:default:lmod:hide_implicits:true
+spack config --scope=site add config:install_tree:root:/home/spack
 
 mkdir -p /etc/lmod
 echo "$SPACK_PATH/share/spack/lmod" >/etc/lmod/.modulespath

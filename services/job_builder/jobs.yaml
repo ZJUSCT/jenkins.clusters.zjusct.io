@@ -110,11 +110,11 @@
       - shell: "./validate.sh"
       - shell: "./chroot-installation.sh {distro} {release} true"
 
-- project:
-    name: "debian-incremental"
-    distro:
-      - debian
-    release:
-      - stable
-    jobs:
-      - template-incremental-{distro}-{release}
+# - project:
+#     name: "debian-incremental"
+#     distro:
+#       - debian
+#     release:
+#       - stable
+#     jobs:
+#       - template-incremental-{distro}-{release}
