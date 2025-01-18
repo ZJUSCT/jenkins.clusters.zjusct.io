@@ -50,7 +50,7 @@ RemainAfterExit=yes
 [Install]
 WantedBy=multi-user.target
 EOF
-systemctl enable local-docker
+systemctl enable local-disk
 
 # a watchdog to restart machine when NFS break
 case $ID in
