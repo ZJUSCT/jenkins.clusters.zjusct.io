@@ -35,7 +35,7 @@ mkdir -p /pxe/rootfs
 mkdir -p /local
 chmod 777 /local
 
-# a systemd service to create /local/docker
+# a systemd service to handle /local disk
 cat >/etc/systemd/system/local-disk.service <<'EOF'
 [Unit]
 Description=Handle /local disk

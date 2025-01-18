@@ -36,7 +36,7 @@ esac
 ############
 case $ID in
 debian|ubuntu)
-	bash <(curl -fsSL https://sing-box.app/deb-install.sh)
+	install_pkg_from_github 'SagerNet/sing-box' 'contains("sing-box") and endswith("amd64.deb")'
 	;;
 openEuler)
 	bash <(curl -fsSL https://sing-box.app/rpm-install.sh)
