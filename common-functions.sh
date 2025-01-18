@@ -103,7 +103,7 @@ cleanup_all() {
 		# remove .error
 		rm -rf --one-file-system "$CHROOT_BASE".error ||
 			fuser -mv "$CHROOT_BASE".error
-		rm -rf --one-file-system "$CHROOT_BASE".incr
+		rm -rf --one-file-system "$CHROOT_BASE".incr ||
 			fuser -mv "$CHROOT_BASE".incr
 		# rename to .latest
 		rm -rf --one-file-system "$CHROOT_BASE".latest ||
