@@ -1,14 +1,10 @@
 #!/bin/bash
 # spack managed software, incremental only
 
-# debug: check fs size
-df -h
-# intel installer needs / to be mounted to get volume information
-mount --bind / /
-
 SPACK_PATH="/opt/spack"
 export PATH=$SPACK_PATH/bin:$PATH
 
+# see https://packages.spack.io/
 pkgs=(
 	# cuda
 	# note: A100 80GB PCIe supports cuda 11.4 or later
@@ -54,6 +50,7 @@ pkgs=(
 
 	# amd
 	# hip
+	aocc+license-agreed
 
 	# others
 	mpich
@@ -64,7 +61,12 @@ pkgs=(
 
 spack spec -I "${pkgs[@]}"
 
-# try 20 times to recover from network failure
+# complex spec
+
+spack install -y nvhpc+mpi default_cuda=11.8
+spack install -y nvhpc+mpi default_cuda=12.6
+
+# try to recover from network failure
 counter=5
 while [ $counter -gt 0 ]; do
 	spack install --dont-restage --show-log-on-error -y \
@@ -72,5 +74,3 @@ while [ $counter -gt 0 ]; do
 	counter=$((counter - 1))
 	sleep 1
 done
-
-umount /
