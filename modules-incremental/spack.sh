@@ -13,8 +13,12 @@ pkgs=(
 	# cuda
 	# note: A100 80GB PCIe supports cuda 11.4 or later
 	# https://docs.nvidia.com/deploy/cuda-compatibility/
-	cuda
+	# cuda
 	# cuda@12.6.3
+	cuda@12.6.2
+	cuda@12.6.1
+	cuda@12.6.0
+	cuda@12.5.1
 	# cuda@12.5.0
 	# cuda@12.4.0
 	# cuda@12.3.0
