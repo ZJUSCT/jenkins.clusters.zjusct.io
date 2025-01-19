@@ -4,7 +4,7 @@
 # spack is preserved in /home/spack
 # here we only configure the environment instead of installing spack
 
-SPACK_PATH="/home/spack"
+SPACK_PATH="/home/spack/spack"
 
 case $ID in
 debian | ubuntu)
