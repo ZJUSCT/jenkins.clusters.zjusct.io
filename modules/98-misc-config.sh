@@ -37,11 +37,24 @@ cat >/usr/local/bin/mount-local.sh <<'EOF'
 set -e
 
 if [ -b /dev/sda ] && blkid /dev/sda | grep -q ext4; then
-	mkdir -p /local
-	mount /local
-	chmod 777 /local
-	mkdir -p /local/docker
-	mount --bind /local/docker /var/lib/docker
+	mkdir -p /local-sata
+	mount /dev/sda /local-sata
+	chmod 777 /local-sata
+	mkdir -p /local-sata/docker
+	mkdir -p /local-sata/var
+	mkdir -p /local-sata/tmp
+	mkdir -p /local-sata/var/tmp
+	mkdir -p /local-sata/var/log
+	mount --bind /local-sata/docker /var/lib/docker
+	mount --bind /local-sata/tmp /tmp
+	mount --bind /local-sata/var/tmp /var/tmp
+	mount --bind /local-sata/var/log /var/log
+fi
+
+if [ -b /dev/nvme0n1 ] && blkid /dev/nvme0n1 | grep -q ext4; then
+	mkdir -p /local-nvme
+	mount /dev/nvme0n1 /local-nvme
+	chmod 777 /local-nvme
 fi
 
 EOF
