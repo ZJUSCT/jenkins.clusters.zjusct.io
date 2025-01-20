@@ -36,6 +36,7 @@ check_and_exec "$ID"
 
 # configure containerd
 # https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd-systemd
+mkdir -p /etc/containerd
 cat > /etc/containerd/config.toml <<EOF
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
   [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
