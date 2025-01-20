@@ -1,6 +1,12 @@
 #!/bin/bash
-# https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
 
+# https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd-systemd
+# sysctl params required by setup, params persist across reboots
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.ipv4.ip_forward = 1
+EOF
+
+# https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
 debian(){
 	apt-get install -y apt-transport-https ca-certificates curl gnupg
 	curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
@@ -10,7 +16,7 @@ debian(){
 	apt-get update
 	apt-get install -y kubectl kubeadm kubelet
 	apt-mark hold kubelet kubeadm kubectl
-	systemctl enable kubelet
+	#systemctl enable kubelet
 }
 
 openEuler(){
@@ -23,7 +29,17 @@ gpgcheck=1
 gpgkey=https://pkgs.k8s.io/core:/stable:/v1.32/rpm/repodata/repomd.xml.key
 EOF
 	yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
-	systemctl enable kubelet
+	#systemctl enable kubelet
 }
 
 check_and_exec "$ID"
+
+# configure containerd
+# https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd-systemd
+cat > /etc/containerd/config.toml <<EOF
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+  [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+    SystemdCgroup = true
+[plugins."io.containerd.grpc.v1.cri"]
+  sandbox_image = "registry.k8s.io/pause:3.10"
+EOF
