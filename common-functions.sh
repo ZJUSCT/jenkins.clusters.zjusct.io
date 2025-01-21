@@ -123,8 +123,8 @@ prepare_module() {
 	# https://www.shellcheck.net/wiki/SC2129
 	{
 		echo "$MODULE_HEADER"
-		cat common-header.sh
 		cat distro/"$DISTRO"-header.sh
+		cat common-header.sh
 		cat "$1"
 	} >"$CTMPFILE"
 }

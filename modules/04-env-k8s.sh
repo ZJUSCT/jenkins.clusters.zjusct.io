@@ -14,8 +14,7 @@ debian(){
 	echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.32/deb/ /' | tee /etc/apt/sources.list.d/kubernetes.list
 	chmod 644 /etc/apt/sources.list.d/kubernetes.list
 	apt-get update
-	apt-get install -y kubectl kubeadm kubelet
-	apt-mark hold kubelet kubeadm kubectl
+	install_pkg kubectl kubeadm kubelet
 	#systemctl enable kubelet
 }
 
@@ -28,7 +27,7 @@ enabled=1
 gpgcheck=1
 gpgkey=https://pkgs.k8s.io/core:/stable:/v1.32/rpm/repodata/repomd.xml.key
 EOF
-	yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+	install_pkg kubelet kubeadm kubectl --disableexcludes=kubernetes
 	#systemctl enable kubelet
 }
 
