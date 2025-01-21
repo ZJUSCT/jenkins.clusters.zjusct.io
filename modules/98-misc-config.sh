@@ -45,6 +45,7 @@ if [ -b /dev/sda ] && blkid /dev/sda | grep -q ext4; then
 	mkdir -p /local-sata/tmp
 	mkdir -p /local-sata/var/tmp
 	mkdir -p /local-sata/var/log
+	mkdir -p /var/lib/docker
 	mount --bind /local-sata/docker /var/lib/docker
 	mount --bind /local-sata/tmp /tmp
 	mount --bind /local-sata/var/tmp /var/tmp
