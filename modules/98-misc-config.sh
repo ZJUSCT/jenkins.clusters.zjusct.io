@@ -44,12 +44,12 @@ if [ -b /dev/sda ] && blkid /dev/sda | grep -q ext4; then
 	mkdir -p /local-sata/var
 	mkdir -p /local-sata/tmp
 	mkdir -p /local-sata/var/tmp
-	mkdir -p /local-sata/var/log
 	mkdir -p /var/lib/docker
 	mount --bind /local-sata/docker /var/lib/docker
 	mount --bind /local-sata/tmp /tmp
+	chmod 777 /tmp
 	mount --bind /local-sata/var/tmp /var/tmp
-	mount --bind /local-sata/var/log /var/log
+        chmod 777 /var/tmp
 fi
 
 if [ -b /dev/nvme0n1 ] && blkid /dev/nvme0n1 | grep -q ext4; then
