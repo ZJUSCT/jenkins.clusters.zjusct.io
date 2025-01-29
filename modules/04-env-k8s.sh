@@ -15,7 +15,12 @@ debian(){
 	chmod 644 /etc/apt/sources.list.d/kubernetes.list
 	apt-get update
 	install_pkg kubectl kubeadm kubelet
-	#systemctl enable kubelet
+	systemctl disable kubelet
+}
+
+ubuntu()
+{
+	debian
 }
 
 openEuler(){
@@ -28,7 +33,7 @@ gpgcheck=1
 gpgkey=https://pkgs.k8s.io/core:/stable:/v1.32/rpm/repodata/repomd.xml.key
 EOF
 	install_pkg kubelet kubeadm kubectl --disableexcludes=kubernetes
-	#systemctl enable kubelet
+	systemctl disable kubelet
 }
 
 check_and_exec "$ID"
