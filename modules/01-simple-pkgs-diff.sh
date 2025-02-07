@@ -75,7 +75,6 @@ debian=(
 	hyperfine
 	lldpd
 	locate
-	neofetch
 	nvtop
 	ripgrep
 	screenfetch
@@ -131,7 +130,6 @@ arch=(
 	hyperfine
 	lldpd
 	locate
-	neofetch
 	nvtop
 	ripgrep
 	screenfetch
