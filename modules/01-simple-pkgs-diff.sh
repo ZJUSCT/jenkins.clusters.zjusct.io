@@ -8,8 +8,6 @@ debian=(
 	build-essential
 	clangd
 	clang-format
-	clang-format
-	clang-tidy
 	clang-tidy
 	cpu-checker
 	devscripts
@@ -17,23 +15,30 @@ debian=(
 	fonts-firacode
 	gcc-aarch64-linux-gnu
 	gcc-doc
-	gcc-doc
 	gcc-riscv64-linux-gnu
 	gfortran
 	glibc-doc
-	glibc-doc
 	golang
+	libboost-all-dev
+	libbz2-dev
+	libcurl4-openssl-dev
 	libdrm-dev
 	libexpat-dev
+	libgflags-dev
+	libgoogle-glog-dev
 	libgmp-dev
 	libgmp-dev
 	libgtk-3-dev
 	libmpc-dev
 	libmpfr-dev
+	libmsgpack-cxx-dev
+	libmsgpack-dev
+	libmsgpackc2
 	libomp-dev
 	libpcap-dev
 	libpcap-dev
 	libssl-dev
+	liburing-dev
 	libvirt-clients
 	libvirt-daemon-system
 	linux-source
@@ -81,6 +86,18 @@ debian=(
 	stress
 	unrar
 	zoxide
+	# Object Introspection https://objectintrospection.org/docs/getting-started
+	bison autopoint build-essential cmake flex gawk libboost-all-dev libbz2-dev libcap2-bin libcurl4-gnutls-dev libdouble-conversion-dev libdw-dev libfmt-dev libgflags-dev libgmock-dev libgoogle-glog-dev libgtest-dev libjemalloc-dev libmsgpack-dev libzstd-dev ninja-build pkg-config python3-setuptools sudo xsltproc libboost-all-dev
+	# 编译原理 https://github.com/ZJU-CP/tools/blob/main/Dockerfile
+	build-essential git wget python3 python3-pip qemu-user flex bison openjdk-17-jdk python3-lark python3-venv python3-toml python3-rich
+	# 计算机系统 III https://zju-sys.pages.zjusct.io/sys3/sys3-sp24/lab0
+	gcc-riscv64-linux-gnu binutils-riscv64-linux-gnu gcc-riscv64-unknown-elf
+	git help2man perl python3 make autoconf g++ flex bison ccache
+	libgoogle-perftools-dev numactl perl-doc
+	libfl2
+	libfl-dev
+	zlibc zlib1g zlib1g-dev
+	device-tree-compiler
 )
 
 ubuntu=("${debian[@]}")
