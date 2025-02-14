@@ -25,7 +25,10 @@ fi
 if $DEBUG; then
 	dracut --list-modules --kver "$KERNEL_VERSION"
 fi
-dracut --add "base network nfs overlayfs" --kver "$KERNEL_VERSION" --force
+dracut \
+	--add "base network nfs overlayfs" \
+	--omit "iscsi" \
+	--kver "$KERNEL_VERSION" --force
 
 case $ID in
 arch)
