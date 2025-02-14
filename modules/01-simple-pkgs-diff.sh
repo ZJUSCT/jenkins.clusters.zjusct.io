@@ -96,7 +96,7 @@ debian=(
 	libgoogle-perftools-dev numactl perl-doc
 	libfl2
 	libfl-dev
-	zlibc zlib1g zlib1g-dev
+	zlib1g zlib1g-dev
 	device-tree-compiler
 )
 
