@@ -104,6 +104,8 @@ debian=(
 	git help2man perl python3 make autoconf g++ flex bison ccache
 	libgoogle-perftools-dev numactl perl-doc
 	libfl2
+	libbz2-dev
+	samtools
 	libfl-dev
 	zlib1g zlib1g-dev
 	device-tree-compiler
