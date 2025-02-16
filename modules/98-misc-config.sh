@@ -21,12 +21,14 @@ storage:/river		/river		nfs	defaults	0	0
 storage:/ocean		/ocean		nfs	defaults	0	0
 storage:/slurm		/slurm		nfs	defaults	0	0
 storage:/pxe/rootfs	/pxe/rootfs	nfs	defaults	0	0
+storage:/pxe/opt	/pxe/opt	nfs	defaults	0	0
 # # tmpfs mount are useless because we already use overlay root
 # none			/tmp		tmpfs	defaults	0	0
 # none			/var/tmp	tmpfs	defaults	0	0
 EOF
 
 mkdir -p /pxe/rootfs
+mkdir -p /pxe/opt
 
 # conditional mount /local:
 # if /dev/sda, /dev/nvme0n1 is present and is ext4, mount it
@@ -78,14 +80,3 @@ RemainAfterExit=yes
 WantedBy=multi-user.target
 EOF
 systemctl enable mount-local
-
-# a watchdog to restart machine when NFS break
-# seems not working
-#case $ID in
-#debian | ubuntu)
-#	install_pkg watchdog
-#	;;
-#*)
-#	echo "TODO"
-#	;;
-#esac

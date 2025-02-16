@@ -1,10 +1,10 @@
 #!/bin/bash
 # https://spack.readthedocs.io/en/latest/getting_started.html
 
-# spack is preserved in /home/spack
+# spack is preserved in /pxe/opt/spack
 # here we only configure the environment instead of installing spack
 
-SPACK_PATH="/home/spack/spack"
+SPACK_PATH="/pxe/opt/spack"
 
 case $ID in
 debian | ubuntu)
@@ -13,6 +13,7 @@ debian | ubuntu)
 openEuler)
 	dnf group install "Development Tools"
 	install_pkg gcc-gfortran python3 unzip
+	;;
 esac
 
 # bash, zsh
