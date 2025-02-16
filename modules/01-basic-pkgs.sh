@@ -109,6 +109,7 @@ debian=(
 	libfl-dev
 	zlib1g zlib1g-dev
 	device-tree-compiler
+	npm
 )
 
 ubuntu=("${debian[@]}")
