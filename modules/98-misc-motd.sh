@@ -1,17 +1,11 @@
 #!/bin/bash
 
-# Copyright 2018-2023 Petr Všetečka <vsetecka@cesnet.cz>
-#           2024-2025 Baolin Zhu <zhubaolin228@gmail.com> and ZJUSCT
-#
-# The following code is a derivative work of the code from the jenkins.debian.net,
-# which is licensed GPLv3. This code therefore is also licensed under the terms
-# of the GNU Public License, verison 3.
-
 case $ID in
 arch) # arch has no update-motd
 	;;
 *)
 	rm -f /etc/update-motd.d/*
+# https://github.com/Gaeldrin/nice-motd
 	cat >/etc/update-motd.d/00-nice-motd <<'EOF'
 #!/bin/sh
 printf "\nWelcome to "; lsb_release -ds
@@ -47,6 +41,15 @@ printf $(($(apt-get -s upgrade | grep -ci "security") / 2))
 printf " updates are security updates.\n\n"
 EOF
 	chmod +x /etc/update-motd.d/00-nice-motd
+
+# motd for cluster manager
+	cat >/etc/update-motd.d/01-cluster-manager <<'EOF'
+#!/bin/sh
+# warn if /home has less than 500GB
+if [ $(df -h /home | awk '/\// { print $4 }' | sed 's/G//') -lt 500 ]; then
+	echo -e "\e[31mWARNING: /home has less than 500GB free space\e[0m"
+fi
+EOF
 
 	cat >/etc/motd <<EOF
 See https://go.zjusct.io/opendocs for more information.

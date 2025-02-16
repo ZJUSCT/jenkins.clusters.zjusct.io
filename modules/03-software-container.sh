@@ -46,7 +46,7 @@ arch_docker() {
 }
 
 openEuler() {
-	install_pkg docker-
+	install_pkg docker
 }
 
 check_and_exec "$ID"_docker
@@ -54,8 +54,8 @@ check_and_exec "$ID"_docker
 cat >/etc/docker/daemon.json <<EOF
 {
     "proxies": {
-    "http-proxy":  "http://storage:3128",
-    "https-proxy": "http://storage:3128",
+    "http-proxy":  "${PROXY}",
+    "https-proxy": "${PROXY}",
     "no-proxy": ""
   },
   "log-opts": {

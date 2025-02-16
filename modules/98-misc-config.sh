@@ -14,7 +14,7 @@ if [ -d /etc/profile.d ]; then
 fi
 EOF
 
-cat >/etc/fstab <<-EOF
+cat >/etc/fstab <<EOF
 storage:/home		/home		nfs	defaults	0	0
 storage:/river		/river		nfs	defaults	0	0
 #root:/lake		/lake		nfs	defaults	0	0
@@ -22,16 +22,15 @@ storage:/ocean		/ocean		nfs	defaults	0	0
 storage:/slurm		/slurm		nfs	defaults	0	0
 storage:/pxe/rootfs	/pxe/rootfs	nfs	defaults	0	0
 # # tmpfs mount are useless because we already use overlay root
-# none			/pxe		tmpfs	defaults	0	0
 # none			/tmp		tmpfs	defaults	0	0
 # none			/var/tmp	tmpfs	defaults	0	0
-# none			/var/log	tmpfs	defaults	0	0
 EOF
 
 mkdir -p /pxe/rootfs
 
 # conditional mount /local:
-# if /dev/sda is present and is ext4, mount it
+# if /dev/sda, /dev/nvme0n1 is present and is ext4, mount it
+# also bind mount /tmp, /var/tmp, /var/lib/docker
 cat >/usr/local/bin/mount-local.sh <<'EOF'
 #!/bin/bash
 set -e
@@ -40,16 +39,20 @@ if [ -b /dev/sda ] && blkid /dev/sda | grep -q ext4; then
 	mkdir -p /local-sata
 	mount /dev/sda /local-sata
 	chmod 777 /local-sata
-	mkdir -p /local-sata/docker
-	mkdir -p /local-sata/var
+
+
 	mkdir -p /local-sata/tmp
-	mkdir -p /local-sata/var/tmp
-	mkdir -p /var/lib/docker
-	mount --bind /local-sata/docker /var/lib/docker
 	mount --bind /local-sata/tmp /tmp
 	chmod 777 /tmp
+
+	mkdir -p /local-sata/var
+	mkdir -p /local-sata/var/tmp
 	mount --bind /local-sata/var/tmp /var/tmp
         chmod 777 /var/tmp
+
+	mkdir -p /local-sata/docker
+	mkdir -p /var/lib/docker
+	mount --bind /local-sata/docker /var/lib/docker
 fi
 
 if [ -b /dev/nvme0n1 ] && blkid /dev/nvme0n1 | grep -q ext4; then
@@ -77,11 +80,12 @@ EOF
 systemctl enable mount-local
 
 # a watchdog to restart machine when NFS break
-case $ID in
-debian | ubuntu)
-	install_pkg watchdog
-	;;
-*)
-	echo "TODO"
-	;;
-esac
+# seems not working
+#case $ID in
+#debian | ubuntu)
+#	install_pkg watchdog
+#	;;
+#*)
+#	echo "TODO"
+#	;;
+#esac

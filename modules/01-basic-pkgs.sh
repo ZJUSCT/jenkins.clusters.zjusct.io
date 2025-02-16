@@ -21,7 +21,7 @@ debian=(
 	golang
 	libboost-all-dev
 	libbz2-dev
-	libcurl4-openssl-dev
+	#libcurl4-openssl-dev
 	libdrm-dev
 	libexpat-dev
 	libgflags-dev
@@ -86,6 +86,15 @@ debian=(
 	stress
 	unrar
 	zoxide
+	attr autoconf automake bc bison bridge-utils cargo chrony
+	clang clang cmake cmake curl curl doxygen dracut ethtool
+	fish fish flex gawk gdb git git
+	gperf htop hwinfo hwloc iperf3 ipmitool iptraf-ng
+	jq libtool lldb mc meson net-tools
+	numactl patchutils pkg-config pkg-config
+	squashfs-tools sshfs sudo tcpdump tcpdump texinfo tldr tmux traceroute
+	tree valgrind vim wget zip zsh openssl
+	ffmpeg skopeo umoci debootstrap hyperfine iotop
 	# Object Introspection https://objectintrospection.org/docs/getting-started
 	bison autopoint build-essential cmake flex gawk libboost-all-dev libbz2-dev libcap2-bin libcurl4-gnutls-dev libdouble-conversion-dev libdw-dev libfmt-dev libgflags-dev libgmock-dev libgoogle-glog-dev libgtest-dev libjemalloc-dev libmsgpack-dev libzstd-dev ninja-build pkg-config python3-setuptools sudo xsltproc libboost-all-dev
 	# 编译原理 https://github.com/ZJU-CP/tools/blob/main/Dockerfile
@@ -129,7 +138,6 @@ arch=(
 	linux
 	linux-headers
 	nfs-utils
-	# with debian
 	aria2
 	bat
 	btop
@@ -153,10 +161,28 @@ arch=(
 	stress
 	unrar
 	zoxide
+	attr autoconf automake bc bison bridge-utils cargo chrony
+	clang clang cmake cmake curl curl doxygen dracut ethtool
+	fish fish flex gawk gdb git git
+	gperf htop hwinfo hwloc iperf3 ipmitool iptraf-ng
+	jq libtool lldb mc meson net-tools
+	numactl patchutils pkg-config pkg-config
+	squashfs-tools sshfs sudo tcpdump tcpdump texinfo tldr tmux traceroute
+	tree valgrind vim wget zip zsh openssl
+	ffmpeg skopeo umoci debootstrap hyperfine iotop
 )
 
 openEuler=(
 	binutils-devel
+	attr autoconf automake bc bison bridge-utils cargo chrony
+	clang clang cmake cmake curl curl doxygen dracut ethtool
+	fish fish flex gawk gdb git git
+	gperf htop hwinfo hwloc iperf3 ipmitool iptraf-ng
+	jq libtool lldb mc meson net-tools
+	numactl patchutils pkg-config pkg-config
+	squashfs-tools sshfs sudo tcpdump tcpdump texinfo tldr tmux traceroute
+	tree valgrind vim wget zip zsh openssl
+	ffmpeg skopeo umoci debootstrap hyperfine iotop
 )
 
 # check if ${ID} is defined
