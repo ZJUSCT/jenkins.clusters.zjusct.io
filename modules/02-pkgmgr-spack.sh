@@ -11,7 +11,7 @@ spack() {
         . ~/spack/share/spack/setup-env.sh
         eval "$_spack_def"
     fi
-    command spack $@
+    command spack \$@
 }
 EOF
 
