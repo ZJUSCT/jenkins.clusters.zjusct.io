@@ -11,16 +11,16 @@ spack() {
         . ~/spack/share/spack/setup-env.sh
         eval "$_spack_def"
     fi
-    command spack "$@"
+    command spack $@
 }
 EOF
 
-# fish
-cat >/etc/fish/conf.d/z00_spack.fish <<EOF
-spack() {
-    export https_proxy="http://storage:3128"
-    export http_proxy="http://storage:3128"
-    command spack "\$@"
-}
-EOF
+# # fish
+# cat >/etc/fish/conf.d/z00_spack.fish <<EOF
+# spack() {
+#     export https_proxy="http://storage:3128"
+#     export http_proxy="http://storage:3128"
+#     command spack "\$@"
+# }
+# EOF
 
