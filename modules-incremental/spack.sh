@@ -1,6 +1,11 @@
 #!/bin/bash
 # spack managed software, incremental only
 
+
+return 0
+
+# no spack in root
+
 SPACK_PATH="/opt/spack"
 export PATH=$SPACK_PATH/bin:$PATH
 
