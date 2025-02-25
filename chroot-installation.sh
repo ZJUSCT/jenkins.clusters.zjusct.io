@@ -17,8 +17,7 @@ DEBUG=true
 MIRROR=https://mirrors.zju.edu.cn/
 # use squid caching proxy
 PROXY=http://172.25.2.253:7890
-CACHE_PROXY=http://squid:3128
-CACHE_PROXY_EX=http://172.25.2.11:3128
+CACHE_PROXY=http://172.25.2.11:8083
 CHROOT_BASE=/pxe/rootfs
 # TODO: change private file into modules
 PRIVATE_BASE=/pxe/private/
