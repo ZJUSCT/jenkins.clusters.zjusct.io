@@ -22,6 +22,12 @@ if [ ! -d /usr/lib/dracut/modules.d/90overlay-root ]; then
 	wget -O /usr/lib/dracut/modules.d/90overlay-root/README https://salsa.debian.org/debian/dracut/-/raw/master/debian/90overlay-root/README
 fi
 
+# options nvidia NVreg_RestrictProfilingToAdminUsers=0 for nvidia driver
+
+cat > /etc/modprobe.d/nvidia-perf.conf <<EOF
+options nvidia NVreg_RestrictProfilingToAdminUsers=0
+EOF
+
 if $DEBUG; then
 	dracut --list-modules --kver "$KERNEL_VERSION"
 fi
