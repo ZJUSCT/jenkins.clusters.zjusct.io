@@ -27,7 +27,8 @@ free -m | awk '/Mem/  { printf "  Memory:  %4sM  (%2d%%)  out of %2.1fG\n", $3, 
 
 df -h | awk '/^\//  { printf "  Disk:    %5s  (%3s)  out of %4s %s\n", $3, $5, $2, $6; }'
 df -h | awk '/^storage/ { printf "   NFS:    %5s  (%3s)  out of %4s %s\n", $3, $5, $2, $6; }'
-printf "\n"
+printf "\nCurrent logged in users:"
+printf "\n  "
 users
 EOF
 	chmod +x /etc/update-motd.d/00-nice-motd
