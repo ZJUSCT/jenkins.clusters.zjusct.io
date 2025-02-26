@@ -1,7 +1,3 @@
 jenkins/.env
 jenkins/jenkins_home/
 job_builder/jenkins_jobs.ini
-squid/squid/bump.crt
-squid/squid/bump.key
-squid/squid/bump_dhparam.pem
-squid/squid_cache/

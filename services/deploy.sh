@@ -111,8 +111,8 @@ EOF
 	bw logout
 fi
 
-mkdir -p squid/squid_cache
-chmod 777 squid/squid_cache
+#mkdir -p squid/squid_cache
+#chmod 777 squid/squid_cache
 docker compose up -d
 
 . job_builder/update-jobs.sh

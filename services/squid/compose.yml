@@ -4,6 +4,7 @@ services:
     volumes:
       - ./squid:/etc/squid
       - ./squid_cache:/cache
+      - /etc/ssl:/etc/ssl:ro
     restart: unless-stopped
     ports:
       - "3128:3128"

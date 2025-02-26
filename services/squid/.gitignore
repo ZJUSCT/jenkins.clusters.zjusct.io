@@ -1,0 +1,4 @@
+squid/bump.crt
+squid/bump.key
+squid/bump_dhparam.pem
+squid_cache/
