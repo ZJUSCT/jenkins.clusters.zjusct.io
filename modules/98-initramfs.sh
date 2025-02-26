@@ -28,6 +28,8 @@ cat > /etc/modprobe.d/nvidia-perf.conf <<EOF
 options nvidia NVreg_RestrictProfilingToAdminUsers=0
 EOF
 
+echo 'install_items+=" /etc/modprobe.d/nvidia-perf.conf "' | tee /etc/dracut.conf.d/custom-modprobe.conf
+
 if $DEBUG; then
 	dracut --list-modules --kver "$KERNEL_VERSION"
 fi
