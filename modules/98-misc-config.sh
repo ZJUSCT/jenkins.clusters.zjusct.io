@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#########
+# Shell #
+#########
 # we change zsh to read profile.d as bash does
 # https://lmod.readthedocs.io/en/latest/030_installing.html#zsh
 cat >/etc/zsh/zshenv <<'EOF'
@@ -14,6 +17,19 @@ if [ -d /etc/profile.d ]; then
 fi
 EOF
 
+#########
+# umask #
+#########
+# default is 0022, we want 0002
+# https://manpages.debian.org/bookworm/libpam-modules/pam_umask.8.en.html
+cat > /etc/pam.d/common-session <<EOF
+session    optional     pam_umask.so umask=0002
+EOF
+sed -i 's/^UMASK.*$/UMASK		002/' /etc/login.defs
+
+##############
+# Filesystem #
+##############
 cat >/etc/fstab <<EOF
 storage:/home		/home		nfs	defaults	0	0
 storage:/river		/river		nfs	defaults	0	0
@@ -30,11 +46,11 @@ EOF
 mkdir -p /pxe/rootfs
 mkdir -p /pxe/opt
 
+cat >/usr/local/bin/mount-local.sh <<'EOF'
+#!/bin/bash
 # conditional mount /local:
 # if /dev/sda, /dev/nvme0n1 is present and is ext4, mount it
 # also bind mount /tmp, /var/tmp, /var/lib/docker
-cat >/usr/local/bin/mount-local.sh <<'EOF'
-#!/bin/bash
 set -e
 
 if [ -b /dev/sda ] && blkid /dev/sda | grep -q ext4; then
