@@ -48,6 +48,7 @@ After=network-online.target
 After=time-sync.target
 After=sockets.target
 After=sssd-nss.service
+After=slurm.mount remote-fs.target
 
 [Service]
 Type=forking
