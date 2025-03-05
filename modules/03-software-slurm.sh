@@ -51,7 +51,7 @@ After=sssd-nss.service
 [Service]
 Type=forking
 EnvironmentFile=-/slurm/etc/default/munge
-ExecStart=/usr/sbin/munged $OPTIONS
+ExecStart=/usr/sbin/munged \$OPTIONS
 PIDFile=/run/munge/munged.pid
 RuntimeDirectory=munge
 RuntimeDirectoryMode=0755
