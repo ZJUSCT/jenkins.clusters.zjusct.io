@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # https://github.com/dun/munge/issues/92
-# groupadd --gid 701 munge
-# useradd --comment "MUNGE authentication service" \
-# 	--uid 701 \
-# 	--gid munge \
-# 	--shell /sbin/nologin \
-# 	--home-dir /usr/local/etc/munge \
-# 	munge
+groupadd --gid 701 munge
+useradd --comment "MUNGE authentication service" \
+	--uid 701 \
+	--gid munge \
+	--shell /sbin/nologin \
+	--home-dir /usr/local/etc/munge \
+	munge
 
 # see Debian source
 # slurm-wlm/debian/slurm-wlm-basic-plugins.preinst/
