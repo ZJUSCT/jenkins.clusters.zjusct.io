@@ -22,6 +22,7 @@ useradd --comment "Slurm workload manager" \
 
 debian() {
 	install_pkg munge slurmd
+	rm -rf /etc/munge/munge.key
 }
 
 ubuntu() {
