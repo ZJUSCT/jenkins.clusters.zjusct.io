@@ -21,7 +21,7 @@ useradd --comment "Slurm workload manager" \
 	slurm
 
 debian() {
-	install_pkg munge slurmd
+	install_pkg munge slurmd slurm-client
 	rm -rf /etc/munge/munge.key
 }
 
