@@ -126,6 +126,7 @@ prepare_module() {
 		cat distro/"$DISTRO"-header.sh
 		cat common-header.sh
 		cat "$1"
+		echo "\n# end of $1"
 	} >"$CTMPFILE"
 }
 
