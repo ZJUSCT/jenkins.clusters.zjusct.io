@@ -110,6 +110,7 @@ debian=(
 	zlib1g zlib1g-dev
 	device-tree-compiler
 	npm
+	librdmacm-dev
 )
 
 ubuntu=("${debian[@]}")
