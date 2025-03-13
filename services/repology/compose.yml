@@ -1,0 +1,16 @@
+services:
+  db:
+    build: .
+    restart: unless-stopped
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: repology
+      POSTGRES_PASSWORD: repology
+      POSTGRES_DB: repology
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+      - ./init:/docker-entrypoint-initdb.d
+      - ./query:/root/query
+    ports:
+      - 5432:5432

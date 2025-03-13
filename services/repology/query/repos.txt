@@ -1,0 +1,11 @@
+arch
+aur
+debian_12
+debian_13
+debian_unstable
+nix_unstable
+openeuler_24_09
+rocky_9
+spack
+ubuntu_24_04
+ubuntu_24_10

@@ -38,6 +38,12 @@ We now determine the environment based on PID 1. If PID 1 is:
 - `tini`: We are in docker. Jenkins docker now use this, but can't tell if it's a docker container
 - `systemd`: We are on the host running systemd.
 
+### Cross-Distribution Support
+
+We use [Repology](https://repology.org/) to query the package information of various distributions. [repology/repology-updater](https://github.com/repology/repology-updater) provides offline database files.
+
+See `services/repology` for details.
+
 ## Coding Style
 
 This repository mainly contains Shell scripts, so please follow the following coding style:
