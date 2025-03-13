@@ -19,7 +19,6 @@ debian=(
 	gfortran
 	glibc-doc
 	golang
-	libboost-all-dev
 	libbz2-dev
 	#libcurl4-openssl-dev
 	libdrm-dev
@@ -31,9 +30,6 @@ debian=(
 	libgtk-3-dev
 	libmpc-dev
 	libmpfr-dev
-	libmsgpack-cxx-dev
-	libmsgpack-dev
-	libmsgpackc2
 	libomp-dev
 	libpcap-dev
 	libpcap-dev
