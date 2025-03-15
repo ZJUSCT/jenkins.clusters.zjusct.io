@@ -2,6 +2,6 @@ name: zjusct-diskless
 
 include:
   - jenkins/compose.yml
-  #- squid/compose.yml
+    #- squid/compose.yml
   - ats/compose.yml
 

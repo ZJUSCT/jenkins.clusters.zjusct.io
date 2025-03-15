@@ -1,7 +1,6 @@
 services:
   trafficserver:
     image: cfdh.zjusct.io/trafficserver/trafficserver
-    container_name: trafficserver
     restart: unless-stopped
     ports:
       - "8082:8080"
