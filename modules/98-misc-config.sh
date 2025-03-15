@@ -31,16 +31,12 @@ sed -i 's/^UMASK.*$/UMASK		002/' /etc/login.defs
 # Filesystem #
 ##############
 cat >/etc/fstab <<EOF
-storage:/home		/home		nfs	defaults	0	0
 storage:/river		/river		nfs	defaults	0	0
-#root:/lake		/lake		nfs	defaults	0	0
+/river/home		/home		none	defaults,bind	0	0
+#storage:/river/home	/home		nfs	defaults	0	0
+root:/lake		/lake		nfs	defaults	0	0
 storage:/ocean		/ocean		nfs	defaults	0	0
 storage:/slurm		/slurm		nfs	defaults	0	0
-storage:/pxe/rootfs	/pxe/rootfs	nfs	defaults	0	0
-storage:/pxe/opt	/pxe/opt	nfs	defaults	0	0
-# # tmpfs mount are useless because we already use overlay root
-# none			/tmp		tmpfs	defaults	0	0
-# none			/var/tmp	tmpfs	defaults	0	0
 EOF
 
 mkdir -p /pxe/rootfs

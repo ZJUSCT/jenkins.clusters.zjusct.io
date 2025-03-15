@@ -8,7 +8,7 @@ arch) # arch has no update-motd
 # https://github.com/Gaeldrin/nice-motd
 	cat >/etc/update-motd.d/00-nice-motd <<'EOF'
 #!/bin/bash --norc
-printf "\nWelcome to "; hostname 
+printf "\nWelcome to "; hostname
 # printf "  Kernel: "; uname -v
 printf "  "; uptime -p
 printf "\nSystem information as of "; date --rfc-3339=seconds
