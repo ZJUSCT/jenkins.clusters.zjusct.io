@@ -20,9 +20,9 @@
 
 cat > /etc/sudoers.d/audit <<EOF
 Defaults log_subcmds
-Defaults log_format=json
-Defaults logfile=/var/log/sudo.log
-Defaults !syslog
+#Defaults log_format=json
+#Defaults logfile=/var/log/sudo.log
+#Defaults !syslog
 # https://www.sudo.ws/pipermail/sudo-users/2023-February/006538.html
 Defaults !intercept_verify
 EOF
