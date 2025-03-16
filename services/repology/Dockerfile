@@ -7,7 +7,7 @@ RUN apt-get update
 
 WORKDIR /root
 
-ENV https_proxy=http://172.25.2.253:7890
+ENV https_proxy=http://172.25.4.253:7890
 
 RUN apt-get install -y git cmake g++ postgresql-server-dev-17 pkg-config
 RUN <<EOF

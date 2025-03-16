@@ -9,7 +9,7 @@ confdir /etc/chrony/conf.d
 #sourcedir /run/chrony-dhcp
 #sourcedir /etc/chrony/sources.d
 
-server 172.25.2.253 iburst
+server 172.25.4.253 iburst
 #server time.zju.edu.cn iburst
 
 keyfile /etc/chrony/chrony.keys

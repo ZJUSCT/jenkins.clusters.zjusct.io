@@ -36,7 +36,7 @@ config_file_version = 2
 [domain/LDAP]
 
 id_provider = ldap
-ldap_uri = ldaps://172.25.2.253
+ldap_uri = ldaps://172.25.4.253
 
 ldap_tls_cacert = /etc/sssd/ca.crt
 ldap_tls_reqcert = allow
