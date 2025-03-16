@@ -46,7 +46,6 @@ common_init() {
 	export LANG=$LC_ALL
 	echo "===================================================================================="
 	echo "$(date) - running $0 on $(hostname), called using \"$*\" as arguments."
-	n
 	echo "$(date) - actually running \"$(basename "$0")\" (md5sum $(md5sum "$0" | cut -d ' ' -f1))"
 	echo
 	export MIRROR=$MIRROR
