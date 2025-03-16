@@ -32,9 +32,8 @@ sed -i 's/^UMASK.*$/UMASK		002/' /etc/login.defs
 ##############
 cat >/etc/fstab <<EOF
 storage:/river		/river		nfs	defaults	0	0
-/river/home		/home		none	defaults,bind	0	0
-#storage:/river/home	/home		nfs	defaults	0	0
-root:/lake		/lake		nfs	defaults	0	0
+storage:/riverhome	/home		nfs	defaults	0	0
+# root:/lake		/lake		nfs	defaults	0	0
 storage:/ocean		/ocean		nfs	defaults	0	0
 storage:/slurm		/slurm		nfs	defaults	0	0
 EOF
