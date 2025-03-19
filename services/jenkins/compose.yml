@@ -2,7 +2,11 @@ services:
   jenkins:
     build: .
     privileged: true # chroot and systemd-nspawn need privileged
+    env_file:
+      - ./.env
     environment:
+      # https://plugins.jenkins.io/configuration-as-code/
+      - CASC_JENKINS_CONFIG=/var/jenkins_home/jenkins_casc.yml
       - JENKINS_PASSWORD=${JENKINS_PASSWORD}
       - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
       - GITHUB_ACCESS_TOKEN=${GITHUB_ACCESS_TOKEN}

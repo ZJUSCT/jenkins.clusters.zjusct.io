@@ -62,7 +62,7 @@ fi
 
 cd squid/squid || exit 1
 
-if [ ! -f bump.key ] || [ ! -f bump.crt ] || [ ! -f bump_dhparam.pem ]; then
+if [ ! -f bump.key ] || [ ! -f bump.crt ]; then
 	echo "Generating bump key and cert..."
 	if [ ! -f bump.conf ]; then
 		echo "bump.conf not found, exit"
@@ -88,7 +88,7 @@ if ! command -v jenkins-jobs &>/dev/null; then
 	sudo apt-get install -y jenkins-job-builder
 fi
 
-docker compose build --no-cache --progress plain
+docker compose build #--no-cache --progress plain
 rm jenkins/bump.crt
 
 # jenkins_jobs.ini is mounted by docker
