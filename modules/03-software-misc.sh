@@ -1,5 +1,22 @@
 #!/bin/bash
 
+##################
+# wagoodman/dive #
+##################
+
+case $ID in
+debian|ubuntu)
+	install_pkg_from_github 'wagoodman/dive' 'endswith("amd64.deb")'
+	;;
+openEuler)
+	install_pkg_from_github 'wagoodman/dive' 'endswith("amd64.rpm")'
+	;;
+arch)
+	get_asset_from_github 'wagoodman/dive' 'endswith("amd64.tar.gz")' /tmp/dive.tar.gz
+	tar -C /usr/bin -xzf /tmp/dive.tar.gz dive
+	;;
+esac
+
 #####################
 # bitwarden/clients #
 #####################
