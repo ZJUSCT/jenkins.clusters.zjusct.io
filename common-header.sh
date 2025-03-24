@@ -13,8 +13,8 @@ curl (){
 	command curl --retry-all-errors --retry 5 --silent --show-error --location "$@"
 }
 wget (){
-	# retry forever
-	command wget --retry-connrefused --quiet "$@"
+	# don't use --quiet, use --no-verbose instead, or you won't know what's going on
+	command wget --retry-connrefused --no-verbose "$@"
 }
 
 # https://unix.stackexchange.com/questions/351557/on-what-linux-distributions-can-i-rely-on-the-presence-of-etc-os-release
