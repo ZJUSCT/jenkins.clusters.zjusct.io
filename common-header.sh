@@ -14,7 +14,7 @@ curl (){
 }
 wget (){
 	# retry forever
-	command wget --retry-connrefused --waitretry=1 --tries=5 --quiet "$@"
+	command wget --retry-connrefused --quiet "$@"
 }
 
 # https://unix.stackexchange.com/questions/351557/on-what-linux-distributions-can-i-rely-on-the-presence-of-etc-os-release
