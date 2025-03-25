@@ -54,6 +54,9 @@ mkdir -p "$CHROOT_TARGET"
 chmod +x "$CHROOT_TARGET"
 
 make_rootfs
+
+# trust the certificate from cache proxy
+# need to do in 00-bootstrap.sh
 cp /usr/local/share/ca-certificates/bump.crt "$CHROOT_TARGET"/root/bump.crt
 
 ###################
