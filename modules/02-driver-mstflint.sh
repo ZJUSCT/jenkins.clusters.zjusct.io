@@ -10,6 +10,9 @@ debian|ubuntu)
 openEuler)
 	install_pkg mstflint
 	;;
+arch)
+	# arch can't compile mstflint successfully now...
+	;;
 *)
 	install_pkg rdma-core
 	get_asset_from_github "Mellanox/mstflint" 'startswith("mstflint")' /tmp/mstflint.tar.gz
