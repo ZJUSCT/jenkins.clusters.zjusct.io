@@ -9,10 +9,10 @@ cd /tmp || exit 1
 # alias wget="wget --tries=5 --quiet"
 
 # Ideally, we should use functions instead of aliases
-curl (){
+curl() {
 	command curl --retry-all-errors --retry 5 --silent --show-error --location "$@"
 }
-wget (){
+wget() {
 	# don't use --quiet, use --no-verbose instead, or you won't know what's going on
 	command wget --retry-connrefused --no-verbose "$@"
 }
@@ -52,6 +52,9 @@ get_github_url() {
 	local counter=20
 	# if url is empty, retry 20 times until it's not empty
 	while [ -z "$url" ] && [ $counter -gt 0 ]; do
+		# we can't use /latest because repository like bitwarden/client
+		# release different products on different branches, so latest
+		# might not contain the product we want
 		url=$(curl "https://api.github.com/repos/$repo/releases" |
 			jq -r "$match" |
 			head -n 1)
