@@ -190,3 +190,5 @@ EOF
 	# from archlinuxcn
 	pacman -S pikaur
 }
+
+check_and_exec "$ID"

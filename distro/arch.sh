@@ -25,7 +25,7 @@ make_rootfs() {
 	mkdir -p "$TMPDIR"
 	IMGFILE=$TMPDIR/archlinux-bootstrap-x86_64.tar.zst
 
-	wget --tries=5 --quiet -O "$IMGFILE" "$IMAGEURL"
+	wget --retry-connrefused --no-verbose -O "$IMGFILE" "$IMAGEURL"
 	# Extract the Arch Linux bootstrap tarball
 	tar xf "$IMGFILE" -C "$CHROOT_TARGET" --numeric-owner
 
