@@ -6,7 +6,7 @@ SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 cd "$SCRIPT_DIR"
 
 if [ "$#" -lt 1 ]; then
-	echo "Usage: $0 <DISTRO> [RELEASE] [INCREDIMENTAL]"
+	echo "Usage: $0 <DISTRO> [RELEASE]"
 	exit 1
 fi
 
@@ -24,13 +24,7 @@ PRIVATE_BASE=/pxe/private/
 
 DISTRO=$1
 RELEASE=$2
-INCREDIMENTAL=${3:-false}
-
-if $INCREDIMENTAL; then
-	TIMESTAMP=incr
-else
-	TIMESTAMP=$(date +%Y%m%dT%H%M%S%Z)
-fi
+TIMESTAMP=$(date +%Y%m%dT%H%M%S%Z)
 
 if [ ! -f "distro/$DISTRO.sh" ]; then
 	echo "Unsupported distro."
@@ -52,20 +46,15 @@ common_init "$@"
 ####################
 CHROOT_BASE=$CHROOT_BASE/$DISTRO/$RELEASE
 CHROOT_TARGET=$CHROOT_BASE.$TIMESTAMP
-if $INCREDIMENTAL; then
-	if [ ! -d "$CHROOT_TARGET" ]; then
-		cp -al "$CHROOT_BASE" "$CHROOT_TARGET"
-	fi
-else
-	echo "Bootstraping $DISTRO $RELEASE into $CHROOT_TARGET now."
 
-	mkdir -p "$CHROOT_TARGET"
-	# workaround #844220 / #872812
-	chmod +x "$CHROOT_TARGET"
+echo "Bootstraping $DISTRO $RELEASE into $CHROOT_TARGET now."
 
-	make_rootfs
-	cp /usr/local/share/ca-certificates/bump.crt "$CHROOT_TARGET"/root/bump.crt
-fi
+mkdir -p "$CHROOT_TARGET"
+# workaround #844220 / #872812
+chmod +x "$CHROOT_TARGET"
+
+make_rootfs
+cp /usr/local/share/ca-certificates/bump.crt "$CHROOT_TARGET"/root/bump.crt
 
 ###################
 # Modular Scripts #
@@ -93,18 +82,9 @@ export https_proxy=$CACHE_PROXY
 export MIRROR=$MIRROR
 export PROXY=$PROXY
 export CACHE_PROXY=$CACHE_PROXY
-export INCREDIMENTAL=$INCREDIMENTAL
 "
 
-if $INCREDIMENTAL; then
-	MODULES=(
-		modules/00-bootstrap.sh
-		modules-incremental/*
-		modules/99-clean.sh
-	)
-else
-	MODULES=(modules/*)
-fi
+MODULES=(modules/*)
 
 for script in "${MODULES[@]}"; do
 	echo "Debug: Running $script."
@@ -113,9 +93,7 @@ for script in "${MODULES[@]}"; do
 done
 
 # private files
-if ! $INCREDIMENTAL; then
-	rsync -a "$PRIVATE_BASE"/ "$CHROOT_TARGET"/
-fi
+rsync -a "$PRIVATE_BASE"/ "$CHROOT_TARGET"/
 
 echo "Debug: Cleanup fine"
 cleanup_all fine

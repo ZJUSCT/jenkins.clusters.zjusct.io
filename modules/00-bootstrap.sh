@@ -190,7 +190,3 @@ EOF
 	# from archlinuxcn
 	pacman -S pikaur
 }
-
-if ! $INCREDIMENTAL; then
-	check_and_exec "$ID"
-fi

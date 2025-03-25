@@ -87,9 +87,6 @@ cleanup_all() {
 
 	echo "\$1 = $1"
 	rm -f "$TMPLOG"
-	if $INCREDIMENTAL; then
-		exit 0
-	fi
 	if [ "$1" != "fine" ]; then
 		# rename to .error
 		rm -rf --one-file-system "$CHROOT_BASE".error ||
