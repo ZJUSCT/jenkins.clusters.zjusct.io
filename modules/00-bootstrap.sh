@@ -67,10 +67,10 @@ EOF
 	fi
 
 	# apt proxy
-	if [ -n "$CACHE_PROXY" ]; then
+	if [ -n "$PROXY" ]; then
 		cat >/etc/apt/apt.conf.d/80proxy <<EOF
-Acquire::http::Proxy "$CACHE_PROXY";
-Acquire::https::Proxy "$CACHE_PROXY";
+Acquire::http::Proxy "$PROXY";
+Acquire::https::Proxy "$PROXY";
 EOF
 	fi
 

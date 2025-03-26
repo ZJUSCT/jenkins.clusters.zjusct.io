@@ -48,3 +48,10 @@ cat > /etc/containerd/config.toml <<EOF
 [plugins."io.containerd.grpc.v1.cri"]
   sandbox_image = "registry.k8s.io/pause:3.10"
 EOF
+
+mkdir -p /etc/systemd/system/containerd.service.d
+cat > /etc/systemd/system/containerd.service.d/override.conf <<EOF
+[Service]
+Environment="HTTPS_PROXY=${PROXY}"
+Environment="HTTP_PROXY=${PROXY}"
+EOF

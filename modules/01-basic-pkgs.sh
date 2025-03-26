@@ -107,6 +107,7 @@ debian=(
 	device-tree-compiler
 	npm
 	librdmacm-dev
+	nmap
 )
 
 ubuntu=("${debian[@]}")
