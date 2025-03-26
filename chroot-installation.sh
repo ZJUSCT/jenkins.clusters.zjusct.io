@@ -13,7 +13,7 @@ fi
 #################
 # Configuration #
 #################
-DEBUG=true
+DEBUG=false
 MIRROR=https://mirrors.zju.edu.cn/
 PROXY=http://172.25.4.253:7890
 # CACHE_PROXY=http://172.25.4.11:8083

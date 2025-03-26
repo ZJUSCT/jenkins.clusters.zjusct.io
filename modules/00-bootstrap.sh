@@ -18,9 +18,10 @@ if [ "$CHROOT_METHOD" == "chroot" ]; then
 	mount /tmp -t tmpfs /tmp
 fi
 
-# debug info
-mount
-df -h
+if $DEBUG; then
+	mount
+	df -h
+fi
 
 # default console password, will be superseeded when SSSD is setup
 echo "root:Boot1234" | chpasswd
