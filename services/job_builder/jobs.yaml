@@ -44,8 +44,8 @@
       - pollscm:
           # every 2 hours
           cron: "H H/2 * * *"
-      # every Saturday
-      - timed: "H H * * 6"
+      # every day
+      - timed: "H H * * *"
     publishers:
       - gitlab-notifier:
           name: "chroot-{distro}-{release}"
