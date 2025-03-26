@@ -18,7 +18,6 @@ debian=(
 	gcc-riscv64-linux-gnu
 	gfortran
 	glibc-doc
-	golang
 	libbz2-dev
 	#libcurl4-openssl-dev
 	libdrm-dev
@@ -108,6 +107,8 @@ debian=(
 	npm
 	librdmacm-dev
 	nmap
+	jenkins-job-builder
+	opensm
 )
 
 ubuntu=("${debian[@]}")
@@ -117,15 +118,17 @@ debian)
 	debian+=(linux-perf linux-cpupower)
 	case $RELEASE in
 	stable)
-		debian+=(exa jenkins-job-builder opensm)
+		debian+=(exa)
+		debain+=(golang/stable-backports)
 		;;
 	testing)
 		debian+=(eza gping)
+		debian+=(golang)
 		;;
 	esac
 	;;
 ubuntu)
-	ubuntu+=(linux-tools-common eza gping opensm)
+	ubuntu+=(linux-tools-common eza gping opensm golang)
 	case $RELEASE in
 	oracular)
 		ubuntu+=(linux-cpupower)
