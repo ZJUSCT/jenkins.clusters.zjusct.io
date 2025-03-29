@@ -149,6 +149,8 @@ cat > /etc/audit/rules.d/zjusct.rules <<EOF
 -a always,exit -F arch=b64 -F euid=0 -F auid!=-1 -S execve -k rootcmd
 EOF
 
+systemctl disable auditd
+
 cat > /etc/sudoers.d/audit <<EOF
 Defaults log_subcmds
 #Defaults log_format=json
