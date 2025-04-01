@@ -36,6 +36,7 @@ RUN apt-get clean
 
 # skip the setup wizard
 ENV JAVA_OPTS "-Djenkins.install.runSetupWizard=false"
+ENV JENKINS_UC_DOWNLOAD https://mirrors.tuna.tsinghua.edu.cn/jenkins/
 # timezone
 ENV TZ="Asia/Shanghai"
 
