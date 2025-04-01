@@ -64,21 +64,21 @@ if [ ! -f jenkins/.env ]; then
 	bw logout
 fi
 
-cd squid/squid || exit 1
-
-cp bump.crt "$SCRIPT_DIR"/jenkins/bump.crt
+################
+# install cert #
+################
 
 cd "$SCRIPT_DIR" || exit 1
+cp cert/bump.crt jenkins/bump.crt
 
-if ! command -v jenkins-jobs &>/dev/null; then
-	echo "jenkins-jobs could not be found, installing..."
-	sudo apt-get install -y jenkins-job-builder
-fi
+#################
+# build jenkins #
+#################
 
 docker compose build #--no-cache --progress plain
 rm jenkins/bump.crt
 
-# jenkins_jobs.ini is mounted by docker
+# jenkins_jobs.ini is private, mounted by docker
 if [ ! -f job_builder/jenkins_jobs.ini ]; then
 	bw_login
 	JENKINS_PASSWORD=$(bw get password JENKINS_PASSWORD)
@@ -98,8 +98,11 @@ EOF
 	bw logout
 fi
 
-#mkdir -p squid/squid_cache
-#chmod 777 squid/squid_cache
 docker compose up -d
+
+if ! command -v jenkins-jobs &>/dev/null; then
+	echo "jenkins-jobs could not be found, installing..."
+	sudo apt-get install -y jenkins-job-builder
+fi
 
 . job_builder/update-jobs.sh
