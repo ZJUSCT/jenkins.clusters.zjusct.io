@@ -1,0 +1,13 @@
+services:
+  trafficserver:
+    image: trafficserver/trafficserver
+    restart: unless-stopped
+    volumes:
+      - ./config/cache.config:/opt/etc/trafficserver/cache.config
+      - ./config/ip_allow.yaml:/opt/etc/trafficserver/ip_allow.yaml
+      - ./config/parent.config:/opt/etc/trafficserver/parent.config
+      - ./config/plugin.config:/opt/etc/trafficserver/plugin.config
+      - ./config/records.config:/opt/etc/trafficserver/records.config
+      - ./config/storage.config:/opt/etc/trafficserver/storage.config
+      - ../cert:/ca
+      - ./var:/opt/var/

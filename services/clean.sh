@@ -24,4 +24,3 @@ rm -rf squid/squid/bump.key
 # clean env
 rm -rf jenkins/.env
 rm -rf job_builder/jenkins_jobs.ini
-

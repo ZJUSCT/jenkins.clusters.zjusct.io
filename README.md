@@ -38,11 +38,41 @@ We now determine the environment based on PID 1. If PID 1 is:
 - `tini`: We are in docker. Jenkins docker now use this, but can't tell if it's a docker container
 - `systemd`: We are on the host running systemd.
 
-### Cross-Distribution Support
+## Services
+
+The `services` directory contains the configuration files for various services.
+
+### `cert`
+
+The `cert` directory is used to store self-signed certificates. These certificates are installed into the built systems and marked as trusted. This allows the proxy cache to handle HTTPS content effectively.
+
+Use `cert_gen.sh` to generate the certificates. The script will create a new certificate and private key. Then copy them to the appropriate locations.
+
+If you need to regenerate the certificate, ensure that all systems using the old certificate are updated with the new one.
+
+### `squid` (deprecated)
+
+[Squid](http://www.squid-cache.org/) is a caching proxy supporting HTTP, HTTPS, FTP, and more. 
+
+Due to its outdated design and suboptimal performance compared to `trafficserver`, we have transitioned to using `trafficserver` as a replacement.
+
+These configuration files are not maintained anymore.
+
+### `trafficserver`
+
+[Apache Traffic Server](https://trafficserver.apache.org/) is a high-performance web proxy cache.
+
+### `jenkins`
+
+### `job_builder`
+
+[Jenkins Job Builder](https://jenkins-job-builder.readthedocs.io/en/latest/) is a tool to manage Jenkins jobs using YAML configuration files.
+
+### `repology`
+
+Cross-Distribution Support
 
 We use [Repology](https://repology.org/) to query the package information of various distributions. [repology/repology-updater](https://github.com/repology/repology-updater) provides offline database files.
-
-See `services/repology` for details.
 
 ## Coding Style
 
