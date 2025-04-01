@@ -102,6 +102,9 @@ EOF
 	bw logout
 fi
 
+mkdir -p trafficserver/var
+chmod 777 trafficserver/var
+
 docker compose up -d
 
 if ! command -v jenkins-jobs &>/dev/null; then
