@@ -36,12 +36,6 @@ RUN apt-get clean
 
 # skip the setup wizard
 ENV JAVA_OPTS "-Djenkins.install.runSetupWizard=false"
-# use the mirror of TUNA
-# https://github.com/jenkinsci/docker/?tab=readme-ov-file#setting-update-centers
-ENV JENKINS_UC https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates
-ENV JENKINS_UC_EXPERIMENTAL https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/experimental
-ENV JENKINS_UC_DOWNLOAD https://mirrors.tuna.tsinghua.edu.cn/jenkins/
-ENV JENKINS_PLUGIN_INFO https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/current/plugin-versions.json
 # timezone
 ENV TZ="Asia/Shanghai"
 
