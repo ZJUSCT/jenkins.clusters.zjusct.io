@@ -68,7 +68,11 @@ fi
 # install cert #
 ################
 
-cd "$SCRIPT_DIR" || exit 1
+(
+	cd cert || exit 1
+	./cert_gen.sh
+)
+
 cp cert/bump.crt jenkins/bump.crt
 
 #################
