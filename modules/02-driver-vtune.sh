@@ -8,6 +8,17 @@ set -x
 export
 
 URL="https://cdrdv2.intel.com/v1/dl/getContent/778889"
+case $DISTRO in
+debian)
+	KERNEL_SRC_DIR="/usr/src/linux-headers-${KERNEL_VERSION}-common"
+	;;
+ubuntu)
+	KERNEL_SRC_DIR="/usr/src/linux-headers-${KERNEL_VERSION}"
+	;;
+*)
+	KERNEL_SRC_DIR="/usr/src/linux-headers-${KERNEL_VERSION}"
+	;;
+esac
 
 cd /tmp || exit 1
 wget "$URL" -O vtune.tar.gz
@@ -16,7 +27,7 @@ tar -xzf vtune.tar.gz -C /opt/intel/vtune/sepdk --strip-components=1
 cd /opt/intel/vtune/sepdk/src || exit 1
 ./build-driver --non-interactive \
 	--kernel-version="$KERNEL_VERSION" \
-	--kernel-src-dir="/usr/src/linux-headers-${KERNEL_VERSION}-common/include" \
+	--kernel-src-dir="$KERNEL_SRC_DIR"
 # ./rmmod-sep -s
 ./insmod-sep --no-udev
 ./boot-script --install
