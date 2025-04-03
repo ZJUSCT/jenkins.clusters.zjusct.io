@@ -9,10 +9,7 @@ export
 
 URL="https://cdrdv2.intel.com/v1/dl/getContent/778889"
 case $DISTRO in
-debian)
-	KERNEL_SRC_DIR="/usr/src/linux-headers-${KERNEL_VERSION}-common"
-	;;
-ubuntu)
+debian|ubuntu)
 	KERNEL_SRC_DIR="/usr/src/linux-headers-${KERNEL_VERSION}"
 	;;
 *)
