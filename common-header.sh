@@ -72,7 +72,20 @@ get_asset_from_github() {
 	local output=$3
 	local url
 	url=$(get_github_url "$repo" ".[].assets[] | select(.name|$match) | .browser_download_url")
-	wget -O "$output" "$url"
+	local counter=20
+	# if download fails, retry 20 times
+	while [ $counter -gt 0 ]; do
+		if wget -O "$output" "$url"; then
+			break
+		fi
+		counter=$((counter - 1))
+		sleep 1
+	done
+
+	if [ $counter -eq 0 ]; then
+		echo "Failed to download $url after multiple attempts"
+		exit 1
+	fi
 }
 
 get_tarball_from_github() {
@@ -80,7 +93,20 @@ get_tarball_from_github() {
 	local output=$2
 	local url
 	url=$(get_github_url "$repo" ".[].tarball_url")
-	wget -O "$output" "$url"
+	local counter=20
+	# if download fails, retry 20 times
+	while [ $counter -gt 0 ]; do
+		if wget -O "$output" "$url"; then
+			break
+		fi
+		counter=$((counter - 1))
+		sleep 1
+	done
+
+	if [ $counter -eq 0 ]; then
+		echo "Failed to download $url after multiple attempts"
+		exit 1
+	fi
 }
 
 ########
