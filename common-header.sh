@@ -14,7 +14,8 @@ curl() {
 }
 wget() {
 	# don't use --quiet, use --no-verbose instead, or you won't know what's going on
-	command wget --retry-connrefused --no-verbose "$@"
+	# wget will retry 20 times by default, just need to add more retry conditions
+	command wget --retry-connrefused --retry-on-host-error --no-verbose "$@"
 }
 
 # https://unix.stackexchange.com/questions/351557/on-what-linux-distributions-can-i-rely-on-the-presence-of-etc-os-release
