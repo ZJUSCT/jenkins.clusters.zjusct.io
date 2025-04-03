@@ -23,9 +23,6 @@ if $DEBUG; then
 	df -h
 fi
 
-# default console password, will be superseeded when SSSD is setup
-echo "root:Boot1234" | chpasswd
-
 if [ "$CHROOT_METHOD" == "chroot" ]; then
 	# fix dns problem for specific distros
 	# https://askubuntu.com/questions/469209/how-to-resolve-hostnames-in-chroot

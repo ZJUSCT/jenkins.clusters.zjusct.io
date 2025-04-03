@@ -25,6 +25,13 @@ cd /opt/intel/vtune/sepdk/src || exit 1
 ./build-driver --non-interactive \
 	--kernel-version="$KERNEL_VERSION" \
 	--kernel-src-dir="$KERNEL_SRC_DIR"
-# ./rmmod-sep -s
-./insmod-sep --no-udev
+
+# insmod should not be used. it only works for drivers built for current kernel
+# ./insmod-sep --no-udev
+
+# boot-script will load driver at boot:
+# insmod() {
+#     (cd ${DRIVER_DIR} && ./${INSMOD_SCRIPT}  )
+#     return $?
+# }
 ./boot-script --install
