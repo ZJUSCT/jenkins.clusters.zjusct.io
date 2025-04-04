@@ -18,7 +18,7 @@ arch() {
 
 check_and_exec "$ID"
 
-curl https://gitlab.star-home.top:4430/star/deploy-ldap/-/raw/main/linux_"$ARCH" -o /bin/goldaptools
+curl --noproxy '*' https://gitlab.star-home.top:4430/star/deploy-ldap/-/raw/main/linux_"$ARCH" -o /bin/goldaptools
 chmod +x /bin/goldaptools
 chmod u+s /bin/goldaptools
 ln -s /bin/goldaptools /bin/pubkey
