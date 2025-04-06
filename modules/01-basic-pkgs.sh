@@ -166,7 +166,7 @@ arch=(
 	unrar
 	zoxide
 	attr autoconf automake bc bison bridge-utils cargo chrony
-	clang clang cmake cmake curl curl doxygen dracut ethtool
+	clang llvm-dev cmake cmake curl curl doxygen dracut ethtool
 	fish fish flex gawk gdb git git
 	gperf htop hwinfo hwloc iperf3 ipmitool iptraf-ng
 	jq libtool lldb mc meson net-tools
