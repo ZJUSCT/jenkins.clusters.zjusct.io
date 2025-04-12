@@ -1,0 +1,5 @@
+bump.crt
+bump.key
+
+# squid
+bump_dhparam.pem

@@ -51,6 +51,7 @@ openEuler() {
 
 check_and_exec "$ID"_docker
 
+mkdir -p /etc/docker
 cat >/etc/docker/daemon.json <<EOF
 {
     "proxies": {

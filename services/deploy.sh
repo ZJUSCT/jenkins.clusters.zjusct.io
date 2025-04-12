@@ -37,6 +37,10 @@ bw_login() {
 	fi
 }
 
+###################
+# get credentials #
+###################
+
 credential_names=(
 	"JENKINS_PASSWORD"
 	"GITLAB_ACCESS_TOKEN"
@@ -60,38 +64,25 @@ if [ ! -f jenkins/.env ]; then
 	bw logout
 fi
 
-cd squid/squid || exit 1
+################
+# install cert #
+################
 
-if [ ! -f bump.key ] || [ ! -f bump.crt ]; then
-	echo "Generating bump key and cert..."
-	if [ ! -f bump.conf ]; then
-		echo "bump.conf not found, exit"
-		exit 1
-	fi
-	openssl req \
-		-new -newkey rsa:2048 \
-		-sha256 -days 365 -nodes \
-		-x509 \
-		-keyout bump.key \
-		-out bump.crt \
-		-addext "crlDistributionPoints=URI:http://localhost/revocationlist.crl" \
-		-config bump.conf
-	chown proxy:proxy bump.key bump.crt
-	chmod 400 bump.key bump.crt
-fi
-cp bump.crt "$SCRIPT_DIR"/jenkins/bump.crt
+(
+	cd cert || exit 1
+	./cert_gen.sh
+)
 
-cd "$SCRIPT_DIR" || exit 1
+cp cert/bump.crt jenkins/bump.crt
 
-if ! command -v jenkins-jobs &>/dev/null; then
-	echo "jenkins-jobs could not be found, installing..."
-	sudo apt-get install -y jenkins-job-builder
-fi
+#################
+# build jenkins #
+#################
 
 docker compose build #--no-cache --progress plain
 rm jenkins/bump.crt
 
-# jenkins_jobs.ini is mounted by docker
+# jenkins_jobs.ini is private, mounted by docker
 if [ ! -f job_builder/jenkins_jobs.ini ]; then
 	bw_login
 	JENKINS_PASSWORD=$(bw get password JENKINS_PASSWORD)
@@ -111,8 +102,14 @@ EOF
 	bw logout
 fi
 
-#mkdir -p squid/squid_cache
-#chmod 777 squid/squid_cache
+mkdir -p trafficserver/var
+chmod 777 trafficserver/var
+
 docker compose up -d
+
+if ! command -v jenkins-jobs &>/dev/null; then
+	echo "jenkins-jobs could not be found, installing..."
+	sudo apt-get install -y jenkins-job-builder
+fi
 
 . job_builder/update-jobs.sh

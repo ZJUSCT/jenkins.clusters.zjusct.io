@@ -2,5 +2,4 @@ name: zjusct-diskless
 
 include:
   - jenkins/compose.yml
-  - ats/compose.yml
-
+  - trafficserver/compose.yml

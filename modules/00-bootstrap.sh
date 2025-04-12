@@ -18,12 +18,10 @@ if [ "$CHROOT_METHOD" == "chroot" ]; then
 	mount /tmp -t tmpfs /tmp
 fi
 
-# debug info
-mount
-df -h
-
-# default console password, will be superseeded when SSSD is setup
-echo "root:Boot1234" | chpasswd
+if $DEBUG; then
+	mount
+	df -h
+fi
 
 if [ "$CHROOT_METHOD" == "chroot" ]; then
 	# fix dns problem for specific distros
@@ -37,10 +35,10 @@ if [ "$CHROOT_METHOD" == "chroot" ]; then
 		mv /etc/resolv.conf /etc/resolv.conf.bak
 	fi
 	cat >/etc/resolv.conf <<EOF
-nameserver 127.0.0.11
-nameserver 172.25.4.253
-nameserver 10.10.0.21
-nameserver 10.10.2.21
+nameserver 127.0.0.11 # docker internal
+nameserver 172.25.4.253 # cluster
+nameserver 10.10.0.21 # zju
+nameserver 10.10.2.21 # zju
 EOF
 fi
 

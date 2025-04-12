@@ -1,10 +1,18 @@
 #!/bin/bash
 
-curl https://gitlab.star-home.top:4430/star/deploy-ctld/-/raw/main/ctld_1.1.0_amd64.deb -o /tmp/ctld_1.1.0_amd64.deb
+debian() {
+    export no_proxy=.star-home.top
+    wget -O /tmp/ctld_1.0.1_amd64.deb https://gitlab.star-home.top:4430/star/deploy-ctld/-/raw/main/ctld_1.0.1_amd64.deb
+    dpkg -i /tmp/ctld_1.0.1_amd64.deb
+}
 
-dpkg -i /tmp/ctld_1.1.0_amd64.deb
+ubuntu() {
+    debian
+}
 
-cat << EOF > /etc/systemd/system/ctld.service
+check_and_exec "$ID"
+
+cat <<EOF >/etc/systemd/system/ctld.service
 [Unit]
 Description=Control Daemon
 After=network.target
@@ -18,5 +26,3 @@ RestartSec=5
 [Install]
 WantedBy=multi-user.target
 EOF
-
-

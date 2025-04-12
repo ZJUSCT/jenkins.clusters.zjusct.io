@@ -13,11 +13,10 @@ fi
 #################
 # Configuration #
 #################
-DEBUG=true
+DEBUG=false
 MIRROR=https://mirrors.zju.edu.cn/
-# use squid caching proxy
 PROXY=http://172.25.4.253:7890
-CACHE_PROXY=http://172.25.4.11:8083
+CACHE_PROXY=http://trafficserver:8080
 CHROOT_BASE=/pxe/rootfs
 # TODO: change private file into modules
 PRIVATE_BASE=/pxe/private/
@@ -80,11 +79,11 @@ export ARCH=$ARCH
 export LC_ALL=$LC_ALL
 export LC_CTYPE=$LC_CTYPE
 export LANG=$LANG
-export http_proxy=$CACHE_PROXY
-export https_proxy=$CACHE_PROXY
 export MIRROR=$MIRROR
 export PROXY=$PROXY
 export CACHE_PROXY=$CACHE_PROXY
+export http_proxy=$CACHE_PROXY
+export https_proxy=$CACHE_PROXY
 "
 
 MODULES=(modules/*)

@@ -14,7 +14,8 @@ curl() {
 }
 wget() {
 	# don't use --quiet, use --no-verbose instead, or you won't know what's going on
-	command wget --retry-connrefused --no-verbose "$@"
+	# wget will retry 20 times by default, just need to add more retry conditions
+	command wget --retry-connrefused --retry-on-host-error --no-verbose "$@"
 }
 
 # https://unix.stackexchange.com/questions/351557/on-what-linux-distributions-can-i-rely-on-the-presence-of-etc-os-release
@@ -71,7 +72,20 @@ get_asset_from_github() {
 	local output=$3
 	local url
 	url=$(get_github_url "$repo" ".[].assets[] | select(.name|$match) | .browser_download_url")
-	wget -O "$output" "$url"
+	local counter=20
+	# if download fails, retry 20 times
+	while [ $counter -gt 0 ]; do
+		if wget -O "$output" "$url"; then
+			break
+		fi
+		counter=$((counter - 1))
+		sleep 1
+	done
+
+	if [ $counter -eq 0 ]; then
+		echo "Failed to download $url after multiple attempts"
+		exit 1
+	fi
 }
 
 get_tarball_from_github() {
@@ -79,7 +93,20 @@ get_tarball_from_github() {
 	local output=$2
 	local url
 	url=$(get_github_url "$repo" ".[].tarball_url")
-	wget -O "$output" "$url"
+	local counter=20
+	# if download fails, retry 20 times
+	while [ $counter -gt 0 ]; do
+		if wget -O "$output" "$url"; then
+			break
+		fi
+		counter=$((counter - 1))
+		sleep 1
+	done
+
+	if [ $counter -eq 0 ]; then
+		echo "Failed to download $url after multiple attempts"
+		exit 1
+	fi
 }
 
 ########

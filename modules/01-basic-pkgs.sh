@@ -18,7 +18,6 @@ debian=(
 	gcc-riscv64-linux-gnu
 	gfortran
 	glibc-doc
-	golang
 	libbz2-dev
 	#libcurl4-openssl-dev
 	libdrm-dev
@@ -107,6 +106,9 @@ debian=(
 	device-tree-compiler
 	npm
 	librdmacm-dev
+	nmap
+	jenkins-job-builder
+	opensm
 )
 
 ubuntu=("${debian[@]}")
@@ -116,15 +118,17 @@ debian)
 	debian+=(linux-perf linux-cpupower)
 	case $RELEASE in
 	stable)
-		debian+=(exa jenkins-job-builder opensm)
+		debian+=(exa)
+		debain+=(golang/stable-backports)
 		;;
 	testing)
 		debian+=(eza gping)
+		debian+=(golang)
 		;;
 	esac
 	;;
 ubuntu)
-	ubuntu+=(linux-tools-common eza gping opensm)
+	ubuntu+=(linux-tools-common eza gping opensm golang)
 	case $RELEASE in
 	oracular)
 		ubuntu+=(linux-cpupower)
@@ -162,7 +166,7 @@ arch=(
 	unrar
 	zoxide
 	attr autoconf automake bc bison bridge-utils cargo chrony
-	clang clang cmake cmake curl curl doxygen dracut ethtool
+	clang llvm-dev cmake cmake curl curl doxygen dracut ethtool
 	fish fish flex gawk gdb git git
 	gperf htop hwinfo hwloc iperf3 ipmitool iptraf-ng
 	jq libtool lldb mc meson net-tools

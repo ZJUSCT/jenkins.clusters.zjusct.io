@@ -50,9 +50,9 @@ common_init() {
 	echo
 	export MIRROR=$MIRROR
 	# do not enable proxy by default
-	if [ -n "$CACHE_PROXY" ]; then
-		export http_proxy=$CACHE_PROXY
-		export https_proxy=$CACHE_PROXY
+	if [ -n "$PROXY" ]; then
+		export http_proxy=$PROXY
+		export https_proxy=$PROXY
 	fi
 	# be more verbose, maybe
 	if $DEBUG; then
