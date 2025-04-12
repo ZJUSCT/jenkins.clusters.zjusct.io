@@ -2,8 +2,8 @@
 
 debian() {
     export no_proxy=.star-home.top
-    wget -O /tmp/ctld_1.0.1_amd64.deb https://gitlab.star-home.top:4430/star/deploy-ctld/-/raw/main/ctld_1.0.1_amd64.deb
-    dpkg -i /tmp/ctld_1.0.1_amd64.deb
+    wget -O /tmp/ctld.deb https://gitlab.star-home.top:4430/star/deploy-ctld/-/raw/main/ctld_1.1.0_amd64.deb
+    dpkg -i /tmp/ctld.deb
 }
 
 ubuntu() {
