@@ -87,7 +87,7 @@ debian=(
 	gperf htop hwinfo hwloc iperf3 ipmitool iptraf-ng
 	jq libtool lldb mc meson net-tools
 	numactl patchutils pkg-config pkg-config
-	squashfs-tools sshfs sudo tcpdump tcpdump texinfo tldr tmux traceroute
+	squashfs-tools sshfs sudo tcpdump tcpdump texinfo tmux traceroute
 	tree valgrind vim wget zip zsh openssl
 	ffmpeg skopeo umoci debootstrap hyperfine iotop
 	# Object Introspection https://objectintrospection.org/docs/getting-started
@@ -171,7 +171,7 @@ arch=(
 	gperf htop hwinfo hwloc iperf3 ipmitool iptraf-ng
 	jq libtool lldb mc meson net-tools
 	numactl patchutils pkg-config pkg-config
-	squashfs-tools sshfs sudo tcpdump tcpdump texinfo tldr tmux traceroute
+	squashfs-tools sshfs sudo tcpdump tcpdump texinfo tmux traceroute
 	tree valgrind vim wget zip zsh openssl
 	ffmpeg skopeo umoci debootstrap hyperfine iotop
 )
@@ -184,7 +184,7 @@ openEuler=(
 	gperf htop hwinfo hwloc iperf3 ipmitool iptraf-ng
 	jq libtool lldb mc meson net-tools
 	numactl patchutils pkg-config pkg-config
-	squashfs-tools sshfs sudo tcpdump tcpdump texinfo tldr tmux traceroute
+	squashfs-tools sshfs sudo tcpdump tcpdump texinfo tmux traceroute
 	tree valgrind vim wget zip zsh openssl
 	ffmpeg skopeo umoci debootstrap hyperfine iotop
 )
