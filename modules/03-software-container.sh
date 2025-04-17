@@ -45,7 +45,7 @@ arch_docker() {
 	install_pkg docker docker-buildx docker-compose containerd
 }
 
-openEuler() {
+openEuler_docker() {
 	install_pkg docker
 }
 
@@ -80,9 +80,9 @@ arch_apptainer() {
 	install_pkg apptainer
 }
 
-openEuler_apptainer() {
-	echo "not planned"
-}
+# openEuler_apptainer() {
+# 	echo "not planned"
+# }
 
 check_and_exec "$ID"_apptainer
 
