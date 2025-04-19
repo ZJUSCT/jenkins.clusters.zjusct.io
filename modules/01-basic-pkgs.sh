@@ -79,6 +79,8 @@ debian=(
 	ripgrep
 	screenfetch
 	stress
+	psmisc
+	neovim
 	unrar
 	zoxide
 	attr autoconf automake bc bison bridge-utils cargo chrony
@@ -91,7 +93,7 @@ debian=(
 	tree valgrind vim wget zip zsh openssl
 	ffmpeg skopeo umoci debootstrap hyperfine iotop
 	# Object Introspection https://objectintrospection.org/docs/getting-started
-	bison autopoint build-essential cmake flex gawk libboost-all-dev libbz2-dev libcap2-bin libcurl4-gnutls-dev libdouble-conversion-dev libdw-dev libfmt-dev libgflags-dev libgmock-dev libgoogle-glog-dev libgtest-dev libjemalloc-dev libmsgpack-dev libzstd-dev ninja-build pkg-config python3-setuptools sudo xsltproc libboost-all-dev
+	bison autopoint build-essential cmake flex gawk libbz2-dev libcap2-bin libcurl4-gnutls-dev libdouble-conversion-dev libdw-dev libfmt-dev libgflags-dev libgmock-dev libgoogle-glog-dev libgtest-dev libjemalloc-dev libmsgpack-dev libzstd-dev ninja-build pkg-config python3-setuptools sudo xsltproc
 	# 编译原理 https://github.com/ZJU-CP/tools/blob/main/Dockerfile
 	build-essential git wget python3 python3-pip qemu-user flex bison openjdk-17-jdk python3-lark python3-venv python3-toml python3-rich
 	# 计算机系统 III https://zju-sys.pages.zjusct.io/sys3/sys3-sp24/lab0
