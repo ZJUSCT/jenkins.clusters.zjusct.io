@@ -81,6 +81,7 @@ debian=(
 	stress
 	psmisc
 	neovim
+	llvm-dev 
 	unrar
 	zoxide
 	attr autoconf automake bc bison bridge-utils cargo chrony
