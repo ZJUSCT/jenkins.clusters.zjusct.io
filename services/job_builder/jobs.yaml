@@ -75,20 +75,20 @@
     jobs:
       - template-chroot-{distro}-{release}
 
-- project:
-    name: "openEuler"
-    distro:
-      - openEuler
-    release:
-      - 24.09
-    jobs:
-      - template-chroot-{distro}-{release}
-
-- project:
-    name: "arch"
-    distro:
-      - arch
-    release:
-      - rolling
-    jobs:
-      - template-chroot-{distro}-{release}
+# - project:
+#     name: "openEuler"
+#     distro:
+#       - openEuler
+#     release:
+#       - 24.09
+#     jobs:
+#       - template-chroot-{distro}-{release}
+# 
+# - project:
+#     name: "arch"
+#     distro:
+#       - arch
+#     release:
+#       - rolling
+#     jobs:
+#       - template-chroot-{distro}-{release}
