@@ -83,6 +83,7 @@ debian=(
 	neovim
 	llvm-dev
 	fortran-language-server
+	csh
 	unrar
 	zoxide
 	attr autoconf automake bc bison bridge-utils cargo chrony
