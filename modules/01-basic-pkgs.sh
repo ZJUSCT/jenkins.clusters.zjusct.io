@@ -81,7 +81,8 @@ debian=(
 	stress
 	psmisc
 	neovim
-	llvm-dev 
+	llvm-dev
+	fortran-language-server
 	unrar
 	zoxide
 	attr autoconf automake bc bison bridge-utils cargo chrony
