@@ -82,8 +82,8 @@ export LANG=$LANG
 export MIRROR=$MIRROR
 export PROXY=$PROXY
 export CACHE_PROXY=$CACHE_PROXY
-export http_proxy=$CACHE_PROXY
-export https_proxy=$CACHE_PROXY
+export http_proxy=$PROXY
+export https_proxy=$PROXY
 "
 
 MODULES=(modules/*)
